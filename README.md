@@ -20,6 +20,42 @@
 ## 환경 및 의존성 가이드
 - 모듈별로 `requirements.txt` 또는 `environment.yml`을 추가하여 독립적인 가상환경을 구성할 수 있습니다.
 - GPU가 필요한 모듈(STT, TTS, RVC, Wav2Lip)은 CUDA 버전을 명시하고, CPU 전용 옵션도 주석으로 남겨 두는 것을 권장합니다.
+- 백엔드/프론트엔드 의존성:
+  ```powershell
+  # 백엔드
+  pip install -r backend/requirements.txt
+
+  # 프론트엔드
+  pip install -r frontend/requirements.txt
+  ```
+  가상환경을 분리하려면 `python -m venv .venv_backend`, `.venv_frontend` 등으로 각각 생성 후 활성화합니다.
 
 ## 오케스트레이션
 - `orchestrator/config.yaml`에 모듈 실행 커맨드를 정의하고 `pipeline_runner.py`가 순차적으로 호출합니다.
+
+## 백엔드 API 프로토타입
+- `backend/` 디렉터리에 FastAPI 기반 프로토타입이 위치합니다.
+- 실행 예시:
+  ```powershell
+  uvicorn backend.main:app --reload --port 8000
+  ```
+- 주요 엔드포인트:
+  - `POST /audio/extract`
+  - `POST /stt/`
+  - `POST /text/process`
+  - `POST /tts/`
+  - `POST /tts-backup/`
+  - `POST /rvc/`
+  - `POST /lipsync/`
+
+## Streamlit UI 프로토타입
+- `frontend/app.py`를 실행하여 모듈 호출 플로우를 시각화할 수 있습니다.
+- 실행 예시:
+  ```powershell
+  streamlit run frontend/app.py
+  ```
+- 사이드바에서 API 기본 URL을 설정한 뒤 각 모듈 섹션에서 경로와 설정 파일을 입력하고 실행합니다.
+- 현재 모듈 로직은 TODO 상태이므로 실제 실행 시 `NotImplementedError`가 발생할 수 있으며, 플로우 검증용으로 사용합니다.
+
+## 테스트 데이터 및 연동 시나리오
+- `docs/sample_data_instructions.md`에서 샘플 데이터 구조와 오케스트레이터-API 연동 시나리오를 확인할 수 있습니다.
