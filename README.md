@@ -59,3 +59,11 @@
 
 ## 테스트 데이터 및 연동 시나리오
 - `docs/sample_data_instructions.md`에서 샘플 데이터 구조와 오케스트레이터-API 연동 시나리오를 확인할 수 있습니다.
+
+## 실제 모델 연동 요약
+- Whisper STT: `modules/stt_whisper/config/settings.yaml`에서 `large-v3` 모델과 캐시 경로 지정.
+- VALL-E X TTS: `modules/tts_vallex/config/settings.yaml`을 통해 외부 스크립트/체크포인트 호출.
+- XTTS 백업: `modules/tts_xtts/config/settings.yaml`에서 Coqui XTTS v2 설정 및 참조 음성 지정.
+- RVC 변환: `modules/voice_conversion_rvc/config/settings.yaml`에서 실행 스크립트, 체크포인트, 파라미터 정의.
+- Wav2Lip 립싱크: `modules/lipsync_wav2lip/config/settings.yaml`에 스크립트와 모델 경로 구성.
+- 각 모듈은 설정 파일을 수정해 로컬 환경 경로나 옵션을 맞춘 뒤 `run.py`를 실행하거나 API를 통해 호출합니다.

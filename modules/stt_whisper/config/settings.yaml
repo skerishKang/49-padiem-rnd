@@ -1,5 +1,9 @@
-# Whisper STT 기본 설정 (추후 상세화)
-model_size: base
+# Whisper STT 실제 모델 설정
+model_name: large-v3
+model_dir: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/models/whisper"
 language: auto
 beam_size: 5
+best_of: 5
+temperature: 0.0
 use_gpu: true
+task: transcribe

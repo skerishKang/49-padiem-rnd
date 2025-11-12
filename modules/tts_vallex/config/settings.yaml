@@ -1,0 +1,16 @@
+script_path: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/VALL-E_X/run_vallex.py"
+checkpoint_dir: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/VALL-E_X/checkpoints"
+work_dir: "G:/Ddrive/BatangD/task/workdiary/49-padiem-rnd/data/intermediates/vallex"
+speaker_id: default
+fallback_text: "안녕하세요. 테스트 음성입니다."
+command_template:
+  - "{python}"
+  - "{script_path}"
+  - "--checkpoint-dir"
+  - "{checkpoint_dir}"
+  - "--input-text"
+  - "{input_text}"
+  - "--output-path"
+  - "{output_audio}"
+  - "--speaker"
+  - "{speaker_id}"

@@ -1,0 +1,4 @@
+ffmpeg_path: ffmpeg
+audio_codec: pcm_s16le
+sample_rate: 44100
+extra_args: []
