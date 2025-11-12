@@ -1,0 +1,5 @@
+# Whisper STT 기본 설정 (추후 상세화)
+model_size: base
+language: auto
+beam_size: 5
+use_gpu: true

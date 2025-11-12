@@ -1,0 +1,52 @@
+steps:
+  audio_extract:
+    - python
+    - ../modules/audio_extractor/run.py
+    - --input
+    - ../data/inputs/source.mp4
+    - --output
+    - ../data/intermediates/source_audio.wav
+  stt:
+    - python
+    - ../modules/stt_whisper/run.py
+    - --input
+    - ../data/intermediates/source_audio.wav
+    - --output
+    - ../data/intermediates/stt_result.json
+  text_process:
+    - python
+    - ../modules/text_processor/run.py
+    - --input
+    - ../data/intermediates/stt_result.json
+    - --output
+    - ../data/intermediates/text_processed.json
+  tts:
+    - python
+    - ../modules/tts_vallex/run.py
+    - --input
+    - ../data/intermediates/text_processed.json
+    - --output
+    - ../data/intermediates/tts_output.wav
+  tts_backup:
+    - python
+    - ../modules/tts_xtts/run.py
+    - --input
+    - ../data/intermediates/text_processed.json
+    - --output
+    - ../data/intermediates/tts_backup_output.wav
+  rvc:
+    - python
+    - ../modules/voice_conversion_rvc/run.py
+    - --input
+    - ../data/intermediates/tts_output.wav
+    - --output
+    - ../data/intermediates/rvc_output.wav
+  lipsync:
+    - python
+    - ../modules/lipsync_wav2lip/run.py
+    - --video
+    - ../data/inputs/source.mp4
+    - --audio
+    - ../data/intermediates/rvc_output.wav
+    - --output
+    - ../data/outputs/final_dubbed.mp4
