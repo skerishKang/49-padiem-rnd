@@ -29,9 +29,11 @@
   pip install -r frontend/requirements.txt
   ```
   가상환경을 분리하려면 `python -m venv .venv_backend`, `.venv_frontend` 등으로 각각 생성 후 활성화합니다.
+- `scripts/setup_env.ps1`을 실행하면 백엔드/프론트엔드 가상환경이 자동으로 생성되고 모듈 의존성까지 설치됩니다.
 
 ## 오케스트레이션
 - `orchestrator/config.yaml`에 모듈 실행 커맨드를 정의하고 `pipeline_runner.py`가 순차적으로 호출합니다.
+- `scripts/run_pipeline.ps1`을 통해 백엔드 가상환경 내에서 전체 파이프라인을 실행할 수 있습니다.
 
 ## 백엔드 API 프로토타입
 - `backend/` 디렉터리에 FastAPI 기반 프로토타입이 위치합니다.
@@ -59,6 +61,7 @@
 
 ## 테스트 데이터 및 연동 시나리오
 - `docs/sample_data_instructions.md`에서 샘플 데이터 구조와 오케스트레이터-API 연동 시나리오를 확인할 수 있습니다.
+- 스모크 테스트 실행: `scripts/run_tests.ps1` (기본 `-m smoke`), CI와 연동 시 GPU 환경 여부를 고려하여 더미/모킹 기반 검증을 유지합니다.
 
 ## 실제 모델 연동 요약
 - Whisper STT: `modules/stt_whisper/config/settings.yaml`에서 `large-v3` 모델과 캐시 경로 지정.

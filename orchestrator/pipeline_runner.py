@@ -1,11 +1,17 @@
 from __future__ import annotations
+
+import argparse
 import subprocess
 from pathlib import Path
+
 import yaml
 
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+
+
 def run_step(command: list[str]) -> None:
-    subprocess.run(command, check=True)
+    subprocess.run(command, check=True, cwd=SCRIPT_DIR)
 
 
 def load_pipeline_config(config_path: Path) -> dict:
@@ -13,8 +19,19 @@ def load_pipeline_config(config_path: Path) -> dict:
         return yaml.safe_load(f)
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="모듈 파이프라인 실행")
+    parser.add_argument(
+        "--config",
+        default=str(SCRIPT_DIR / "config.yaml"),
+        help="파이프라인 설정 YAML 경로",
+    )
+    return parser.parse_args()
+
+
 def main() -> None:
-    config = load_pipeline_config(Path("config.yaml"))
+    args = parse_args()
+    config = load_pipeline_config(Path(args.config))
     steps = config.get("steps", {})
 
     if "audio_extract" in steps:

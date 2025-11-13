@@ -1,5 +1,6 @@
 # 가상환경 및 의존성
 .venv/
+.venv_*/
 venv/
 .env
 .env.local
