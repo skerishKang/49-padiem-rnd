@@ -1,52 +1,62 @@
 steps:
   audio_extract:
     - python
-    - ../modules/audio_extractor/run.py
+    - {modules_dir}/audio_extractor/run.py
     - --input
-    - ../data/inputs/source.mp4
+    - {input_media}
     - --output
-    - ../data/intermediates/source_audio.wav
+    - {audio_output}
   stt:
     - python
-    - ../modules/stt_whisper/run.py
+    - {modules_dir}/stt_whisper/run.py
     - --input
-    - ../data/intermediates/source_audio.wav
+    - {audio_output}
     - --output
-    - ../data/intermediates/stt_result.json
+    - {stt_output}
+    - --config
+    - {modules_dir}/stt_whisper/config/settings.yaml
   text_process:
     - python
-    - ../modules/text_processor/run.py
+    - {modules_dir}/text_processor/run.py
     - --input
-    - ../data/intermediates/stt_result.json
+    - {stt_output}
     - --output
-    - ../data/intermediates/text_processed.json
+    - {text_output}
   tts:
     - python
-    - ../modules/tts_vallex/run.py
+    - {modules_dir}/tts_vallex/run.py
     - --input
-    - ../data/intermediates/text_processed.json
+    - {text_output}
     - --output
-    - ../data/intermediates/tts_output.wav
+    - {tts_output}
+    - --config
+    - {modules_dir}/tts_vallex/config/settings.yaml
   tts_backup:
     - python
-    - ../modules/tts_xtts/run.py
+    - {modules_dir}/tts_xtts/run.py
     - --input
-    - ../data/intermediates/text_processed.json
+    - {text_output}
     - --output
-    - ../data/intermediates/tts_backup_output.wav
+    - {xtts_output}
+    - --config
+    - {modules_dir}/tts_xtts/config/settings.yaml
   rvc:
     - python
-    - ../modules/voice_conversion_rvc/run.py
+    - {modules_dir}/voice_conversion_rvc/run.py
     - --input
-    - ../data/intermediates/tts_output.wav
+    - {tts_output}
     - --output
-    - ../data/intermediates/rvc_output.wav
+    - {rvc_output}
+    - --config
+    - {modules_dir}/voice_conversion_rvc/config/settings.yaml
   lipsync:
     - python
-    - ../modules/lipsync_wav2lip/run.py
+    - {modules_dir}/lipsync_wav2lip/run.py
     - --video
-    - ../data/inputs/source.mp4
+    - {input_media}
     - --audio
-    - ../data/intermediates/rvc_output.wav
+    - {rvc_output}
     - --output
-    - ../data/outputs/final_dubbed.mp4
+    - {lipsync_output}
+    - --config
+    - {modules_dir}/lipsync_wav2lip/config/settings.yaml

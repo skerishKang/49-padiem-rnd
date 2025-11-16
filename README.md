@@ -16,6 +16,15 @@
 ## 데이터 IO 규칙
 - 입력·중간·출력 파일은 `data/` 하위에 표준화된 형식(JSON, WAV, MP4 등)으로 저장합니다.
 - 모든 모듈은 `shared/schemas`에 정의한 포맷을 따릅니다.
+- 파이프라인 실행 시 입력 미디어 파일명을 기준으로 `data/runs/{입력이름}/` 폴더가 생성되고, 단계별 산출물이 다음 규칙으로 저장됩니다.
+  - `{입력이름}_audio.wav` : 오디오 추출 결과
+  - `{입력이름}_result.json` : STT 원본 결과
+  - `{입력이름}_text.json` : 텍스트 처리 결과
+  - `{입력이름}_valle.wav` : VALL-E X 합성 결과
+  - `{입력이름}_xtts.wav` : XTTS 백업 합성 결과
+  - `{입력이름}_rvc.wav` : RVC 음성 변환 결과
+  - `{입력이름}_wav2lip.mp4` : Wav2Lip 립싱크 결과
+  - 위 경로들은 UI 및 오케스트레이터에서 자동 제안되지만 필요 시 수동으로 변경할 수 있습니다.
 
 ## 환경 및 의존성 가이드
 - 모듈별로 `requirements.txt` 또는 `environment.yml`을 추가하여 독립적인 가상환경을 구성할 수 있습니다.
@@ -32,8 +41,29 @@
 - `scripts/setup_env.ps1`을 실행하면 백엔드/프론트엔드 가상환경이 자동으로 생성되고 모듈 의존성까지 설치됩니다.
 
 ## 오케스트레이션
-- `orchestrator/config.yaml`에 모듈 실행 커맨드를 정의하고 `pipeline_runner.py`가 순차적으로 호출합니다.
-- `scripts/run_pipeline.ps1`을 통해 백엔드 가상환경 내에서 전체 파이프라인을 실행할 수 있습니다.
+- `orchestrator/config.yaml`은 `{input_media}`, `{audio_output}` 같은 플레이스홀더를 사용해 모듈 호출 명령을 템플릿으로 정의합니다.
+- `pipeline_runner.py`는 입력 미디어 경로를 받아 실행 폴더와 산출물 이름을 자동으로 계산한 뒤, 템플릿을 실제 명령으로 매핑하여 순차 실행합니다.
+- 실행 예시:
+  ```powershell
+  # 기본 설정 (입력 파일명 기반으로 data/runs/{stem}/에 결과 저장)
+  python orchestrator/pipeline_runner.py --input-media data/inputs/sample.mp4
+
+  # 실행 폴더명을 수동 지정하고, 화자 음성까지 제공하는 경우
+  python orchestrator/pipeline_runner.py `
+      --input-media data/inputs/sample.mp4 `
+      --run-name sample_run `
+      --run-root data/runs `
+      --speaker-audio data/reference/speaker.wav
+  ```
+- PowerShell 스크립트를 사용할 수도 있습니다.
+  ```powershell
+  # venv 내 파이프라인 실행
+  scripts/run_pipeline.ps1 `
+      -InputMedia data/inputs/sample.mp4 `
+      -RunName sample_run `
+      -RunRoot data/runs `
+      -SpeakerAudio data/reference/speaker.wav
+  ```
 
 ## 백엔드 API 프로토타입
 - `backend/` 디렉터리에 FastAPI 기반 프로토타입이 위치합니다.
