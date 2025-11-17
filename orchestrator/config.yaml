@@ -22,6 +22,8 @@ steps:
     - {stt_output}
     - --output
     - {text_output}
+    - --config
+    - {modules_dir}/text_processor/config/settings.yaml
   tts:
     - python
     - {modules_dir}/tts_vallex/run.py

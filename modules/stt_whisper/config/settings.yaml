@@ -1,9 +1,23 @@
 # Whisper STT 실제 모델 설정
 model_name: large-v3
 model_dir: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/models/whisper"
+# 기본 언어 (auto이면 Whisper가 자동 감지)
 language: auto
+# 지원 대상 언어 (관리용 목록)
+supported_languages:
+  - ko  # 한국어
+  - en  # 영어
+  - fr  # 프랑스어
+  - es  # 스페인어
+  - zh  # 중국어
+  - ja  # 일본어
+  - de  # 독일어
+  - ru  # 러시아어
 beam_size: 5
 best_of: 5
 temperature: 0.0
 use_gpu: true
 task: transcribe
+
+# 길이/음절 맞춤 번역을 위한 워드 타임스탬프 사용 여부
+word_timestamps: true

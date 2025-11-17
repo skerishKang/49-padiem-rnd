@@ -1,0 +1,255 @@
+const apiBaseInput = document.getElementById("apiBase");
+const pollIntervalInput = document.getElementById("pollInterval");
+const maxPollsInput = document.getElementById("maxPolls");
+
+const inputMediaPath = document.getElementById("inputMediaPath");
+const outputAudioPath = document.getElementById("outputAudioPath");
+const audioConfigPath = document.getElementById("audioConfigPath");
+const audioAsync = document.getElementById("audioAsync");
+
+const runAudioBtn = document.getElementById("runAudio");
+const audioStatus = document.getElementById("audioStatus");
+const logView = document.getElementById("log");
+
+const sttInputAudio = document.getElementById("sttInputAudio");
+const sttOutputJson = document.getElementById("sttOutputJson");
+const sttConfigPath = document.getElementById("sttConfigPath");
+const sttAsync = document.getElementById("sttAsync");
+const sttStatus = document.getElementById("sttStatus");
+const runSTTBtn = document.getElementById("runSTT");
+
+const textInputJson = document.getElementById("textInputJson");
+const textOutputJson = document.getElementById("textOutputJson");
+const textConfigPath = document.getElementById("textConfigPath");
+const textAsync = document.getElementById("textAsync");
+const textStatus = document.getElementById("textStatus");
+const runTextBtn = document.getElementById("runText");
+
+const ttsInputJson = document.getElementById("ttsInputJson");
+const ttsOutputAudio = document.getElementById("ttsOutputAudio");
+const ttsConfigPath = document.getElementById("ttsConfigPath");
+const ttsAsync = document.getElementById("ttsAsync");
+const ttsStatus = document.getElementById("ttsStatus");
+const runTTSBtn = document.getElementById("runTTS");
+
+const xttsInputJson = document.getElementById("xttsInputJson");
+const xttsOutputAudio = document.getElementById("xttsOutputAudio");
+const xttsConfigPath = document.getElementById("xttsConfigPath");
+const xttsAsync = document.getElementById("xttsAsync");
+const xttsStatus = document.getElementById("xttsStatus");
+const runXTTSBtn = document.getElementById("runXTTS");
+
+const rvcInputAudio = document.getElementById("rvcInputAudio");
+const rvcOutputAudio = document.getElementById("rvcOutputAudio");
+const rvcConfigPath = document.getElementById("rvcConfigPath");
+const rvcAsync = document.getElementById("rvcAsync");
+const rvcStatus = document.getElementById("rvcStatus");
+const runRVCBtn = document.getElementById("runRVC");
+
+const lipsyncInputVideo = document.getElementById("lipsyncInputVideo");
+const lipsyncInputAudio = document.getElementById("lipsyncInputAudio");
+const lipsyncOutputVideo = document.getElementById("lipsyncOutputVideo");
+const lipsyncConfigPath = document.getElementById("lipsyncConfigPath");
+const lipsyncAsync = document.getElementById("lipsyncAsync");
+const lipsyncStatus = document.getElementById("lipsyncStatus");
+const runLipsyncBtn = document.getElementById("runLipsync");
+
+const pipelineInput = document.getElementById("pipelineInput");
+const pipelineRunDir = document.getElementById("pipelineRunDir");
+const runPipelineBtn = document.getElementById("runPipeline");
+const pipelineStatus = document.getElementById("pipelineStatus");
+
+function appendLog(message, jsonObj) {
+  const time = new Date().toISOString().substring(11, 19);
+  let text = `[${time}] ${message}`;
+  if (jsonObj) {
+    text += "\n" + JSON.stringify(jsonObj, null, 2);
+  }
+  text += "\n\n";
+  logView.textContent = text + logView.textContent;
+}
+
+async function callApi(endpoint, payload) {
+  const base = apiBaseInput.value.replace(/\/$/, "");
+  const url = `${base}/${endpoint.replace(/^\//, "")}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+    await executeStep("rvc/", payload, rvcAsync.checked);
+    rvcStatus.textContent = "완료되었습니다.";
+  } catch (err) {
+    console.error(err);
+    rvcStatus.textContent = "오류가 발생했습니다.";
+    appendLog("RVC 오류", { error: String(err) });
+  }
+});
+
+runLipsyncBtn.addEventListener("click", async () => {
+  lipsyncStatus.textContent = "Wav2Lip 실행 중...";
+  try {
+    const payload = {
+      input_video: lipsyncInputVideo.value,
+      input_audio: lipsyncInputAudio.value,
+      output_video: lipsyncOutputVideo.value,
+      config: normalizePath(lipsyncConfigPath.value),
+    };
+    await executeStep("lipsync/", payload, lipsyncAsync.checked);
+    lipsyncStatus.textContent = "완료되었습니다.";
+  } catch (err) {
+    console.error(err);
+    lipsyncStatus.textContent = "오류가 발생했습니다.";
+    appendLog("Wav2Lip 오류", { error: String(err) });
+  }
+});
+
+runPipelineBtn.addEventListener("click", async () => {
+  pipelineStatus.textContent = "전체 파이프라인 실행 중...";
+  try {
+    const steps = [
+      {
+        label: "오디오 추출",
+        endpoint: "audio/extract",
+        payload: {
+          input_media: pipelineInput.value,
+          output_audio: outputAudioPath.value,
+          config: normalizePath(audioConfigPath.value),
+        },
+      },
+      {
+        label: "STT",
+        endpoint: "stt/",
+        payload: {
+          input_audio: sttInputAudio.value,
+          output_json: sttOutputJson.value,
+          config: normalizePath(sttConfigPath.value),
+        },
+      },
+      {
+        label: "텍스트 처리",
+        endpoint: "text/process",
+        payload: {
+          input_json: textInputJson.value,
+          output_json: textOutputJson.value,
+          config: normalizePath(textConfigPath.value),
+        },
+      },
+      {
+        label: "VALL-E X",
+        endpoint: "tts/",
+        payload: {
+          input_json: ttsInputJson.value,
+          output_audio: ttsOutputAudio.value,
+          config: normalizePath(ttsConfigPath.value),
+        },
+      },
+      {
+        label: "RVC",
+        endpoint: "rvc/",
+        payload: {
+          input_audio: rvcInputAudio.value,
+          output_audio: rvcOutputAudio.value,
+          config: normalizePath(rvcConfigPath.value),
+        },
+      },
+      {
+        label: "Wav2Lip",
+        endpoint: "lipsync/",
+        payload: {
+          input_video: lipsyncInputVideo.value,
+          input_audio: lipsyncInputAudio.value,
+          output_video: lipsyncOutputVideo.value,
+          config: normalizePath(lipsyncConfigPath.value),
+        },
+      },
+    ];
+
+    for (const step of steps) {
+      pipelineStatus.textContent = `${step.label} 실행 중...`;
+      const result = await executeStep(step.endpoint, step.payload, false);
+      if (!result) {
+        throw new Error(`${step.label} 단계 실패`);
+      }
+    }
+
+    pipelineStatus.textContent = "전체 파이프라인 완료";
+  } catch (err) {
+    console.error(err);
+    pipelineStatus.textContent = "오류가 발생했습니다.";
+    appendLog("파이프라인 오류", { error: String(err) });
+  }
+});
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`HTTP ${res.status}: ${text}`);
+  }
+  return await res.json();
+}
+
+async function getJobStatus(jobId) {
+  const base = apiBaseInput.value.replace(/\/$/, "");
+  const url = `${base}/jobs/${jobId}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`상태 조회 실패: ${res.status} ${text}`);
+  }
+  return await res.json();
+}
+
+async function executeStep(endpoint, payload, asyncMode) {
+  const effectivePayload = { ...payload };
+  if (asyncMode) {
+    effectivePayload.async_run = true;
+  }
+
+  const response = await callApi(endpoint, effectivePayload);
+
+  if (asyncMode && response.job_id) {
+    const jobId = response.job_id;
+    appendLog("작업이 큐에 등록되었습니다.", { jobId });
+
+    const maxPolls = Number(maxPollsInput.value || 10);
+    const interval = Number(pollIntervalInput.value || 1) * 1000;
+
+    let jobResult = null;
+    for (let i = 0; i < maxPolls; i++) {
+      await new Promise((r) => setTimeout(r, interval));
+      jobResult = await getJobStatus(jobId);
+      if (jobResult.status === "success" || jobResult.status === "failed") {
+        break;
+      }
+    }
+    appendLog("작업 결과", jobResult);
+    return jobResult;
+  }
+
+  appendLog("응답", response);
+  return response;
+}
+
+function normalizePath(value) {
+  const trimmed = (value || "").trim();
+  return trimmed.length ? trimmed : null;
+}
+
+runAudioBtn.addEventListener("click", async () => {
+  audioStatus.textContent = "오디오 추출 실행 중...";
+  try {
+    const payload = {
+      input_media: inputMediaPath.value,
+      output_audio: outputAudioPath.value,
+      config: normalizePath(audioConfigPath.value),
+    };
+    await executeStep("audio/extract", payload, audioAsync.checked);
+    audioStatus.textContent = "완료되었습니다.";
+  } catch (err) {
+    console.error(err);
+    audioStatus.textContent = "오류가 발생했습니다. 로그를 확인하세요.";
+    appendLog("오류", { error: String(err) });
+  }
+});

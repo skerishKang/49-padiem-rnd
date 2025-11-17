@@ -1,0 +1,9 @@
+# 텍스트 처리 / 번역 기본 설정
+source_language: ko
+target_language: en
+syllable_tolerance: 0.1   # ±10%
+enforce_timing: true
+operations:
+  - trim
+  - collapse_whitespace
+translation_map: {}

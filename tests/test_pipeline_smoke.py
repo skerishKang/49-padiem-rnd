@@ -9,6 +9,7 @@ import pytest
 
 from modules import audio_extractor
 from modules.stt_whisper import run as stt_run
+from modules.text_processor import run as text_run
 from modules.tts_vallex import run as vallex_run
 from modules.tts_xtts import run as xtts_run
 from modules.voice_conversion_rvc import run as rvc_run
@@ -146,6 +147,40 @@ def test_xtts_generates_audio(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -
 
     xtts_run.synthesize_backup(input_json, output_audio, config)
     assert output_audio.exists()
+
+
+def test_text_processor_syllable_validation(tmp_path: Path) -> None:
+    input_json = tmp_path / "stt.json"
+    input_json.write_text(
+        json.dumps(
+            {
+                "id": "sample",
+                "language": "ko",
+                "segments": [
+                    {"id": 0, "text": "안녕하세요", "start": 0.0, "end": 1.0},
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output_json = tmp_path / "text.json"
+    config = {
+        "source_language": "ko",
+        "target_language": "en",
+        "syllable_tolerance": 0.05,
+        "enforce_timing": False,
+        "translation_map": {"안녕하세요": "hello"},
+    }
+
+    text_run.process_text(input_json, output_json, config)
+
+    data = json.loads(output_json.read_text(encoding="utf-8"))
+    assert data["metadata"]["target_language"] == "en"
+    segment = data["segments"][0]
+    assert segment["needs_review"] is True
+    assert segment["source_syllables"] > 0
+    assert segment["target_syllables"] > 0
 
 
 def test_rvc_command(monkeypatch: pytest.MonkeyPatch, temp_wav: Path, tmp_path: Path) -> None:
