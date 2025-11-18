@@ -13,8 +13,8 @@ class TextProcessRequest(BaseModel):
     output_json: str = Field(..., min_length=1)
     config: str | None = Field(default=None, min_length=1)
     async_run: bool = False
-    source_language: str | None = None
-    target_language: str | None = None
+    source_language: str | None = Field(default="en", description="원본 언어 (비어있으면 입력 JSON의 language 필드 또는 'en' 사용)")
+    target_language: str | None = Field(default="ko", description="번역 언어 (기본값 'ko')")
 
 
 @router.post("/process")

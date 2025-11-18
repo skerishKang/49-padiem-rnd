@@ -37,13 +37,19 @@ const stepConfig = {
     button: "runText",
     status: "textStatus",
     async: "textAsync",
-    payload: () => ({
-      input_json: document.getElementById("textInputJson").value,
-      output_json: document.getElementById("textOutputJson").value,
-      config: normalizePath(document.getElementById("textConfigPath").value),
-      source_language: document.getElementById("textSourceLang").value,
-      target_language: document.getElementById("textTargetLang").value,
-    }),
+    payload: () => {
+      const payload = {
+        input_json: document.getElementById("textInputJson").value,
+        output_json: document.getElementById("textOutputJson").value,
+        config: normalizePath(document.getElementById("textConfigPath").value),
+        target_language: document.getElementById("textTargetLang").value,
+      };
+      const sourceLang = document.getElementById("textSourceLang").value;
+      if (sourceLang !== "auto") {
+        payload.source_language = sourceLang;
+      }
+      return payload;
+    },
     endpoint: "text/process",
   },
   tts: {
