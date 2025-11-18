@@ -13,6 +13,8 @@ class TextProcessRequest(BaseModel):
     output_json: str = Field(..., min_length=1)
     config: str | None = Field(default=None, min_length=1)
     async_run: bool = False
+    source_language: str | None = None
+    target_language: str | None = None
 
 
 @router.post("/process")
@@ -42,6 +44,11 @@ async def process_text(request: TextProcessRequest) -> dict[str, str]:
                 detail=f"설정 파일을 찾을 수 없습니다: {config_path}",
             )
         command.extend(["--config", str(config_path)])
+
+    if request.source_language:
+        command.extend(["--source-language", request.source_language])
+    if request.target_language:
+        command.extend(["--target-language", request.target_language])
 
     if request.async_run:
         job_id = start_module_job(command, meta={"module": "text_processor", "output": str(output_path)})

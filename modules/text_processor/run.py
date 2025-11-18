@@ -194,6 +194,8 @@ def main() -> None:
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--config")
+    parser.add_argument("--source-language")
+    parser.add_argument("--target-language")
     args = parser.parse_args()
 
     logging_config = ROOT_DIR / "shared" / "logging_config.yaml"
@@ -201,6 +203,12 @@ def main() -> None:
 
     config_path = Path(args.config) if args.config else None
     config = load_config(config_path)
+
+    if args.source_language:
+        config["source_language"] = args.source_language
+    if args.target_language:
+        config["target_language"] = args.target_language
+
     process_text(Path(args.input), Path(args.output), config)
 
 

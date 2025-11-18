@@ -101,6 +101,24 @@
 - 사이드바에서 API 기본 URL을 설정한 뒤 각 모듈 섹션에서 경로와 설정 파일을 입력하고 실행합니다.
 - 현재 모듈 로직은 TODO 상태이므로 실제 실행 시 `NotImplementedError`가 발생할 수 있으며, 플로우 검증용으로 사용합니다.
 
+## 정적 웹 콘솔 (HTML/CSS/Vanilla JS)
+- Streamlit과 별도로, `frontend/web/` 폴더에 순수 HTML/CSS/JS 기반 콘솔을 제공합니다.
+- 실행 방법:
+  1. FastAPI 백엔드를 먼저 기동합니다.
+     ```powershell
+     uvicorn backend.main:app --reload --port 8000
+     ```
+  2. `frontend/web/index.html` 파일을 브라우저에서 직접 열거나, 필요 시 간단한 정적 서버를 띄웁니다.
+     ```powershell
+     cd frontend/web
+     python -m http.server 8501
+     # 브라우저에서 http://localhost:8501 접속
+     ```
+- 좌측 사이드바에서 API 기본 URL, 폴링 간격, 최대 폴링 횟수를 설정하면 됩니다. 기본값은 `http://localhost:8000`.
+- 각 단계 카드는 스트림릿과 동일한 엔드포인트(`/audio/extract`, `/stt/`, `/text/process`, `/tts/`, `/tts-backup/`, `/rvc/`, `/lipsync/`)를 호출하며, `fetch()`로 직접 JSON 요청을 보냅니다.
+- "비동기 실행" 체크 시 `payload.async_run = true`로 요청하며, 응답에 `job_id`가 오면 `/jobs/{job_id}`를 주기적으로 폴링하여 상태를 로그 영역에 표시합니다.
+- 하단 `응답 / 로그` 패널에서 모든 API 요청/응답을 확인할 수 있습니다.
+
 -## 테스트 및 연동 시나리오
 - `docs/sample_data_instructions.md`에서 샘플 데이터 구조와 오케스트레이터-API 연동 시나리오를 확인할 수 있습니다.
 - 스모크 테스트 실행: `scripts/run_tests.ps1 -m smoke`
