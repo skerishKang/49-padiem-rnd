@@ -19,7 +19,7 @@ def sanitize_run_name(name: str) -> str:
 def resolve_path(path_str: str) -> Path:
     path = Path(path_str)
     if not path.is_absolute():
-        path = (SCRIPT_DIR / path).resolve()
+        path = (ROOT_DIR / path).resolve()
     return path
 
 
@@ -44,11 +44,14 @@ def build_context(args: argparse.Namespace) -> dict[str, str]:
     run_dir = (run_root / run_name).resolve()
     run_dir.mkdir(parents=True, exist_ok=True)
 
+    is_audio_input = args.pipeline_type in ("audio", "quick")
+    audio_output_path = str(input_media) if is_audio_input else str(run_dir / f"{run_name}_audio.wav")
+
     context: dict[str, str] = {
         "input_media": str(input_media),
         "run_name": run_name,
         "run_dir": str(run_dir),
-        "audio_output": str(run_dir / f"{run_name}_audio.wav"),
+        "audio_output": audio_output_path,
         "stt_output": str(run_dir / f"{run_name}_result.json"),
         "text_output": str(run_dir / f"{run_name}_text.json"),
         "tts_output": str(run_dir / f"{run_name}_valle.wav"),
@@ -82,6 +85,12 @@ def apply_placeholders(config: dict, context: dict[str, str]) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="모듈 파이프라인 실행")
     parser.add_argument(
+        "--pipeline-type",
+        choices=["video", "audio", "quick"],
+        default="video",
+        help="실행할 파이프라인 종류 (video: 전체, audio: 음성부터, quick: STT-TTS)",
+    )
+    parser.add_argument(
         "--config",
         default=str(SCRIPT_DIR / "config.yaml"),
         help="파이프라인 설정 YAML 경로",
@@ -113,10 +122,18 @@ def main() -> None:
     context = build_context(args)
     apply_placeholders(config, context)
 
-    steps = config.get("steps", {})
+    all_steps = config.get("steps", {})
+    
+    pipelines = {
+        "video": ["audio_extract", "stt", "text_process", "tts", "tts_backup", "rvc", "lipsync"],
+        "audio": ["stt", "text_process", "tts_backup", "rvc"],
+        "quick": ["stt", "text_process", "tts_backup"],
+    }
+    
+    steps_to_run = pipelines.get(args.pipeline_type, [])
 
-    for step_name in ("audio_extract", "stt", "text_process", "tts", "tts_backup", "rvc", "lipsync"):
-        command_template = steps.get(step_name)
+    for step_name in steps_to_run:
+        command_template = all_steps.get(step_name)
         if not command_template:
             continue
         run_step(command_template, context)

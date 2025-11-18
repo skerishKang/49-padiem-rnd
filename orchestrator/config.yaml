@@ -1,64 +1,64 @@
 steps:
   audio_extract:
     - python
-    - {modules_dir}/audio_extractor/run.py
+    - "{modules_dir}/audio_extractor/run.py"
     - --input
-    - {input_media}
+    - "{input_media}"
     - --output
-    - {audio_output}
+    - "{audio_output}"
   stt:
     - python
-    - {modules_dir}/stt_whisper/run.py
+    - "{modules_dir}/stt_whisper/run.py"
     - --input
-    - {audio_output}
+    - "{audio_output}"
     - --output
-    - {stt_output}
+    - "{stt_output}"
     - --config
-    - {modules_dir}/stt_whisper/config/settings.yaml
+    - "{modules_dir}/stt_whisper/config/settings.yaml"
   text_process:
     - python
-    - {modules_dir}/text_processor/run.py
+    - "{modules_dir}/text_processor/run.py"
     - --input
-    - {stt_output}
+    - "{stt_output}"
     - --output
-    - {text_output}
+    - "{text_output}"
     - --config
-    - {modules_dir}/text_processor/config/settings.yaml
+    - "{modules_dir}/text_processor/config/settings.yaml"
   tts:
     - python
-    - {modules_dir}/tts_vallex/run.py
+    - "{modules_dir}/tts_vallex/run.py"
     - --input
-    - {text_output}
+    - "{text_output}"
     - --output
-    - {tts_output}
+    - "{tts_output}"
     - --config
-    - {modules_dir}/tts_vallex/config/settings.yaml
+    - "{modules_dir}/tts_vallex/config/settings.yaml"
   tts_backup:
     - python
-    - {modules_dir}/tts_xtts/run.py
+    - "{modules_dir}/tts_xtts/run.py"
     - --input
-    - {text_output}
+    - "{text_output}"
     - --output
-    - {xtts_output}
+    - "{xtts_output}"
     - --config
-    - {modules_dir}/tts_xtts/config/settings.yaml
+    - "{modules_dir}/tts_xtts/config/settings.yaml"
   rvc:
     - python
-    - {modules_dir}/voice_conversion_rvc/run.py
+    - "{modules_dir}/voice_conversion_rvc/run.py"
     - --input
-    - {tts_output}
+    - "{tts_output}"
     - --output
-    - {rvc_output}
+    - "{rvc_output}"
     - --config
-    - {modules_dir}/voice_conversion_rvc/config/settings.yaml
+    - "{modules_dir}/voice_conversion_rvc/config/settings.yaml"
   lipsync:
     - python
-    - {modules_dir}/lipsync_wav2lip/run.py
+    - "{modules_dir}/lipsync_wav2lip/run.py"
     - --video
-    - {input_media}
+    - "{input_media}"
     - --audio
-    - {rvc_output}
+    - "{rvc_output}"
     - --output
-    - {lipsync_output}
+    - "{lipsync_output}"
     - --config
-    - {modules_dir}/lipsync_wav2lip/config/settings.yaml
+    - "{modules_dir}/lipsync_wav2lip/config/settings.yaml"

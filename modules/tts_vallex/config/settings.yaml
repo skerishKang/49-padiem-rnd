@@ -1,5 +1,10 @@
-script_path: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/VALL-E_X/run_vallex.py"
-checkpoint_dir: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/VALL-E_X/checkpoints"
+# VALL-E X 스크립트 및 체크포인트 경로 설정
+# 이 경로는 VALL-E X 프로젝트의 루트 디렉토리에 상대적인 경로이거나,
+# VALL-E X 프로젝트가 현재 프로젝트의 'modules/tts_vallex/' 하위에 있다고 가정합니다.
+# 사용자의 환경에 맞게 수정해야 합니다.
+script_path: "modules/tts_vallex/VALL-E_X/run_vallex.py"
+checkpoint_dir: "modules/tts_vallex/VALL-E_X/checkpoints"
+
 work_dir: "G:/Ddrive/BatangD/task/workdiary/49-padiem-rnd/data/intermediates/vallex"
 speaker_id: default
 fallback_text: "안녕하세요. 테스트 음성입니다."

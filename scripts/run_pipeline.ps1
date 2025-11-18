@@ -4,7 +4,8 @@ param(
     [string]$InputMedia = "data/inputs/source.mp4",
     [string]$RunName = "",
     [string]$RunRoot = "data/runs",
-    [string]$SpeakerAudio = ""
+    [string]$SpeakerAudio = "",
+    [string]$PipelineType = "video"
 )
 
 $pythonExe = Join-Path $BackendEnv "Scripts\python.exe"
@@ -13,7 +14,7 @@ if (-not (Test-Path $pythonExe)) {
     exit 1
 }
 
-& $pythonExe "orchestrator/pipeline_runner.py" --config $ConfigPath --input-media $InputMedia --run-root $RunRoot @(
+& $pythonExe "orchestrator/pipeline_runner.py" --config $ConfigPath --input-media $InputMedia --run-root $RunRoot --pipeline-type $PipelineType @(
     if ($RunName) {"--run-name"; $RunName }
     if ($SpeakerAudio) {"--speaker-audio"; $SpeakerAudio }
 )

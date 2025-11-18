@@ -190,13 +190,16 @@ function enhanceFieldInputs() {
     toggle.innerHTML = "프리셋";
     shell.appendChild(toggle);
 
+    const applyOpenState = (open) => setPresetOpenState(container, toggle, open);
+
     toggle.addEventListener("click", (event) => {
       event.stopPropagation();
       const willOpen = !container.classList.contains("preset-open");
       closePresetDropdowns(container);
-      container.classList.toggle("preset-open", willOpen);
-      toggle.setAttribute("aria-expanded", String(willOpen));
+      applyOpenState(willOpen);
     });
+
+    applyOpenState(true);
 
     // 출력 경로 필드에는 드롭존을 추가하지 않음
     if (input.id.toLowerCase().includes("output")) {
@@ -231,12 +234,16 @@ function setupPresetDropdownClosers() {
 function closePresetDropdowns(except) {
   document.querySelectorAll(".field-with-presets.preset-open").forEach((container) => {
     if (except && container === except) return;
-    container.classList.remove("preset-open");
     const toggle = container.querySelector(".preset-toggle");
-    if (toggle) {
-      toggle.setAttribute("aria-expanded", "false");
-    }
+    setPresetOpenState(container, toggle, false);
   });
+}
+
+function setPresetOpenState(container, toggle, open) {
+  container.classList.toggle("preset-open", open);
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", String(open));
+  }
 }
 
 function setupDropzone(zone, input) {
@@ -327,7 +334,7 @@ function initAudioPreview() {
     showPreview();
     statusEl.textContent = "미리듣기 링크를 준비 중입니다...";
     try {
-      const base = apiBaseInput.value.replace(///$/, "");
+      const base = apiBaseInput.value.replace(/\/$/, "");
       const url = `${base}/files?path=${encodeURIComponent(path)}`;
       player.src = `${url}&_=${Date.now()}`;
       player.load();
@@ -462,7 +469,7 @@ function appendLog(message, jsonObj) {
 }
 
 async function callApi(endpoint, payload) {
-  const base = apiBaseInput.value.replace(///$/, "");
+  const base = apiBaseInput.value.replace(/\/$/, "");
   const url = `${base}/${endpoint.replace(/^\//, "")}`;
   const res = await fetch(url, {
     method: "POST",
@@ -477,7 +484,7 @@ async function callApi(endpoint, payload) {
 }
 
 async function getJobStatus(jobId) {
-  const base = apiBaseInput.value.replace(///$/, "");
+  const base = apiBaseInput.value.replace(/\/$/, "");
   const url = `${base}/jobs/${jobId}`;
   const res = await fetch(url);
   if (!res.ok) {
@@ -514,7 +521,7 @@ async function executeStep(endpoint, payload, asyncMode) {
 }
 
 async function uploadFileToServer(file, preferredPath) {
-  const base = apiBaseInput.value.replace(///$/, "");
+  const base = apiBaseInput.value.replace(/\/$/, "");
   const formData = new FormData();
   formData.append("file", file, file.name || "upload.bin");
   if (preferredPath) {
