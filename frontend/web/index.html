@@ -51,9 +51,11 @@
           <option value="data/runs/rvc_output.wav"></option>
         </datalist>
         <datalist id="jsonPresets">
-          <option value="data/runs/stt_result.json"></option>
-          <option value="data/runs/text_processed.json"></option>
-          <option value="data/intermediates/stt_result.json"></option>
+          <option value="data/runs/1_통화 녹음 010-5318-8695_190709_021837_stt_result.json"></option>
+          <option value="data/runs/통화 녹음 010-5318-8695_190709_021837_stt_result.json"></option>
+          <option value="data/runs/통화 녹음 010-9452-9464_190627_235043_stt_result.json"></option>
+          <option value="data/runs/1_통화 녹음 010-5318-8695_190709_021837_text_processed.json"></option>
+          <option value="data/runs/통화 녹음 010-5318-8695_190709_021837_text_processed.json"></option>
         </datalist>
         <datalist id="configPresets">
           <option value="modules/audio_extractor/config.yaml"></option>
@@ -155,6 +157,17 @@
               <button class="primary-btn" id="runStt">STT 실행</button>
               <div class="status-text" id="sttStatus"></div>
             </footer>
+
+            <div class="preview-section is-hidden" id="sttPreviewWrapper">
+              <div class="preview-header">
+                <strong>📄 STT 결과 미리보기</strong>
+                <div class="preview-actions">
+                  <button type="button" class="ghost-btn" id="refreshSttPreview">새로고침</button>
+                  <button type="button" class="ghost-btn" data-download-target="sttOutputJson">다운로드</button>
+                </div>
+              </div>
+              <pre class="json-viewer" id="sttPreviewContent"></pre>
+            </div>
           </section>
 
           <section class="card" id="step-text">
@@ -190,9 +203,9 @@
                   <div>
                     <label class="field-label" for="textSourceLang">원본 언어</label>
                     <select id="textSourceLang" class="field-input">
-                      <option value="auto">자동 감지</option>
+                      <option value="auto" selected>자동 감지</option>
                       <option value="ko">한국어</option>
-                      <option value="en" selected>영어</option>
+                      <option value="en">영어</option>
                       <option value="ja">일본어</option>
                       <option value="zh">중국어</option>
                       <option value="fr">프랑스어</option>
@@ -204,8 +217,8 @@
                   <div>
                     <label class="field-label" for="textTargetLang">번역 언어</label>
                     <select id="textTargetLang" class="field-input">
-                      <option value="en">영어</option>
-                      <option value="ko" selected>한국어</option>
+                      <option value="en" selected>영어</option>
+                      <option value="ko">한국어</option>
                       <option value="ja">일본어</option>
                       <option value="zh">중국어</option>
                       <option value="fr">프랑스어</option>
@@ -226,6 +239,17 @@
               <button class="primary-btn" id="runText">텍스트 처리 실행</button>
               <div class="status-text" id="textStatus"></div>
             </footer>
+
+            <div class="preview-section is-hidden" id="textPreviewWrapper">
+              <div class="preview-header">
+                <strong>📝 번역 결과 미리보기</strong>
+                <div class="preview-actions">
+                  <button type="button" class="ghost-btn" id="refreshTextPreview">새로고침</button>
+                  <button type="button" class="ghost-btn" data-download-target="textOutputJson">다운로드</button>
+                </div>
+              </div>
+              <div class="translation-preview" id="textPreviewContent"></div>
+            </div>
           </section>
 
           <section class="card" id="step-tts">
@@ -267,6 +291,17 @@
               <button class="primary-btn" id="runTts">VALL-E X 실행</button>
               <div class="status-text" id="ttsStatus"></div>
             </footer>
+
+            <div class="preview-section is-hidden" id="ttsPreviewWrapper">
+              <div class="preview-header">
+                <strong>🔊 TTS 출력 미리듣기</strong>
+                <div class="preview-actions">
+                  <button type="button" class="ghost-btn" id="refreshTtsPreview">새로고침</button>
+                  <button type="button" class="ghost-btn" data-download-target="ttsOutputAudio">다운로드</button>
+                </div>
+              </div>
+              <audio id="ttsAudioPreview" controls preload="none"></audio>
+            </div>
           </section>
 
           <section class="card" id="step-xtts">
@@ -308,6 +343,17 @@
               <button class="primary-btn" id="runXtts">XTTS 실행</button>
               <div class="status-text" id="xttsStatus"></div>
             </footer>
+
+            <div class="preview-section is-hidden" id="xttsPreviewWrapper">
+              <div class="preview-header">
+                <strong>🔊 XTTS 출력 미리듣기</strong>
+                <div class="preview-actions">
+                  <button type="button" class="ghost-btn" id="refreshXttsPreview">새로고침</button>
+                  <button type="button" class="ghost-btn" data-download-target="xttsOutputAudio">다운로드</button>
+                </div>
+              </div>
+              <audio id="xttsAudioPreview" controls preload="none"></audio>
+            </div>
           </section>
 
           <section class="card" id="step-rvc">
@@ -349,6 +395,17 @@
               <button class="primary-btn" id="runRvc">RVC 실행</button>
               <div class="status-text" id="rvcStatus"></div>
             </footer>
+
+            <div class="preview-section is-hidden" id="rvcPreviewWrapper">
+              <div class="preview-header">
+                <strong>🔊 RVC 출력 미리듣기</strong>
+                <div class="preview-actions">
+                  <button type="button" class="ghost-btn" id="refreshRvcPreview">새로고침</button>
+                  <button type="button" class="ghost-btn" data-download-target="rvcOutputAudio">다운로드</button>
+                </div>
+              </div>
+              <audio id="rvcAudioPreview" controls preload="none"></audio>
+            </div>
           </section>
 
           <section class="card" id="step-lipsync">
@@ -396,6 +453,17 @@
               <button class="primary-btn" id="runLipsync">Wav2Lip 실행</button>
               <div class="status-text" id="lipsyncStatus"></div>
             </footer>
+
+            <div class="preview-section is-hidden" id="lipsyncPreviewWrapper">
+              <div class="preview-header">
+                <strong>🎥 립싱크 결과 미리보기</strong>
+                <div class="preview-actions">
+                  <button type="button" class="ghost-btn" id="refreshLipsyncPreview">새로고침</button>
+                  <button type="button" class="ghost-btn" data-download-target="lipsyncOutputVideo">다운로드</button>
+                </div>
+              </div>
+              <video id="lipsyncVideoPreview" controls preload="none"></video>
+            </div>
           </section>
 
           <section class="card" id="step-pipeline">
@@ -436,6 +504,6 @@
       </main>
     </div>
 
-    <script src="main.js?v=20241118" type="module"></script>
+    <script src="main.js?v=20241118"></script>
   </body>
 </html>

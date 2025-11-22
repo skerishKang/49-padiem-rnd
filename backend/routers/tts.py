@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -27,7 +28,7 @@ async def synthesize(request: TtsRequest) -> dict[str, str]:
         )
 
     command = [
-        "python",
+        sys.executable,
         "modules/tts_vallex/run.py",
         "--input",
         str(input_path),

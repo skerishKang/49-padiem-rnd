@@ -1,5 +1,5 @@
 # Whisper STT 실제 모델 설정
-model_name: large-v3
+model_name: small
 model_dir: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/models/whisper"
 # 기본 언어 (auto이면 Whisper가 자동 감지)
 language: auto

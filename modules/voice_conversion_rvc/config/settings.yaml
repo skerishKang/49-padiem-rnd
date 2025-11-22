@@ -1,5 +1,5 @@
-script_path: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/RVC_전용모델/run_rvc.py"
-checkpoint: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/RVC_전용모델/rvc_complete.pth"
+script_path: "modules/voice_conversion_rvc/run_rvc.py"
+checkpoint: "modules/voice_conversion_rvc/dummy_model.pth"
 index: null
 python_executable: "python"
 f0_method: harvest

@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -27,7 +28,7 @@ async def convert_voice(request: RvcRequest) -> dict[str, str]:
         )
 
     command = [
-        "python",
+        sys.executable,
         "modules/voice_conversion_rvc/run.py",
         "--input",
         str(input_path),

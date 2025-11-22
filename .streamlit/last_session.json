@@ -1,0 +1,21 @@
+{
+  "stt_input_audio_path": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)\\강대선작가, 영산강 뱃노래(배경음없음)_audio.wav",
+  "stt_output_path": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio\\강대선작가, 영산강 뱃노래(배경음없음)_audio_result.json",
+  "last_stt_output": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio\\강대선작가, 영산강 뱃노래(배경음없음)_audio_result.json",
+  "last_stt_input_audio": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)\\강대선작가, 영산강 뱃노래(배경음없음)_audio.wav",
+  "text_process_input_path": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio\\강대선작가, 영산강 뱃노래(배경음없음)_audio_result.json",
+  "text_process_output_path": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio\\강대선작가, 영산강 뱃노래(배경음없음)_audio_result_text.json",
+  "last_text_output": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio\\강대선작가, 영산강 뱃노래(배경음없음)_audio_result_text.json",
+  "tts_input_json_path": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio\\강대선작가, 영산강 뱃노래(배경음없음)_audio_result_text.json",
+  "xtts_input_json_path": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio\\강대선작가, 영산강 뱃노래(배경음없음)_audio_result_text.json",
+  "last_tts_output": "data\\runs\\통화 녹음 이윤승_180329_124118\\통화 녹음 이윤승_180329_124118_result_text_valle.wav",
+  "tts_output_path": "data\\runs\\통화 녹음 이윤승_180329_124118\\통화 녹음 이윤승_180329_124118_result_text_valle.wav",
+  "xtts_output_path": "data\\runs\\통화 녹음 이윤승_180329_124118_audio\\통화 녹음 이윤승_180329_124118_audio_result_text_xtts.wav",
+  "rvc_input_audio_path": "data\\runs\\통화 녹음 이윤승_180329_124118_audio\\통화 녹음 이윤승_180329_124118_audio_result_text_xtts.wav",
+  "last_xtts_output": "data\\runs\\통화 녹음 이윤승_180329_124118_audio\\통화 녹음 이윤승_180329_124118_audio_result_text_xtts.wav",
+  "audio_input_media_path": "data\\uploads\\강대선작가, 영산강 뱃노래(배경음없음).mp4",
+  "audio_output_path": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)\\강대선작가, 영산강 뱃노래(배경음없음)_audio.wav",
+  "current_run_name": "강대선작가, 영산강 뱃노래(배경음없음)_audio",
+  "run_base_dir": "data\\runs\\강대선작가, 영산강 뱃노래(배경음없음)_audio",
+  "last_audio_input_media": "data\\uploads\\강대선작가, 영산강 뱃노래(배경음없음).mp4"
+}

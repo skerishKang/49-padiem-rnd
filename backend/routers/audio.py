@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -27,7 +28,7 @@ async def extract_audio(request: AudioExtractRequest) -> dict[str, str]:
         )
 
     command = [
-        "python",
+        sys.executable,
         "modules/audio_extractor/run.py",
         "--input",
         str(input_path),

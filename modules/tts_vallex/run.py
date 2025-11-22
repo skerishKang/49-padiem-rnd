@@ -25,6 +25,16 @@ from shared.utils.io_helpers import (
 LOGGER = logging.getLogger("pipeline.tts.vallex")
 
 
+def _resolve_path(path_value: str | Path | None, *, base: Path = ROOT_DIR) -> Path:
+    """Resolve a potential relative path against the project root."""
+    if path_value is None:
+        raise ValueError("경로 값이 설정되지 않았습니다.")
+    path = Path(path_value)
+    if not path.is_absolute():
+        path = base / path
+    return path
+
+
 def load_config(config_path: Path | None) -> dict:
     if config_path is None:
         raise ValueError("VALL-E X 합성을 위해 config 파일이 필요합니다.")
@@ -60,19 +70,27 @@ def _run_vallex(command: list[str], work_dir: Path | None = None, env: dict[str,
 
 
 def synthesize_speech(input_json: Path, output_audio: Path, config: dict) -> None:
+    input_json = input_json.resolve()
+    output_audio = output_audio.resolve()
     if not input_json.exists():
         raise FileNotFoundError(f"입력 JSON을 찾을 수 없습니다: {input_json}")
 
-    script_path = Path(config.get("script_path", ""))
+    script_path = _resolve_path(config.get("script_path"), base=ROOT_DIR)
     if not script_path.exists():
         raise FileNotFoundError(f"VALL-E X 스크립트를 찾을 수 없습니다: {script_path}")
 
-    checkpoint_dir = Path(config.get("checkpoint_dir", ""))
-    if not checkpoint_dir.exists():
-        raise FileNotFoundError(f"체크포인트 디렉터리를 찾을 수 없습니다: {checkpoint_dir}")
+    checkpoint_dir = _resolve_path(config.get("checkpoint_dir"), base=ROOT_DIR)
+    if checkpoint_dir.exists() and not checkpoint_dir.is_dir():
+        raise NotADirectoryError(f"체크포인트 경로가 디렉터리가 아닙니다: {checkpoint_dir}")
+    checkpoint_dir.mkdir(parents=True, exist_ok=True)
 
     speaker_id = config.get("speaker_id")
-    work_dir = Path(config.get("work_dir", output_audio.parent))
+    work_dir_value = config.get("work_dir")
+    work_dir = (
+        _resolve_path(work_dir_value, base=ROOT_DIR)
+        if work_dir_value
+        else output_audio.parent
+    )
     work_dir.mkdir(parents=True, exist_ok=True)
 
     text_payload = _prepare_text_payload(input_json, config.get("fallback_text", ""))
@@ -99,17 +117,22 @@ def synthesize_speech(input_json: Path, output_audio: Path, config: dict) -> Non
         ],
     )
 
+    template_uses_speaker = any("{speaker_id}" in part for part in command_template)
     command = format_command(
         command_template,
         python=python_exec,
-        script_path=str(script_path),
-        checkpoint_dir=str(checkpoint_dir),
-        input_text=str(text_file),
-        output_audio=str(output_audio),
+        script_path=str(script_path.resolve()),
+        checkpoint_dir=str(checkpoint_dir.resolve()),
+        input_text=str(text_file.resolve()),
+        output_audio=str(output_audio.resolve()),
+        speaker_id=str(speaker_id) if speaker_id is not None else "",
     )
 
-    if speaker_id:
+    if speaker_id and not template_uses_speaker:
         command.extend(["--speaker", str(speaker_id)])
+
+    # Remove empty fragments that can appear when speaker_id is omitted in the template
+    command = [part for part in command if part]
 
     env = None
     if env_config := config.get("env"):

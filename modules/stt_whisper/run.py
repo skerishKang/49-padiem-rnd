@@ -31,7 +31,9 @@ def _load_whisper_model(config: dict) -> whisper.Whisper:
     model_name = config.get("model_name", "large-v3")
     model_dir = config.get("model_dir")
     use_gpu = config.get("use_gpu", True)
-    device = "cuda" if use_gpu and torch.cuda.is_available() else "cpu"
+    cuda_available = torch.cuda.is_available()
+    LOGGER.info(f"DEBUG: use_gpu={use_gpu}, cuda_available={cuda_available}")
+    device = "cuda" if use_gpu and cuda_available else "cpu"
 
     LOGGER.info("Whisper 모델 로드: name=%s, device=%s", model_name, device)
     download_root = Path(model_dir) if model_dir else None

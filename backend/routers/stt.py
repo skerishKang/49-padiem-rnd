@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -27,7 +28,7 @@ async def run_stt(request: SttRequest) -> dict[str, str]:
         )
 
     command = [
-        "python",
+        sys.executable,
         "modules/stt_whisper/run.py",
         "--input",
         str(input_path),

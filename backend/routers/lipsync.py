@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -35,7 +36,7 @@ async def apply_lipsync(request: LipSyncRequest) -> dict[str, str]:
         )
 
     command = [
-        "python",
+        sys.executable,
         "modules/lipsync_wav2lip/run.py",
         "--video",
         str(video_path),

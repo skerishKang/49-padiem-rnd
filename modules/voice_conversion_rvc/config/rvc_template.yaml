@@ -1,0 +1,22 @@
+# RVC 모델 설정 템플릿
+# RVC WebUI에서 학습한 모델(.pth)을 사용하기 위한 설정 파일입니다.
+
+# 1. 실행 스크립트 경로 (변경하지 마세요)
+script_path: "modules/voice_conversion_rvc/run_rvc.py"
+
+# 2. 모델 체크포인트 경로 (.pth 파일)
+# RVC WebUI에서 학습된 모델 파일을 modules/voice_conversion_rvc/checkpoints/ 폴더에 넣고 그 경로를 적으세요.
+checkpoint: "modules/voice_conversion_rvc/checkpoints/my_model.pth"
+
+# 3. 인덱스 파일 경로 (.index 파일, 선택 사항)
+# 인덱스 파일이 있다면 경로를 적고, 없다면 null로 두세요.
+index: null
+# 예: index: "modules/voice_conversion_rvc/checkpoints/added_IVF256_Flat_nprobe_1_my_model_v2.index"
+
+# 4. 기타 설정
+python_executable: "python"
+f0_method: harvest       # pm, harvest, crepe, rmvpe 중 선택 (harvest 추천)
+speaker_id: 0            # 보통 0
+hop_length: 128
+filter_radius: 3
+pitch_shift: 0           # 남->여: +12, 여->남: -12, 변화 없음: 0

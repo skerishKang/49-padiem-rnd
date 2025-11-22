@@ -68,6 +68,86 @@ body {
   gap: 10px;
 }
 
+.preview-section {
+  margin: 16px 20px 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #f8fafc;
+}
+
+.preview-section.is-hidden {
+  display: none;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.preview-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.json-viewer {
+  margin: 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  max-height: 320px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.translation-preview {
+  max-height: 360px;
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: #fff;
+}
+
+.translation-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.translation-preview th,
+.translation-preview td {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 8px;
+  vertical-align: top;
+}
+
+.translation-preview th {
+  background: #f1f5f9;
+  font-weight: 600;
+}
+
+.translation-preview .time-col {
+  width: 120px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  white-space: nowrap;
+}
+
+.preview-section audio,
+.preview-section video {
+  width: 100%;
+  border-radius: 12px;
+  background: #000;
+}
+
 .media-preview-head {
   display: flex;
   align-items: center;

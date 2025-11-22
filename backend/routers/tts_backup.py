@@ -1,4 +1,5 @@
 from __future__ import annotations
+import sys
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -12,6 +13,8 @@ class TtsBackupRequest(BaseModel):
     input_json: str = Field(..., min_length=1)
     output_audio: str = Field(..., min_length=1)
     config: str | None = Field(default=None, min_length=1)
+    speaker_wav: str | None = Field(default=None, min_length=1)
+    language: str | None = Field(default=None, min_length=1)
     async_run: bool = False
 
 
@@ -27,7 +30,7 @@ async def synthesize_backup(request: TtsBackupRequest) -> dict[str, str]:
         )
 
     command = [
-        "python",
+        sys.executable,
         "modules/tts_xtts/run.py",
         "--input",
         str(input_path),
@@ -42,6 +45,18 @@ async def synthesize_backup(request: TtsBackupRequest) -> dict[str, str]:
                 detail=f"설정 파일을 찾을 수 없습니다: {config_path}",
             )
         command.extend(["--config", str(config_path)])
+    
+    if request.speaker_wav:
+        speaker_path = resolve_path(request.speaker_wav)
+        if not speaker_path.exists():
+             raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"스피커 참조 음성을 찾을 수 없습니다: {speaker_path}",
+            )
+        command.extend(["--speaker-wav", str(speaker_path)])
+
+    if request.language:
+        command.extend(["--language", request.language])
 
     if request.async_run:
         job_id = start_module_job(command, meta={"module": "tts_backup", "output": str(output_path)})

@@ -32,6 +32,12 @@ const stepConfig = {
       config: normalizePath(document.getElementById("sttConfigPath").value),
     }),
     endpoint: "stt/",
+    afterSuccess: (payload, result) => {
+      const jobOutput = result?.meta?.output;
+      const effectivePath = jobOutput || payload?.output_json;
+      propagateSttResult(effectivePath);
+      document.getElementById("refreshSttPreview")?.click();
+    },
   },
   text: {
     button: "runText",
@@ -51,6 +57,12 @@ const stepConfig = {
       return payload;
     },
     endpoint: "text/process",
+    afterSuccess: (payload, result) => {
+      const jobOutput = result?.meta?.output;
+      const effectivePath = jobOutput || payload?.output_json;
+      propagateTextResult(effectivePath);
+      document.getElementById("refreshTextPreview")?.click();
+    },
   },
   tts: {
     button: "runTts",
@@ -62,6 +74,7 @@ const stepConfig = {
       config: normalizePath(document.getElementById("ttsConfigPath").value),
     }),
     endpoint: "tts/",
+    afterSuccess: () => document.getElementById("refreshTtsPreview")?.click(),
   },
   xtts: {
     button: "runXtts",
@@ -73,6 +86,7 @@ const stepConfig = {
       config: normalizePath(document.getElementById("xttsConfigPath").value),
     }),
     endpoint: "tts-backup/",
+    afterSuccess: () => document.getElementById("refreshXttsPreview")?.click(),
   },
   rvc: {
     button: "runRvc",
@@ -84,6 +98,7 @@ const stepConfig = {
       config: normalizePath(document.getElementById("rvcConfigPath").value),
     }),
     endpoint: "rvc/",
+    afterSuccess: () => document.getElementById("refreshRvcPreview")?.click(),
   },
   lipsync: {
     button: "runLipsync",
@@ -96,6 +111,7 @@ const stepConfig = {
       config: normalizePath(document.getElementById("lipsyncConfigPath").value),
     }),
     endpoint: "lipsync/",
+    afterSuccess: () => document.getElementById("refreshLipsyncPreview")?.click(),
   },
 };
 
@@ -106,8 +122,8 @@ Object.values(stepConfig).forEach((step) => {
 initPresetPanels();
 enhanceFieldInputs();
 setupPresetDropdownClosers();
-initOutputSync();
 initAudioPreview();
+initResultPreviewControls();
 
 document.getElementById("runPipeline").addEventListener("click", async () => {
   const status = document.getElementById("pipelineStatus");
@@ -359,49 +375,253 @@ function initAudioPreview() {
   apiBaseInput.addEventListener("change", refreshPreview);
 }
 
-function initOutputSync() {
-  const masterInput = document.getElementById("audioInputMedia");
-  if (!masterInput) return;
+function initResultPreviewControls() {
+  initJsonPreviewControl({
+    outputInputId: "sttOutputJson",
+    refreshButtonId: "refreshSttPreview",
+    wrapperId: "sttPreviewWrapper",
+    contentId: "sttPreviewContent",
+  });
 
-  const syncAll = () => {
-    const base = extractStem(masterInput.value);
-    if (!base) return;
+  initTranslationPreviewControl({
+    outputInputId: "textOutputJson",
+    refreshButtonId: "refreshTextPreview",
+    wrapperId: "textPreviewWrapper",
+    contentId: "textPreviewContent",
+  });
 
-    const paths = {
-      // Step 1 output
-      audioOutputPath: `data/runs/${base}_audio.wav`,
-      // Step 2 inputs and outputs
-      sttInputAudio: `data/runs/${base}_audio.wav`,
-      sttOutputJson: `data/runs/${base}_stt_result.json`,
-      // Step 3
-      textInputJson: `data/runs/${base}_stt_result.json`,
-      textOutputJson: `data/runs/${base}_text_processed.json`,
-      // Step 4
-      ttsInputJson: `data/runs/${base}_text_processed.json`,
-      ttsOutputAudio: `data/runs/${base}_tts_output.wav`,
-      // Step 5
-      xttsInputJson: `data/runs/${base}_text_processed.json`,
-      xttsOutputAudio: `data/runs/${base}_xtts_output.wav`,
-      // Step 6
-      rvcInputAudio: `data/runs/${base}_tts_output.wav`,
-      rvcOutputAudio: `data/runs/${base}_rvc_output.wav`,
-      // Step 7
-      lipsyncInputVideo: masterInput.value,
-      lipsyncInputAudio: `data/runs/${base}_rvc_output.wav`,
-      lipsyncOutputVideo: `data/runs/${base}_final_dubbed.mp4`,
-    };
+  initAudioPreviewControl({
+    outputInputId: "ttsOutputAudio",
+    refreshButtonId: "refreshTtsPreview",
+    wrapperId: "ttsPreviewWrapper",
+    playerId: "ttsAudioPreview",
+  });
 
-    for (const id in paths) {
-      const el = document.getElementById(id);
-      if (el && el.value !== paths[id]) {
-        el.value = paths[id];
-        el.dispatchEvent(new Event("change", { bubbles: true }));
-      }
+  initAudioPreviewControl({
+    outputInputId: "xttsOutputAudio",
+    refreshButtonId: "refreshXttsPreview",
+    wrapperId: "xttsPreviewWrapper",
+    playerId: "xttsAudioPreview",
+  });
+
+  initAudioPreviewControl({
+    outputInputId: "rvcOutputAudio",
+    refreshButtonId: "refreshRvcPreview",
+    wrapperId: "rvcPreviewWrapper",
+    playerId: "rvcAudioPreview",
+  });
+
+  initVideoPreviewControl({
+    outputInputId: "lipsyncOutputVideo",
+    refreshButtonId: "refreshLipsyncPreview",
+    wrapperId: "lipsyncPreviewWrapper",
+    playerId: "lipsyncVideoPreview",
+  });
+
+  document.querySelectorAll("[data-download-target]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const targetId = button.dataset.downloadTarget;
+      if (!targetId) return;
+      downloadFromInput(targetId);
+    });
+  });
+}
+
+function initJsonPreviewControl({ outputInputId, refreshButtonId, wrapperId, contentId }) {
+  const outputInput = document.getElementById(outputInputId);
+  const refreshButton = document.getElementById(refreshButtonId);
+  const wrapper = document.getElementById(wrapperId);
+  const content = document.getElementById(contentId);
+  if (!outputInput || !refreshButton || !wrapper || !content) return;
+
+  refreshButton.addEventListener("click", async () => {
+    const path = normalizePreviewPath(outputInput.value);
+    if (!path) {
+      content.textContent = "경로가 비어 있습니다.";
+      wrapper.classList.remove("is-hidden");
+      return;
     }
-  };
 
-  masterInput.addEventListener("change", syncAll);
-  masterInput.addEventListener("blur", syncAll);
+    wrapper.classList.remove("is-hidden");
+    content.textContent = "불러오는 중...";
+    try {
+      const base = getApiBase();
+      const res = await fetch(`${base}/files/preview/json?path=${encodeURIComponent(path)}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      content.textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+      content.textContent = `미리보기 실패: ${error.message}`;
+    }
+  });
+}
+
+function initTranslationPreviewControl({ outputInputId, refreshButtonId, wrapperId, contentId }) {
+  const outputInput = document.getElementById(outputInputId);
+  const refreshButton = document.getElementById(refreshButtonId);
+  const wrapper = document.getElementById(wrapperId);
+  const content = document.getElementById(contentId);
+  if (!outputInput || !refreshButton || !wrapper || !content) return;
+
+  refreshButton.addEventListener("click", async () => {
+    const path = normalizePreviewPath(outputInput.value);
+    if (!path) {
+      content.innerHTML = "<p>경로가 비어 있습니다.</p>";
+      wrapper.classList.remove("is-hidden");
+      return;
+    }
+
+    wrapper.classList.remove("is-hidden");
+    content.innerHTML = "<p>불러오는 중...</p>";
+    try {
+      const base = getApiBase();
+      const res = await fetch(`${base}/files/preview/json?path=${encodeURIComponent(path)}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      content.innerHTML = renderTranslationTable(data);
+    } catch (error) {
+      content.innerHTML = `<p>미리보기 실패: ${error.message}</p>`;
+    }
+  });
+}
+
+function initAudioPreviewControl({ outputInputId, refreshButtonId, wrapperId, playerId }) {
+  const outputInput = document.getElementById(outputInputId);
+  const refreshButton = document.getElementById(refreshButtonId);
+  const wrapper = document.getElementById(wrapperId);
+  const player = document.getElementById(playerId);
+  if (!outputInput || !refreshButton || !wrapper || !player) return;
+
+  refreshButton.addEventListener("click", () => {
+    const path = normalizePreviewPath(outputInput.value);
+    if (!path) {
+      alert("출력 경로가 비어 있습니다.");
+      return;
+    }
+    wrapper.classList.remove("is-hidden");
+    const base = getApiBase();
+    player.src = `${base}/files/preview/audio?path=${encodeURIComponent(path)}&_=${Date.now()}`;
+    player.load();
+  });
+}
+
+function initVideoPreviewControl({ outputInputId, refreshButtonId, wrapperId, playerId }) {
+  const outputInput = document.getElementById(outputInputId);
+  const refreshButton = document.getElementById(refreshButtonId);
+  const wrapper = document.getElementById(wrapperId);
+  const player = document.getElementById(playerId);
+  if (!outputInput || !refreshButton || !wrapper || !player) return;
+
+  refreshButton.addEventListener("click", () => {
+    const path = normalizePreviewPath(outputInput.value);
+    if (!path) {
+      alert("출력 경로가 비어 있습니다.");
+      return;
+    }
+    wrapper.classList.remove("is-hidden");
+    const base = getApiBase();
+    player.src = `${base}/files/preview/video?path=${encodeURIComponent(path)}&_=${Date.now()}`;
+    player.load();
+  });
+}
+
+function downloadFromInput(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const path = normalizePreviewPath(input.value);
+  if (!path) {
+    alert("경로가 비어 있습니다.");
+    return;
+  }
+  const base = getApiBase();
+  const url = `${base}/files/download?path=${encodeURIComponent(path)}`;
+  window.open(url, "_blank");
+}
+
+function renderTranslationTable(data) {
+  const segments = Array.isArray(data?.segments) ? data.segments : [];
+  if (!segments.length) {
+    return "<p>세그먼트 데이터가 없습니다.</p>";
+  }
+
+  const rows = segments
+    .map((segment) => {
+      const start = formatTime(segment.start ?? 0);
+      const end = formatTime(segment.end ?? segment.start ?? 0);
+      const originalText = escapeHtml(segment.original_text ?? segment.text ?? "");
+      const translatedText = escapeHtml(segment.translated_text ?? segment.translation ?? "");
+      return `
+        <tr>
+          <td class="time-col">${start} → ${end}</td>
+          <td>${originalText}</td>
+          <td>${translatedText}</td>
+        </tr>
+      `;
+    })
+    .join("\n");
+
+  return `
+    <table>
+      <thead>
+        <tr>
+          <th class="time-col">시간</th>
+          <th>원본</th>
+          <th>번역</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+  `;
+}
+
+function normalizePreviewPath(value) {
+  return (value || "").trim().replace(/^@/, "");
+}
+
+function getApiBase() {
+  return apiBaseInput.value.replace(/\/$/, "");
+}
+
+function propagateSttResult(rawPath) {
+  const path = normalizePreviewPath(rawPath);
+  if (!path) return;
+  setInputValue("sttOutputJson", path);
+  setInputValue("textInputJson", path);
+  const derived = buildSiblingPath(path, "_text_processed.json");
+  setInputValue("textOutputJson", derived);
+}
+
+function propagateTextResult(rawPath) {
+  const path = normalizePreviewPath(rawPath);
+  if (!path) return;
+  setInputValue("textOutputJson", path);
+  setInputValue("ttsInputJson", path);
+  setInputValue("xttsInputJson", path);
+}
+
+function buildSiblingPath(referencePath, suffixWithExtension) {
+  if (!referencePath) return "";
+  const normalized = referencePath.replace(/\\/g, "/");
+  const lastSlash = normalized.lastIndexOf("/");
+  const dir = lastSlash >= 0 ? normalized.slice(0, lastSlash + 1) : "";
+  const file = lastSlash >= 0 ? normalized.slice(lastSlash + 1) : normalized;
+  const dot = file.lastIndexOf(".");
+  const stem = dot >= 0 ? file.slice(0, dot) : file;
+  const baseStem = stem.replace(
+    /_(stt_result|text_processed|tts_output|xtts_output|rvc_output|final_dubbed)$/i,
+    "",
+  );
+  return `${dir}${baseStem}${suffixWithExtension}`;
+}
+
+function setInputValue(id, value) {
+  const element = document.getElementById(id);
+  if (element && typeof value === "string" && element.value !== value) {
+    element.value = value;
+    element.dispatchEvent(new Event("change", { bubbles: true }));
+  }
 }
 
 function extractStem(path) {
@@ -447,8 +667,24 @@ function bindStep(step) {
     status.textContent = "실행 중...";
     try {
       const payload = step.payload();
-      const asyncMode = document.getElementById(step.async)?.checked;
-      await executeStep(step.endpoint, payload, Boolean(asyncMode));
+      const asyncCheckbox = step.async ? document.getElementById(step.async) : null;
+      const asyncMode = Boolean(asyncCheckbox && asyncCheckbox.checked);
+      const result = await executeStep(step.endpoint, payload, asyncMode);
+
+      if (asyncMode) {
+        const jobStatus = result?.status;
+        if (jobStatus === "failed") {
+          status.textContent = "오류가 발생했습니다.";
+          appendLog(`${step.endpoint} 실패`, result);
+          return;
+        }
+        if (jobStatus !== "success") {
+          status.textContent = "백그라운드에서 계속 실행 중입니다.";
+          appendLog(`${step.endpoint} 진행 중`, result || {});
+          return;
+        }
+      }
+
       status.textContent = "완료되었습니다.";
 
       if (step.endpoint === "audio/extract") {
@@ -457,6 +693,8 @@ function bindStep(step) {
           refreshBtn.click();
         }
       }
+
+      step.afterSuccess?.(payload, result);
     } catch (err) {
       status.textContent = "오류가 발생했습니다.";
       appendLog(`${step.endpoint} 오류`, { error: String(err) });
@@ -511,16 +749,18 @@ async function executeStep(endpoint, payload, asyncMode) {
     appendLog("작업이 큐에 등록되었습니다.", { jobId });
     const max = Number(maxPollsInput.value || 10);
     const interval = Number(pollIntervalInput.value || 1) * 1000;
+    let lastStatus = null;
     for (let i = 0; i < max; i++) {
       await wait(interval);
       const status = await getJobStatus(jobId);
+      lastStatus = status;
       if (status.status === "success" || status.status === "failed") {
         appendLog("작업 결과", status);
         return status;
       }
     }
-    appendLog("작업 결과", { status: "pending" });
-    return null;
+    appendLog("작업 결과", lastStatus || { status: "pending" });
+    return lastStatus;
   }
   appendLog("응답", response);
   return response;
@@ -550,20 +790,24 @@ function normalizePath(value) {
   return trimmed.length ? trimmed : null;
 }
 
+function formatTime(seconds) {
+  const value = Number(seconds) || 0;
+  const minutes = Math.floor(value / 60)
+    .toString()
+    .padStart(2, "0");
+  const secs = (value % 60).toFixed(1).padStart(4, "0");
+  return `${minutes}:${secs}`;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text ?? "";
+  return div.innerHTML;
+}
+
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const sttAsyncCheckbox = document.getElementById("sttAsync");
-  if (sttAsyncCheckbox) {
-    sttAsyncCheckbox.checked = true;
-    sttAsyncCheckbox.disabled = true;
-
-    const note = document.createElement("p");
-    note.className = "caption";
-    note.style.marginTop = "0.5rem";
-    note.textContent = "STT는 시간이 오래 걸릴 수 있어 항상 비동기로 실행됩니다.";
-    sttAsyncCheckbox.parentElement.insertAdjacentElement("afterend", note);
-  }
 });
