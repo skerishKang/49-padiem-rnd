@@ -182,7 +182,7 @@ css_block, hero_block = build_theme_assets(theme_mode)
 st.markdown(css_block, unsafe_allow_html=True)
 st.markdown(hero_block, unsafe_allow_html=True)
 
-api_base = st.sidebar.text_input("API 기본 URL", value="http://localhost:8000")
+api_base = st.sidebar.text_input("API 기본 URL", value="http://localhost:8010")
 poll_interval = st.sidebar.number_input(
     "작업 폴링 간격(초)", min_value=0.5, max_value=10.0, value=1.0, step=0.5
 )
@@ -742,7 +742,7 @@ with st.expander("텍스트 처리/번역", expanded=True):
         gemini_api_key = st.text_input(
             "Gemini API Key", 
             type="password", 
-            value="AIzaSyBx4qALE3M_xDLhc-cSTAOYQvhVR36qkyM",
+            value=os.getenv("GEMINI_API_KEY", ""),
             help="번역을 위해 필요합니다."
         )
 
