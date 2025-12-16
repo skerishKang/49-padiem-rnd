@@ -20,7 +20,7 @@
   1. `docs/demo/` 폴더를 만들고 스크린샷(`.png`) 또는 GIF(`.gif`)를 저장
   2. README에 아래처럼 첨부
      ```markdown
-     ![데모 스크린샷](docs/demo/demo.png)
+     ![데모 스크린샷](docs/demo/external/ext_psnr_opencv.png)
      ```
   3. 짧은 데모 영상은 GitHub `assets` 업로드(릴리즈/이슈/PR) 후 URL을 README에 링크로 추가
 
