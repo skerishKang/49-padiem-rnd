@@ -1,0 +1,6 @@
+task_0:
+  video_path: ""
+  audio_path: ""
+  bbox_shift: 0
+  video_out_path: ""
+  fp16: True

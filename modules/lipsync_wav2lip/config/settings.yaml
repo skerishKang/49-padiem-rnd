@@ -1,7 +1,9 @@
-script_path: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/Wav2Lip_전용모델/run_wav2lip.py"
+script_path: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/models_from_clean/02_models/wav2lip/v1/inference.py"
 checkpoint: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/Wav2Lip_전용모델/checkpoints/wav2lip_gan.pth"
 face_detector: "G:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/New_dev/02_Phase2_핵심기술개발/models/모듈별_전용모델/Wav2Lip_전용모델/face_detection/detection/sfd/s3fd.pth"
 python_executable: "python"
 bbox: []
 nosmooth: false
 fps: null
+resize_factor: 4
+max_duration_sec: 20

@@ -1,5 +1,5 @@
 model_name: tts_models/multilingual/multi-dataset/xtts_v2
 use_gpu: true
-fallback_text: "안녕하세요. 백업 음성입니다."
+fallback_text: "Hello, this is a backup voice."
 speaker_wav: null
-language: "ko"
+language: "en"

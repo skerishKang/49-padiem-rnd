@@ -6,6 +6,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Iterable
+import json
 
 import unicodedata
 import google.generativeai as genai
@@ -178,12 +179,108 @@ def _filter_hallucinations(segments: list[dict]) -> list[dict]:
     return filtered
 
 
+def _batch_translate_segments(
+    model: genai.GenerativeModel,
+    segments: list[dict],
+    source_language: str,
+    target_language: str,
+    syllable_tolerance: float,
+) -> dict[int, str]:
+    """세그먼트 리스트를 한 번에 Gemini에 보내 배치 번역합니다.
+
+    반환값은 segment id -> translated_text 매핑입니다.
+    """
+    # 입력 세그먼트에서 필요한 최소 정보만 추려서 payload 구성
+    simple_segments: list[dict] = []
+    for seg in segments:
+        seg_id = seg.get("id")
+        text = seg.get("text", "")
+        if seg_id is None or not str(text).strip():
+            continue
+        source_syllables = estimate_syllables(text, source_language)
+        simple_segments.append(
+            {
+                "id": seg_id,
+                "text": text,
+                "source_syllables": source_syllables,
+            }
+        )
+
+    if not simple_segments:
+        return {}
+
+    payload = {
+        "source_language": source_language,
+        "target_language": target_language,
+        "syllable_tolerance": syllable_tolerance,
+        "segments": simple_segments,
+    }
+
+    prompt = f"""You are translating subtitle segments for dubbing.\\n\\n
+Input JSON:
+{json.dumps(payload, ensure_ascii=False, indent=2)}
+
+For each item in "segments", translate the "text" from {source_language} to {target_language}.
+- Try to keep the approximate syllable count close to "source_syllables" for each segment (±{int(syllable_tolerance * 100)}%).
+- Preserve the meaning and tone as much as possible.
+
+Return ONLY JSON with this structure:
+{{
+  "segments": [
+    {{"id": <int>, "translated_text": "<translation>"}},
+    ...
+  ]
+}}
+
+Do not add any commentary, explanations, or extra fields.
+"""
+
+    response = model.generate_content(
+        prompt,
+        safety_settings={
+            HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
+            HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
+        },
+    )
+
+    translations: dict[int, str] = {}
+    try:
+        data = json.loads(response.text)
+        items = data.get("segments", []) if isinstance(data, dict) else data
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            seg_id = item.get("id")
+            translated = item.get("translated_text") or item.get("text")
+            if seg_id is None or not translated:
+                continue
+            try:
+                seg_id_int = int(seg_id)
+            except Exception:
+                continue
+            translations[seg_id_int] = str(translated).strip()
+    except Exception as exc:  # JSON 파싱 실패 등
+        LOGGER.warning("배치 번역 결과 파싱 실패: %s", exc)
+
+    return translations
+
+
 def process_text(input_json: Path, output_json: Path, config: dict) -> None:
     if not input_json.exists():
         raise FileNotFoundError(f"입력 JSON을 찾을 수 없습니다: {input_json}")
 
     LOGGER.info("텍스트 처리 시작: %s", input_json)
     data = read_json(input_json)
+
+    # STT Gemini 출력처럼 루트가 리스트인 경우 호환을 위해 래핑
+    # 기대 형식: {"language": ..., "segments": [...]}
+    if isinstance(data, list):
+        data = {
+            "segments": data,
+            "language": config.get("source_language", "ko"),
+        }
 
     operations = config.get("operations", DEFAULT_OPERATIONS)
     translation_map: dict[str, str] = config.get("translation_map", {})
@@ -197,6 +294,11 @@ def process_text(input_json: Path, output_json: Path, config: dict) -> None:
     segments = _filter_hallucinations(raw_segments)
     if len(segments) < len(raw_segments):
         LOGGER.info(f"환각 필터링: {len(raw_segments)} -> {len(segments)} 세그먼트로 감소")
+
+    # 일부 STT 출력(Gemini)은 id 필드가 없으므로, 이후 로직과 배치 번역에서 사용하기 위해 자동 부여
+    for idx, seg in enumerate(segments):
+        if "id" not in seg:
+            seg["id"] = idx
 
     # 자동 언어 감지 로직
     detected_source_lang = None
@@ -222,19 +324,44 @@ def process_text(input_json: Path, output_json: Path, config: dict) -> None:
 
     # Gemini 번역기 초기화
     gemini_model = None
+    translations: dict[int, str] = {}
     api_key = config.get("gemini_api_key") or os.getenv("GEMINI_API_KEY")
-    
-    if source_language != target_language:
+
+    # STT Gemini 출력처럼 세그먼트에 이미 translated 필드가 있는 경우, 이 값을 우선 사용하고
+    # 추가 Gemini 번역 호출은 생략한다.
+    has_inline_translated = any(
+        isinstance(seg.get("translated"), str) and seg["translated"].strip()
+        for seg in segments
+    )
+
+    if source_language != target_language and not has_inline_translated:
         if api_key:
             try:
                 genai.configure(api_key=api_key)
                 model_name = config.get("gemini_model_name", "gemini-2.5-flash-lite")
                 gemini_model = genai.GenerativeModel(model_name)
                 LOGGER.info("Gemini 모델 초기화: %s (%s -> %s)", model_name, source_language, target_language)
+
+                # 세그먼트별 개별 호출 대신 배치 번역 한 번 수행
+                try:
+                    translations = _batch_translate_segments(
+                        gemini_model,
+                        segments,
+                        source_language,
+                        target_language,
+                        syllable_tolerance,
+                    )
+                    LOGGER.info("배치 번역 완료: %d개 세그먼트", len(translations))
+                except Exception as exc:
+                    LOGGER.warning("배치 번역 실패, 원문 텍스트로 진행합니다: %s", exc)
+                    translations = {}
+
             except Exception as exc:
                 LOGGER.warning("Gemini 초기화 실패: %s", exc)
         else:
             LOGGER.warning("Gemini API Key가 설정되지 않아 번역을 건너뜁니다.")
+    elif has_inline_translated:
+        LOGGER.info("세그먼트에 translated 필드가 있어 Gemini 번역 호출을 생략합니다.")
 
     processed_segments = []
     for idx, segment in enumerate(segments):
@@ -242,35 +369,19 @@ def process_text(input_json: Path, output_json: Path, config: dict) -> None:
         
         # 1. Translation Map 적용
         text_to_process = translation_map.get(original_text, original_text)
-        
-        # 2. Gemini 번역
-        if gemini_model and text_to_process.strip():
-            try:
-                # 음절 수 계산
-                source_syllables = estimate_syllables(original_text, source_language)
-                
-                # 음절 수를 맞추도록 프롬프트 작성
-                prompt = f"""Translate the following {source_language} text to {target_language}.
 
-IMPORTANT: The translation MUST have approximately {source_syllables} syllables (±{int(source_syllables * syllable_tolerance)} syllables) to match the original for lip-sync dubbing.
-
-Original text ({source_syllables} syllables): {text_to_process}
-
-Provide ONLY the translated text, no quotes or explanations."""
-
-                response = gemini_model.generate_content(
-                    prompt,
-                    safety_settings={
-                        HarmCategory.HARM_CATEGORY_HARASSMENT: HarmBlockThreshold.BLOCK_NONE,
-                        HarmCategory.HARM_CATEGORY_HATE_SPEECH: HarmBlockThreshold.BLOCK_NONE,
-                        HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE,
-                        HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: HarmBlockThreshold.BLOCK_NONE,
-                    }
-                )
-                if response.text:
-                    text_to_process = response.text.strip()
-            except Exception as exc:
-                LOGGER.warning("세그먼트 번역 실패 (ID: %s): %s", segment.get("id"), exc)
+        # 2. STT Gemini 등에서 세그먼트에 이미 translated 필드가 있으면 이를 우선 사용
+        if has_inline_translated:
+            inline = segment.get("translated")
+            if isinstance(inline, str) and inline.strip():
+                text_to_process = inline
+        else:
+            # 3. 배치 번역 결과가 있으면 사용
+            seg_id = segment.get("id")
+            if seg_id is not None and translations:
+                translated = translations.get(int(seg_id))
+                if translated:
+                    text_to_process = translated
 
         # 3. 후처리 연산 (trim 등)
         processed_text = apply_operations(text_to_process, operations)

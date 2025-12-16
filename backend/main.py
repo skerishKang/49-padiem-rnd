@@ -2,9 +2,12 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
 
-from .routers import audio, files, jobs, lipsync, rvc, stt, text, tts, tts_backup, uploads
+from .routers import audio, files, jobs, lipsync, lipsync_musetalk, rvc, stt, stt_gemini, text, tts, tts_backup, tts_gemini, uploads
 
+
+load_dotenv()
 
 app = FastAPI(
     title="Padiem RnD 모듈형 더빙 파이프라인 API",
@@ -17,6 +20,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:8501",
         "http://127.0.0.1:8501",
+        "http://localhost:8510",
+        "http://127.0.0.1:8510",
         "http://localhost",
         "http://127.0.0.1",
     ],
@@ -27,11 +32,14 @@ app.add_middleware(
 
 app.include_router(audio.router)
 app.include_router(stt.router)
+app.include_router(stt_gemini.router)
 app.include_router(text.router)
 app.include_router(tts.router)
 app.include_router(tts_backup.router)
+app.include_router(tts_gemini.router)
 app.include_router(rvc.router)
 app.include_router(lipsync.router)
+app.include_router(lipsync_musetalk.router)
 app.include_router(jobs.router)
 app.include_router(files.router)
 app.include_router(uploads.router)

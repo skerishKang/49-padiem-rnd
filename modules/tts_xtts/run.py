@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+import re
 import torch
 
 
@@ -32,10 +33,21 @@ def load_config(config_path: Path | None) -> dict:
     return read_yaml(config_path)
 
 
+def _normalize_for_tts(text: str) -> str:
+    """TTS용 텍스트 정규화.
+
+    - 음절 맞추기용 하이픈(ex-cep-tion)을 제거해 자연스럽게 읽도록 한다.
+    """
+    if not text:
+        return ""
+    return re.sub(r"\s*-\s*", "", text)
+
+
 def _prepare_text(input_json: Path, fallback_text: str | None = None) -> str:
     data = read_json(input_json)
     segments = data.get("segments", [])
-    texts = [segment.get("processed_text") or segment.get("text", "") for segment in segments]
+    raw_texts = [segment.get("processed_text") or segment.get("text", "") for segment in segments]
+    texts = [_normalize_for_tts(t) for t in raw_texts]
     combined = " ".join(filter(None, texts)).strip()
     if not combined and fallback_text:
         combined = fallback_text

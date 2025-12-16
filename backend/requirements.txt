@@ -5,4 +5,5 @@ PyYAML==6.0.2
 python-multipart==0.0.9
 openai-whisper
 deep-translator
-google-generativeai
+google-generativeai>=0.8.5
+python-dotenv==1.0.1

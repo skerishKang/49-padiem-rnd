@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import logging
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -43,10 +44,23 @@ def load_config(config_path: Path | None) -> dict:
     return read_yaml(config_path)
 
 
+def _normalize_for_tts(text: str) -> str:
+    """TTS용 텍스트 정규화.
+
+    - 음절 맞추기 용도로 들어간 하이픈(ex-cep-tion)을 제거해서 자연스럽게 읽도록 한다.
+    """
+    if not text:
+        return ""
+    # 공백 주변 하이픈도 함께 제거
+    return re.sub(r"\s*-\s*", "", text)
+
+
 def _prepare_text_payload(input_json: Path, fallback_text: str | None = None) -> str:
     data = read_json(input_json)
     segments = data.get("segments", [])
-    texts = [segment.get("processed_text") or segment.get("text", "") for segment in segments]
+    raw_texts = [segment.get("processed_text") or segment.get("text", "") for segment in segments]
+    # VALL-E X 에서는 음절 하이픈을 그대로 읽지 않도록 정규화된 텍스트를 사용
+    texts = [_normalize_for_tts(t) for t in raw_texts]
     combined = " ".join(filter(None, texts)).strip()
     if not combined and fallback_text:
         combined = fallback_text

@@ -1,9 +1,9 @@
-script_path: "modules/voice_conversion_rvc/run_rvc.py"
-checkpoint: "modules/voice_conversion_rvc/dummy_model.pth"
-index: null
-python_executable: "python"
+checkpoint: modules/voice_conversion_rvc/checkpoints/out.pth
 f0_method: harvest
-speaker_id: 0
-hop_length: 128
 filter_radius: 3
+hop_length: 128
+index: null
 pitch_shift: 0
+python_executable: python
+script_path: modules/voice_conversion_rvc/run_rvc.py
+speaker_id: 0
