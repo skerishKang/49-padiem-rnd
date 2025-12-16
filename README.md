@@ -1,5 +1,29 @@
 # Padiem RnD Modular Dubbing Pipeline
 
+## 최종보고서 / 데모
+
+- **최종보고서 본문**: [`최종보고서_본문.md`](./최종보고서_본문.md)
+- **연구노트(내부 기록)**: `notev2/` (문서/의사결정 기록 폴더)
+
+### 데모(빠르게 보는 방법)
+
+- **로컬 데모(권장)**
+  - 백엔드 실행
+    ```powershell
+    uvicorn backend.main:app --reload --port 8000
+    ```
+  - Streamlit UI 실행
+    ```powershell
+    streamlit run frontend/app.py
+    ```
+- **스크린샷/영상(GIF)로 데모 보여주기(README에 예쁘게 붙이는 방식)**
+  1. `docs/demo/` 폴더를 만들고 스크린샷(`.png`) 또는 GIF(`.gif`)를 저장
+  2. README에 아래처럼 첨부
+     ```markdown
+     ![데모 스크린샷](docs/demo/demo.png)
+     ```
+  3. 짧은 데모 영상은 GitHub `assets` 업로드(릴리즈/이슈/PR) 후 URL을 README에 링크로 추가
+
 ## 목적
 더빙 파이프라인을 단계별 모듈로 분리하여 의존성 충돌을 최소화하고 유지보수성을 높이는 것을 목표로 합니다.
 
