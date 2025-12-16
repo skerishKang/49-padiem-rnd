@@ -14,6 +14,8 @@ __pycache__/
 .vscode/
 .idea/
 *.code-workspace
+.windsurf/
+node_modules/
 
 # 데이터 및 모델 체크포인트
 modules/**/models/
@@ -27,3 +29,15 @@ logs/
 # OS 파일
 .DS_Store
 Thumbs.db
+
+pdf/ocr/최종보고서/
+test_reports_company/
+modules/tts_vallex/VALL-E_X/
+modules/lipsync_musetalk/MuseTalk/
+gemini-dub-live-interpret/
+pdf-reader-mcp/
+임치물/
+._commitmsg.txt
+*.pdf
+*.hwp
+*.zip
