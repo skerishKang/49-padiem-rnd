@@ -17,6 +17,11 @@ __pycache__/
 .windsurf/
 node_modules/
 
+# GitHub 공개 제외(개발 도구/CI/로컬 설정)
+.agent/
+.github/workflows/
+.streamlit/
+
 # 데이터 및 모델 체크포인트
 modules/**/models/
 modules/**/checkpoints/
@@ -30,12 +35,6 @@ logs/
 .DS_Store
 Thumbs.db
 
-# 공개 제외(개인/내부 정리용)
-_private/
-*.pdf
-*.hwp
-*.zip
-
 # 공개 제외 파일 유형
 pdf-reader-mcp/
 ._commitmsg.txt
@@ -47,6 +46,8 @@ modules/tts_vallex/VALL-E_X/
 modules/lipsync_musetalk/MuseTalk/
 gemini-dub-live-interpret/
 임치물/
+frontend/
+tests/
 
 # 공개 포함 파일
 !최종보고서_본문.md

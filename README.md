@@ -14,7 +14,7 @@
     ```
   - Streamlit UI 실행
     ```powershell
-    streamlit run frontend/app.py
+    streamlit run frontend_unified/Home.py
     ```
 - **스크린샷/영상(GIF)로 데모 보여주기(README에 예쁘게 붙이는 방식)**
   1. `docs/demo/` 폴더를 만들고 스크린샷(`.png`) 또는 GIF(`.gif`)를 저장
