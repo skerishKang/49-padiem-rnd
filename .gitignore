@@ -38,6 +38,9 @@ Thumbs.db
 # 공개 제외 파일 유형
 pdf-reader-mcp/
 ._commitmsg.txt
+*.pdf
+*.zip
+*.hwp
 
 # 공개 제외 폴더
 pdf/ocr/
@@ -45,7 +48,11 @@ test_reports_company/
 modules/tts_vallex/VALL-E_X/
 modules/lipsync_musetalk/MuseTalk/
 gemini-dub-live-interpret/
+_private/
+pdf/
+gemini/
 임치물/
+창성R&D/
 frontend/
 tests/
 
