@@ -70,3 +70,11 @@ frontend/tests/
 !modules/**
 !shared/**
 !finalv2/**
+
+# 서브모듈 내 대용량 데이터 명시적 제외
+**/node_modules/
+**/checkpoints/
+**/nltk_data/
+**/models/
+pdf-reader-mcp/dist/
+modules/tts_vallex/VALL-E_X/data/
