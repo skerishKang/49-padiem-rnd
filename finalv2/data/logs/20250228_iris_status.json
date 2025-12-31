@@ -1,0 +1,4 @@
+[
+  {"timestamp": "2025-02-28T10:00:00+09:00", "status": "waiting_for_final_approval"},
+  {"timestamp": "2025-02-28T17:30:00+09:00", "status": "waiting_for_final_approval", "note": "월말 기준 승인 대기"}
+]

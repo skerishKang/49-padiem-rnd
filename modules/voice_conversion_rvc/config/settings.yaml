@@ -7,3 +7,10 @@ pitch_shift: 0
 python_executable: python
 script_path: modules/voice_conversion_rvc/run_rvc.py
 speaker_id: 0
+augment:
+  time_stretch: 1.05      # 0.5~2.0, atempo
+  bass_gain_db: 3         # 저역 EQ
+  treble_gain_db: -2      # 고역 EQ
+  noise_db: -25           # 노이즈 믹스(dB)
+  ffmpeg_path: ffmpeg     # ffmpeg 실행 경로
+  formant_preserve: false  # librosa phase vocoder 사용 여부

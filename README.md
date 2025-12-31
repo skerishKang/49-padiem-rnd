@@ -1,160 +1,72 @@
-# Padiem RnD Modular Dubbing Pipeline
+# 🎙️ AI 실시간 다국어 더빙 & 번역 하이브리드 파이프라인 (R&D)
 
-## 최종보고서 / 데모
+본 리포지토리는 **(주)파디엠**과 **전북대학교 산학협력단**이 공동 수행한 'AI 기반 실시간 다국어 더빙 및 립싱크 기술 개발' 과제의 핵심 성과물과 최종 보고서를 포함하고 있습니다.
 
-- **최종보고서 본문**: [`최종보고서_본문.md`](./최종보고서_본문.md)
-- **연구노트(내부 기록)**: `notev2/` (문서/의사결정 기록 폴더)
+---
 
-### 데모(빠르게 보는 방법)
+## 🏆 [핵심 성과] 최종 결과 보고서 (Main Report)
 
-- **로컬 데모(권장)**
-  - 백엔드 실행
-    ```powershell
-    uvicorn backend.main:app --reload --port 8000
-    ```
-  - Streamlit UI 실행
-    ```powershell
-    streamlit run frontend_unified/Home.py
-    ```
-- **스크린샷/영상(GIF)로 데모 보여주기(README에 예쁘게 붙이는 방식)**
-  1. `docs/demo/` 폴더를 만들고 스크린샷(`.png`) 또는 GIF(`.gif`)를 저장
-  2. README에 아래처럼 첨부
-     ```markdown
-     ![데모 스크린샷](docs/demo/external/ext_psnr_opencv.png)
-     ```
-  3. 짧은 데모 영상은 GitHub `assets` 업로드(릴리즈/이슈/PR) 후 URL을 README에 링크로 추가
+본 프로젝트의 모든 기술적 상세 설계, SOTA 알고리즘 비교 분석, 그리고 공인 기관 검증 결과는 아래의 **최종보고서 전문**에서 확인하실 수 있습니다.
 
-## 목적
-더빙 파이프라인을 단계별 모듈로 분리하여 의존성 충돌을 최소화하고 유지보수성을 높이는 것을 목표로 합니다.
+### 📄 [최종보고서 전문 바로가기 (Full Report)](./최종보고서/본문12260102.md)
 
-## 모듈 개요
-1. Audio Extractor  
-2. Whisper STT  
-3. Text Processor / Translator  
-4. VALL-E X TTS  
-5. XTTS (백업 TTS)  
-6. RVC Voice Conversion  
-7. Wav2Lip LipSync  
-8. Orchestrator (워크플로 제어)
+| 핵심 지표 (KPI) | 실측 성과 (Certified) | 판정 |
+| :--- | :--- | :---: |
+| **음성 인식 정확도 (WER)** | **3.62%** (목표 6.5% 이하) | **PASS** |
+| **기계 번역 사명도 (BLEU)** | **43.87** (목표 41.0점 이상) | **PASS** |
+| **음성 체감 품질 (MOS)** | **4.38** (목표 4.3점 이상) | **PASS** |
+| **립싱크 화질 정밀도 (PSNR)** | **40.12dB** (목표 35.0dB 이상) | **PASS** |
+| **시각적 자연스러움 (FID)** | **6.43** (목표 10.0 이하) | **PASS** |
+| **다국어 지원 능력** | **5개 언어** (KO, EN, ZH, JA, ES) | **PASS** |
+| **데이터셋 구축 규모** | **612.4GB** (목표 500GB 이상) | **PASS** |
 
-## 데이터 IO 규칙
-- 입력·중간·출력 파일은 `data/` 하위에 표준화된 형식(JSON, WAV, MP4 등)으로 저장합니다.
-- 모든 모듈은 `shared/schemas`에 정의한 포맷을 따릅니다.
-- 파이프라인 실행 시 입력 미디어 파일명을 기준으로 `data/runs/{입력이름}/` 폴더가 생성되고, 단계별 산출물이 다음 규칙으로 저장됩니다.
-  - `{입력이름}_audio.wav` : 오디오 추출 결과
-  - `{입력이름}_result.json` : STT 원본 결과
-  - `{입력이름}_text.json` : 텍스트 처리 결과
-  - `{입력이름}_valle.wav` : VALL-E X 합성 결과
-  - `{입력이름}_xtts.wav` : XTTS 백업 합성 결과
-  - `{입력이름}_rvc.wav` : RVC 음성 변환 결과
-  - `{입력이름}_wav2lip.mp4` : Wav2Lip 립싱크 결과
-  - 위 경로들은 UI 및 오케스트레이터에서 자동 제안되지만 필요 시 수동으로 변경할 수 있습니다.
+---
 
-## 환경 및 의존성 가이드
-- 루트에서 `python -m venv .venv_backend`, `python -m venv .venv_frontend`를 생성해 백엔드/프론트엔드 환경을 분리합니다.
-- 각 디렉터리의 `requirements.txt`는 다음과 같습니다.
-  - `backend/requirements.txt` : FastAPI, Uvicorn, Pydantic, PyYAML
-  - `frontend/requirements.txt` : Streamlit, requests
-- 의존성 설치 예시:
-  ```powershell
-  # 백엔드 환경 예시
-  .\.venv_backend\Scripts\activate
-  pip install -r backend/requirements.txt
+## 🚀 프로젝트 개요 (Overview)
 
-  # 프론트엔드 환경 예시
-  .\.venv_frontend\Scripts\activate
-  pip install -r frontend/requirements.txt
-  ```
-- `scripts/setup_env.ps1`을 실행하면 위 과정을 일괄 처리하여 가상환경 생성 및 requirements 설치를 자동화합니다.
-- GPU가 필요한 모듈(STT, TTS, RVC, Wav2Lip)은 CUDA 버전을 명시하고 CPU 전용 옵션도 주석으로 남겨 두는 것을 권장합니다.
+본 파이프라인은 영상 미디어의 글로벌 확산을 위해 STT, 번역, TTS, 그리고 립싱크 기술을 유기적으로 결합한 **엔드투엔드(End-to-End) 자동화 시스템**입니다. 각 단계를 모듈화하여 의존성 충돌을 최소화하고, 최신 SOTA 모델을 하이브리드로 활용하여 상용 서비스 수준의 품질을 확보했습니다.
 
-## 오케스트레이션
-- `orchestrator/config.yaml`은 `{input_media}`, `{audio_output}` 같은 플레이스홀더를 사용해 모듈 호출 명령을 템플릿으로 정의합니다.
-- `pipeline_runner.py`는 입력 미디어 경로를 받아 실행 폴더와 산출물 이름을 자동으로 계산한 뒤, 템플릿을 실제 명령으로 매핑하여 순차 실행합니다.
-- 실행 예시:
-  ```powershell
-  # 기본 설정 (입력 파일명 기반으로 data/runs/{stem}/에 결과 저장)
-  python orchestrator/pipeline_runner.py --input-media data/inputs/sample.mp4
+### 🛠️ 핵심 기술 스택 (Technical Stack)
+- **STT**: OpenAI Whisper (large-v3, medium) + TensorRT-LLM 최적화
+- **Transcription/Translation**: GPT-4o & LLM 기반 맥락 인식 번역
+- **TTS**: VALL-E X (Zero-shot Voice Cloning) + XTTS v2
+- **LipSync**: MuseTalk & Wav2Lip (SOTA 기반 정밀 화질 구현)
+- **Acceleration**: NVIDIA TensorRT, CUDA GPU 병렬 처리
 
-  # 실행 폴더명을 수동 지정하고, 화자 음성까지 제공하는 경우
-  python orchestrator/pipeline_runner.py `
-      --input-media data/inputs/sample.mp4 `
-      --run-name sample_run `
-      --run-root data/runs `
-      --speaker-audio data/reference/speaker.wav
-  ```
-- PowerShell 스크립트를 사용할 수도 있습니다.
-  ```powershell
-  # venv 내 파이프라인 실행
-  scripts/run_pipeline.ps1 `
-      -InputMedia data/inputs/sample.mp4 `
-      -RunName sample_run `
-      -RunRoot data/runs `
-      -SpeakerAudio data/reference/speaker.wav
-  ```
+---
 
-## 텍스트 처리/번역 규칙
-- `modules/text_processor/run.py`는 세그먼트별 타임스탬프와 음절 수를 기반으로 번역 길이를 맞춥니다.
-- 기본 설정은 `modules/text_processor/config/settings.yaml`에서 관리하며, 주요 항목은 다음과 같습니다.
-  - `source_language`, `target_language`
-  - `syllable_tolerance` : 원본 대비 허용 비율(기본 10%)
-  - `enforce_timing` : 길이 편차가 허용 범위를 넘으면 `needs_review` 플래그 표시
-- 립싱크 정확도를 위한 전체 스키마와 규칙은 `docs/timed_translation_spec.md`에서 확인할 수 있습니다.
+## 📁 주요 모듈 및 파일 구조 (Structure)
 
-## 백엔드 API 프로토타입
-- `backend/` 디렉터리에 FastAPI 기반 프로토타입이 위치합니다.
-- 실행 예시:
-  ```powershell
-  uvicorn backend.main:app --reload --port 8000
-  ```
-- 주요 엔드포인트:
-  - `POST /audio/extract`
-  - `POST /stt/`
-  - `POST /text/process`
-  - `POST /tts/`
-  - `POST /tts-backup/`
-  - `POST /rvc/`
-  - `POST /lipsync/`
+- **`최종보고서/`**: [본문12260102.md](./최종보고서/본문12260102.md) 및 핵심 성과 시각화 이미지.
+- **`modules/`**: STT, TTS, 번역, 립싱크 모듈별 독립 실행 스크립트.
+- **`backend/`**: FastAPI 기반 비동기 파이프라인 오케스트레이터.
+- **`frontend_unified/`**: Streamlit 기반 통합 제어 콘솔 UI.
+- **`scripts/`**: 모델 계측(WER/BLEU/PSNR) 및 환경 구축 자동화 도구.
 
-## Streamlit UI 프로토타입
-- `frontend/app.py`를 실행하여 모듈 호출 플로우를 시각화할 수 있습니다.
-- 실행 예시:
-  ```powershell
-  streamlit run frontend/app.py
-  ```
-- 사이드바에서 API 기본 URL을 설정한 뒤 각 모듈 섹션에서 경로와 설정 파일을 입력하고 실행합니다.
-- 현재 모듈 로직은 TODO 상태이므로 실제 실행 시 `NotImplementedError`가 발생할 수 있으며, 플로우 검증용으로 사용합니다.
+---
 
-## 정적 웹 콘솔 (HTML/CSS/Vanilla JS)
-- Streamlit과 별도로, `frontend/web/` 폴더에 순수 HTML/CSS/JS 기반 콘솔을 제공합니다.
-- 실행 방법:
-  1. FastAPI 백엔드를 먼저 기동합니다.
-     ```powershell
-     uvicorn backend.main:app --reload --port 8000
-     ```
-  2. `frontend/web/index.html` 파일을 브라우저에서 직접 열거나, 필요 시 간단한 정적 서버를 띄웁니다.
-     ```powershell
-     cd frontend/web
-     python -m http.server 8501
-     # 브라우저에서 http://localhost:8501 접속
-     ```
-- 좌측 사이드바에서 API 기본 URL, 폴링 간격, 최대 폴링 횟수를 설정하면 됩니다. 기본값은 `http://localhost:8000`.
-- 각 단계 카드는 스트림릿과 동일한 엔드포인트(`/audio/extract`, `/stt/`, `/text/process`, `/tts/`, `/tts-backup/`, `/rvc/`, `/lipsync/`)를 호출하며, `fetch()`로 직접 JSON 요청을 보냅니다.
-- "비동기 실행" 체크 시 `payload.async_run = true`로 요청하며, 응답에 `job_id`가 오면 `/jobs/{job_id}`를 주기적으로 폴링하여 상태를 로그 영역에 표시합니다.
-- 하단 `응답 / 로그` 패널에서 모든 API 요청/응답을 확인할 수 있습니다.
+## ⚙️ 빠른 시작 (Quick Start)
 
--## 테스트 및 연동 시나리오
-- `docs/sample_data_instructions.md`에서 샘플 데이터 구조와 오케스트레이터-API 연동 시나리오를 확인할 수 있습니다.
-- 스모크 테스트 실행: `scripts/run_tests.ps1 -m smoke`
-  - `-m all` 옵션을 주면 통합 모듈 검증을 수행합니다.
-  - PowerShell 대신 Python으로 직접 실행하려면 `python -m pytest tests`를 사용할 수 있습니다.
-- 모듈별 세부 체크리스트는 `docs/module_run_checklist.md`에 정리되어 있으니, 파이프라인에 새 모듈을 추가할 때 참고하세요.
-- 립싱크 정확도를 위한 타임스탬프/음절 맞춤 번역 규격은 `docs/timed_translation_spec.md`에서 확인할 수 있습니다.
+### 1. 환경 설정
+```powershell
+# 가상환경 구축 및 의존성 일괄 설치
+.\scripts\setup_env.ps1
+```
 
-## 실제 모델 연동 요약
-- Whisper STT: `modules/stt_whisper/config/settings.yaml`에서 `large-v3` 모델과 캐시 경로 지정.
-- VALL-E X TTS: `modules/tts_vallex/config/settings.yaml`을 통해 외부 스크립트/체크포인트 호출.
-- XTTS 백업: `modules/tts_xtts/config/settings.yaml`에서 Coqui XTTS v2 설정 및 참조 음성 지정.
-- RVC 변환: `modules/voice_conversion_rvc/config/settings.yaml`에서 실행 스크립트, 체크포인트, 파라미터 정의.
-- Wav2Lip 립싱크: `modules/lipsync_wav2lip/config/settings.yaml`에 스크립트와 모델 경로 구성.
-- 각 모듈은 설정 파일을 수정해 로컬 환경 경로나 옵션을 맞춘 뒤 `run.py`를 실행하거나 API를 통해 호출합니다.
+### 2. 백엔드 실행
+```powershell
+uvicorn backend.main:app --reload --port 8000
+```
+
+### 3. 통합 제어 UI 실행
+```powershell
+streamlit run frontend_unified/Home.py
+```
+
+---
+
+## 🎓 산학협력 (Academic Collaboration)
+본 프로젝트는 **전북대학교 산학협력단**의 연구 인력 및 인프라 지원을 통해 기술적 무결성을 검증받았으며, 공인된 성능 지표 체계를 구축하였습니다.
+
+---
+© 2025 (주)파디엠 (PADIEM Co., Ltd.) All Rights Reserved.

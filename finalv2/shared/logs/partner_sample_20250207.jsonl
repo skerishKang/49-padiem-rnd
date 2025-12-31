@@ -1,0 +1,2 @@
+{"timestamp": "2025-02-07T10:55:12Z", "workflow_name": "etl_pipeline", "job_name": "daily_etl", "status": "success", "duration_sec": 402.1}
+{"timestamp": "2025-02-07T10:57:45Z", "workflow_name": "iris_uploader", "job_name": "submit_batch", "status": "success", "duration_sec": 87.3}

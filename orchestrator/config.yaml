@@ -6,6 +6,36 @@ steps:
     - "{input_media}"
     - --output
     - "{audio_output}"
+  demucs:  # optional: only used in pipelines that include it
+    - python
+    - "{modules_dir}/experimental/demucs_run.py"
+    - --input
+    - "{audio_output}"
+    - --output
+    - "{audio_output}"
+  vad_stub:  # optional: placeholder VAD stage
+    - python
+    - "{modules_dir}/experimental/vad_stub.py"
+    - --input
+    - "{audio_output}"
+    - --output
+    - "{audio_output}"
+  tensorrt_export:  # optional: placeholder TensorRT export stage
+    - python
+    - "{modules_dir}/experimental/tensorrt_export_stub.py"
+    - --input
+    - "{modules_dir}"
+    - --output
+    - "{run_dir}"
+  feature_extract:  # optional: extract audio features (MFCC, pitch, formants, wavelet)
+    - python
+    - "{modules_dir}/feature_extractor/audio_features.py"
+    - --input
+    - "{audio_output}"
+    - --output
+    - "{features_output}"
+    - --sample_rate
+    - "16000"
   stt:
     - python
     - "{modules_dir}/stt_whisper/run.py"

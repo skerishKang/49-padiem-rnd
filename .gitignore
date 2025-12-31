@@ -17,44 +17,56 @@ __pycache__/
 .windsurf/
 node_modules/
 
-# GitHub 공개 제외(개발 도구/CI/로컬 설정)
+# GitHub 공개 제외 (개발 도구 및 로컬 설정)
 .agent/
 .github/workflows/
 .streamlit/
 
-# 데이터 및 모델 체크포인트
-modules/**/models/
-modules/**/checkpoints/
-data/
-!data/README.md
-
-# 운영 중 생성되는 로그
-logs/
-
-# OS 파일
-.DS_Store
-Thumbs.db
-
-# 공개 제외 파일 유형
-pdf-reader-mcp/
-._commitmsg.txt
+# 보안 및 민감 문서 필터링 [IMPORTANT]
+# 개인정보(성함, 도장, 계좌 등) 노출 방지를 위해 원본 문서 제외
 *.pdf
 *.zip
 *.hwp
+*.html
+*.zip
+*.csv
+*.txt
+!README.md
+!최종보고서/본문12260102.md
 
-# 공개 제외 폴더
-pdf/ocr/
-test_reports_company/
-modules/tts_vallex/VALL-E_X/
-modules/lipsync_musetalk/MuseTalk/
-gemini-dub-live-interpret/
+# 데이터 및 모델 체크포인트
+data/
+!data/README.md
+datasets/
+datasets_processed/
+modules/**/models/
+modules/**/checkpoints/
+TensorRT/
+임치물/
+
+# 운영 중 생성되는 로그 및 임시 파일
+logs/
+debug_ls.txt
+file_list.csv
+._commitmsg.txt
+
+# 공개 제외 전용 폴더 및 백업
 _private/
+test_reports_company/
+gemini-dub-live-interpret/
+창성R&D/
 pdf/
 gemini/
-임치물/
-창성R&D/
-frontend/
-tests/
+notev2/
+orchestrator/
+backend/tests/
+frontend/tests/
 
-# 공개 포함 파일
-!최종보고서_본문.md
+# 예외 허용 항목 (필수 이미지 및 스크립트)
+!최종보고서/최종보고서_이미지/**
+!scripts/**
+!backend/**
+!frontend_unified/**
+!modules/**
+!shared/**
+!finalv2/**

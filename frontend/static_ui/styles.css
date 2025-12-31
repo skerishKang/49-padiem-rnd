@@ -1,0 +1,247 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", "Noto Sans KR", sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  padding: 24px 20px;
+  background: #f9fafb;
+  border-right: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 20px;
+}
+
+.sidebar-group {
+  margin-bottom: 16px;
+}
+
+.sidebar-note {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.main {
+  flex: 1;
+  padding: 24px 32px 40px;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-radius: 20px;
+  background: linear-gradient(120deg, #eef2ff, #f9fafb);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+  margin-bottom: 20px;
+}
+
+.hero-main h2 {
+  margin: 6px 0 4px;
+  font-size: 22px;
+}
+
+.hero-main p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.hero-badge {
+  display: inline-flex;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 11px;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.hero-meta {
+  text-align: right;
+  font-size: 12px;
+}
+
+.meta-label {
+  color: #9ca3af;
+}
+
+.meta-value {
+  font-weight: 600;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+  margin-bottom: 16px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 8px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.card-subtitle {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.card-body {
+  padding: 14px 16px 10px;
+}
+
+.card-body-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 16px;
+}
+
+.card-column-border {
+  border-left: 1px solid rgba(229, 231, 235, 0.9);
+  padding-left: 16px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px 14px;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  gap: 12px;
+}
+
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.field-input {
+  width: 100%;
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  font-size: 13px;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.2);
+}
+
+.upload-box {
+  border-radius: 14px;
+  border: 1px dashed rgba(148, 163, 184, 0.9);
+  padding: 10px 12px;
+  background: #f9fafb;
+  margin-bottom: 8px;
+}
+
+.upload-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.upload-caption {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.upload-input {
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+.caption {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.primary-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  background: linear-gradient(120deg, #f97316, #fdba74);
+  color: #111827;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(249, 115, 22, 0.35);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.status-text {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.log-viewer {
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: #0f172a;
+  color: #e5e7eb;
+  border-radius: 0 0 18px 18px;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 22px;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+}

@@ -1,0 +1,4 @@
+[
+  {"timestamp": "2025-08-18T09:05:00+09:00", "action": "cloudfront_invalidation", "status": "started", "note": "안내문 이미지 경로 전체 invalidation 요청"},
+  {"timestamp": "2025-08-18T09:10:00+09:00", "action": "cloudfront_invalidation", "status": "completed", "note": "모든 POP 반영 확인, 에러 없음"}
+]

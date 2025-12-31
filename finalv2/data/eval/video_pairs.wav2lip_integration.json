@@ -1,0 +1,27 @@
+[
+  {
+    "id": "wav2lip_000",
+    "ref": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/input_video_000.mp4",
+    "gen": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/lip_sync_output_000.mp4"
+  },
+  {
+    "id": "wav2lip_001",
+    "ref": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/input_video_001.mp4",
+    "gen": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/lip_sync_output_001.mp4"
+  },
+  {
+    "id": "wav2lip_002",
+    "ref": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/input_video_002.mp4",
+    "gen": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/lip_sync_output_002.mp4"
+  },
+  {
+    "id": "wav2lip_003",
+    "ref": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/input_video_003.mp4",
+    "gen": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/lip_sync_output_003.mp4"
+  },
+  {
+    "id": "wav2lip_004",
+    "ref": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/input_video_004.mp4",
+    "gen": "g:/Ddrive/BatangD/task/workdiary/48. 2024_성장지원/archive_20250801/wav2lip_integration_results/lip_sync_output_004.mp4"
+  }
+]

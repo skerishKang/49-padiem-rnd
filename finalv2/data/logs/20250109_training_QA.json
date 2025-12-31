@@ -1,0 +1,7 @@
+{
+  "date": "2025-01-09",
+  "scenarios": 10,
+  "issues_found": 2,
+  "issues_fixed": 2,
+  "notes": "팀 매핑 오류 2건 수정 후 재실행, 정합성 경고 0건으로 확인."
+}

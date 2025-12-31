@@ -1,0 +1,4 @@
+[
+  {"timestamp": "2025-05-01T09:10:00+09:00", "status": "waiting_for_final_approval", "note": "승인 대기, 통보 미도착"},
+  {"timestamp": "2025-05-01T16:40:00+09:00", "status": "waiting_for_final_approval", "note": "체크리스트 업데이트 완료"}
+]

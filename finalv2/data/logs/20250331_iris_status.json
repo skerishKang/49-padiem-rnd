@@ -1,0 +1,4 @@
+[
+  {"timestamp": "2025-03-31T10:05:00+09:00", "status": "waiting_for_notification", "note": "IRIS 승인 대기, 통보 지연"},
+  {"timestamp": "2025-03-31T17:45:00+09:00", "status": "waiting_for_notification", "note": "3월 말 기준 승인 상태 유지"}
+]

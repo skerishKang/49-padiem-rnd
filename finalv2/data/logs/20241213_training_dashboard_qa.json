@@ -1,0 +1,18 @@
+{
+  "date": "2024-12-13",
+  "scenarios": 12,
+  "results": [
+    {"id": 1, "name": "기간 필터 조합", "status": "pass"},
+    {"id": 2, "name": "팀 필터 조합", "status": "pass"},
+    {"id": 3, "name": "교육 유형 필터", "status": "pass"},
+    {"id": 4, "name": "드릴다운 - 팀 → 세션", "status": "pass"},
+    {"id": 5, "name": "드릴다운 - 세션 → 참석자", "status": "pass"},
+    {"id": 6, "name": "권한 있는 사용자 접근", "status": "pass"},
+    {"id": 7, "name": "권한 없는 사용자 접근 제한", "status": "pass"},
+    {"id": 8, "name": "누적 합계 계산", "status": "pass"},
+    {"id": 9, "name": "날짜 범위 외 데이터 비표시", "status": "pass"},
+    {"id": 10, "name": "대시보드 리프레시", "status": "pass"},
+    {"id": 11, "name": "모바일 뷰 표시", "status": "pass"},
+    {"id": 12, "name": "임베드 페이지 내 로딩 시간", "status": "pass"}
+  ]
+}

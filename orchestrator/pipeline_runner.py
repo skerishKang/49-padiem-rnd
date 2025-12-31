@@ -58,6 +58,8 @@ def build_context(args: argparse.Namespace) -> dict[str, str]:
         "xtts_output": str(run_dir / f"{run_name}_xtts.wav"),
         "rvc_output": str(run_dir / f"{run_name}_rvc.wav"),
         "lipsync_output": str(run_dir / f"{run_name}_wav2lip.mp4"),
+        "onnx_output": str(run_dir / "artifacts" / "model.onnx"),
+        "trt_engine": str(run_dir / "artifacts" / "model.plan"),
     }
 
     if args.speaker_audio:
@@ -126,6 +128,7 @@ def main() -> None:
     
     pipelines = {
         "video": ["audio_extract", "stt", "text_process", "tts", "tts_backup", "rvc", "lipsync"],
+        "video_trt": ["audio_extract", "stt", "text_process", "tts", "tts_backup", "rvc", "lipsync", "onnx_export", "tensorrt_export"],
         "audio": ["stt", "text_process", "tts_backup", "rvc"],
         "quick": ["stt", "text_process", "tts_backup"],
     }

@@ -1,0 +1,4 @@
+region,browser,fcp_ms,lcp_ms,cls,cdn_hit
+seoul,chrome,2300,2100,0.09,1
+pangyo,edge,2500,2200,0.10,1
+singapore,chrome,2800,2400,0.11,0

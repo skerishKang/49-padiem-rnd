@@ -1,0 +1,5 @@
+[
+  {"timestamp": "2025-02-18T09:05:00+09:00", "status": "review_in_progress", "note": "기술 검토 완료 직전"},
+  {"timestamp": "2025-02-18T14:20:00+09:00", "status": "review_completed", "note": "승인 대기"},
+  {"timestamp": "2025-02-18T17:40:00+09:00", "status": "waiting_for_final_approval", "note": "심사관과 통화, 추가 자료 없음"}
+]

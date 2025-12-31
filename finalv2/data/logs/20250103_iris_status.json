@@ -1,0 +1,11 @@
+{
+  "date": "2025-01-03",
+  "poll_interval_minutes": 120,
+  "checks": [
+    {"time": "09:00", "status": "기술 검토 중", "detail": "변동 없음"},
+    {"time": "11:00", "status": "기술 검토 중", "detail": "변동 없음"},
+    {"time": "13:00", "status": "기술 검토 중", "detail": "변동 없음"},
+    {"time": "15:00", "status": "기술 검토 중", "detail": "변동 없음"},
+    {"time": "17:00", "status": "기술 검토 중", "detail": "변동 없음"}
+  ]
+}

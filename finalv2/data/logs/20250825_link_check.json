@@ -1,0 +1,4 @@
+[
+  {"timestamp": "2025-08-25T10:00:00+09:00", "action": "link_check_batch", "status": "completed", "checked_files": 124, "issues": 0},
+  {"timestamp": "2025-08-25T10:02:00+09:00", "action": "summary", "status": "ok", "note": "구버전 안내문 링크 0건"}
+]

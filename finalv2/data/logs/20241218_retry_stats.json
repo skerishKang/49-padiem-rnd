@@ -1,0 +1,7 @@
+{
+  "date": "2024-12-18",
+  "window_hours": 24,
+  "retry_events": 5,
+  "avg_recovery_seconds": 175,
+  "notes": "Retry Heatmap 상 재시도 5건, 모두 3분 이내 복구. Elastic APM, Slack Incident 로그와 타임라인 일치 확인."
+}

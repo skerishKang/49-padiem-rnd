@@ -1,0 +1,42 @@
+{
+  "date": "2024-11-25",
+  "window": "09:00-18:00 KST",
+  "steps": [
+    {
+      "time": "09:00",
+      "event": "command_center_start",
+      "detail": "커맨드센터 가동 시작, 헬스체크 체크리스트 확인"
+    },
+    {
+      "time": "09:30",
+      "event": "precheck_health",
+      "detail": "콘솔/API/KMS/CDN 상태 정상"
+    },
+    {
+      "time": "10:00",
+      "event": "upload_script_run",
+      "script_version": "v1.1",
+      "detail": "업로드 스크립트 실행, IRIS 서버 검증 통과"
+    },
+    {
+      "time": "10:15",
+      "event": "attachments_registered",
+      "detail": "첨부 7종, 체크리스트 HTML, 회계 ZIP 정상 등록"
+    },
+    {
+      "time": "13:40",
+      "event": "iris_latency_incident",
+      "detail": "IRIS 포털 응답 지연(평균 8s) 감지, 재시도 1회 후 정상화, 포털 장애 공지 확인"
+    },
+    {
+      "time": "17:45",
+      "event": "submit_window_close",
+      "detail": "제출 창 종료, 로그/스크린샷 백업 완료"
+    }
+  ],
+  "metrics": {
+    "upload_success_rate": 1.0,
+    "retry_count": 1,
+    "total_duration_minutes": 105
+  }
+}

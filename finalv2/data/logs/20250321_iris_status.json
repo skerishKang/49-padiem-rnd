@@ -1,0 +1,5 @@
+[
+  {"timestamp": "2025-03-21T09:00:00+09:00", "status": "approval_in_progress", "note": "승인 진행 중, 추가 자료 없음"},
+  {"timestamp": "2025-03-21T15:30:00+09:00", "status": "approval_in_progress", "note": "통보 대기"},
+  {"timestamp": "2025-03-21T18:10:00+09:00", "status": "approval_in_progress", "note": "월말 보고 준비 중"}
+]

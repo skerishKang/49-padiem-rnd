@@ -1,0 +1,47 @@
+{
+  "date": "2024-12-12",
+  "script_version": "v1.2",
+  "environment": "QA",
+  "runs": [
+    {
+      "run_id": 1,
+      "injected_status": 504,
+      "retries": 2,
+      "recovery_seconds": 195,
+      "result": "success"
+    },
+    {
+      "run_id": 2,
+      "injected_status": 504,
+      "retries": 1,
+      "recovery_seconds": 182,
+      "result": "success"
+    },
+    {
+      "run_id": 3,
+      "injected_status": 504,
+      "retries": 2,
+      "recovery_seconds": 190,
+      "result": "success"
+    },
+    {
+      "run_id": 4,
+      "injected_status": 504,
+      "retries": 1,
+      "recovery_seconds": 188,
+      "result": "success"
+    },
+    {
+      "run_id": 5,
+      "injected_status": 504,
+      "retries": 2,
+      "recovery_seconds": 185,
+      "result": "success"
+    }
+  ],
+  "summary": {
+    "success_rate": 1.0,
+    "avg_recovery_seconds": 185,
+    "notes": "Slack Incident 채널, Elastic APM, Grafana Heatmap 이벤트가 일치하는지 수동 검증 완료."
+  }
+}

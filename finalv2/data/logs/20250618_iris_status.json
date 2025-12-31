@@ -1,0 +1,4 @@
+[
+  {"timestamp": "2025-06-18T09:10:00+09:00", "status": "portal_ok", "note": "IRIS 포털 정상, 추가 요청 없음"},
+  {"timestamp": "2025-06-18T16:40:00+09:00", "status": "portal_ok", "note": "모니터링 종료, 사후 요청 없음"}
+]

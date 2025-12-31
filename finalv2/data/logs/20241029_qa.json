@@ -1,0 +1,4 @@
+[
+  {"term": "orchestrator", "status": "fixed", "note": "pipeline controller로 통일"},
+  {"term": "pipeline controller", "status": "preferred"}
+]
