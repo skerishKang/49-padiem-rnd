@@ -1,0 +1,225 @@
+// PDF reading handler - orchestrates PDF processing workflow
+
+import { image, text, tool, toolError } from '@sylphx/mcp-server-sdk';
+import type * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
+import {
+  buildWarnings,
+  extractMetadataAndPageCount,
+  extractPageContent,
+} from '../pdf/extractor.js';
+import { loadPdfDocument } from '../pdf/loader.js';
+import { determinePagesToProcess, getTargetPages } from '../pdf/parser.js';
+import { readPdfArgsSchema } from '../schemas/readPdf.js';
+import type { ExtractedImage, PdfResultData, PdfSource, PdfSourceResult } from '../types/pdf.js';
+import { createLogger } from '../utils/logger.js';
+
+const logger = createLogger('ReadPdf');
+
+/**
+ * Process a single PDF source
+ */
+const processSingleSource = async (
+  source: PdfSource,
+  options: {
+    includeFullText: boolean;
+    includeMetadata: boolean;
+    includePageCount: boolean;
+    includeImages: boolean;
+  }
+): Promise<PdfSourceResult> => {
+  const sourceDescription = source.path ?? source.url ?? 'unknown source';
+  let individualResult: PdfSourceResult = { source: sourceDescription, success: false };
+  let pdfDocument: pdfjsLib.PDFDocumentProxy | null = null;
+
+  try {
+    // Parse target pages
+    const targetPages = getTargetPages(source.pages, sourceDescription);
+
+    // Load PDF document
+    const { pages: _pages, ...loadArgs } = source;
+    pdfDocument = await loadPdfDocument(loadArgs, sourceDescription);
+    const totalPages = pdfDocument.numPages;
+
+    // Extract metadata and page count
+    const metadataOutput = await extractMetadataAndPageCount(
+      pdfDocument,
+      options.includeMetadata,
+      options.includePageCount
+    );
+
+    const output: PdfResultData = { ...metadataOutput };
+
+    // Determine pages to process
+    const { pagesToProcess, invalidPages } = determinePagesToProcess(
+      targetPages,
+      totalPages,
+      options.includeFullText
+    );
+
+    // Add warnings for invalid pages
+    const warnings = buildWarnings(invalidPages, totalPages);
+    if (warnings.length > 0) {
+      output.warnings = warnings;
+    }
+
+    // Extract content with ordering preserved
+    if (pagesToProcess.length > 0) {
+      // Use new extractPageContent to preserve Y-coordinate ordering
+      const pageContents = await Promise.all(
+        pagesToProcess.map((pageNum) =>
+          extractPageContent(
+            pdfDocument as pdfjsLib.PDFDocumentProxy,
+            pageNum,
+            options.includeImages,
+            sourceDescription
+          )
+        )
+      );
+
+      // Store page contents for ordered retrieval
+      output.page_contents = pageContents.map((items, idx) => ({
+        page: pagesToProcess[idx] as number,
+        items,
+      }));
+
+      // For backward compatibility, also provide text-only outputs
+      const extractedPageTexts = pageContents.map((items, idx) => ({
+        page: pagesToProcess[idx] as number,
+        text: items
+          .filter((item) => item.type === 'text')
+          .map((item) => item.textContent)
+          .join(''),
+      }));
+
+      if (targetPages) {
+        // Specific pages requested
+        output.page_texts = extractedPageTexts;
+      } else {
+        // Full text requested
+        output.full_text = extractedPageTexts.map((p) => p.text).join('\n\n');
+      }
+
+      // Extract image metadata for JSON response
+      if (options.includeImages) {
+        const extractedImages = pageContents
+          .flatMap((items) => items.filter((item) => item.type === 'image' && item.imageData))
+          .map((item) => item.imageData)
+          .filter((img): img is ExtractedImage => img !== undefined);
+
+        if (extractedImages.length > 0) {
+          output.images = extractedImages;
+        }
+      }
+    }
+
+    individualResult = { ...individualResult, data: output, success: true };
+  } catch (error: unknown) {
+    let errorMessage = `Failed to process PDF from ${sourceDescription}.`;
+
+    if (error instanceof Error) {
+      errorMessage += ` Reason: ${error.message}`;
+    } else {
+      errorMessage += ` Unknown error: ${JSON.stringify(error)}`;
+    }
+
+    individualResult.error = errorMessage;
+    individualResult.success = false;
+    individualResult.data = undefined;
+  } finally {
+    // Clean up PDF document resources
+    if (pdfDocument && typeof pdfDocument.destroy === 'function') {
+      try {
+        await pdfDocument.destroy();
+      } catch (destroyError: unknown) {
+        // Log cleanup errors but don't fail the operation
+        const message = destroyError instanceof Error ? destroyError.message : String(destroyError);
+        logger.warn('Error destroying PDF document', { sourceDescription, error: message });
+      }
+    }
+  }
+
+  return individualResult;
+};
+
+// Export the tool definition using builder pattern
+export const readPdf = tool()
+  .description(
+    'Reads content/metadata/images from one or more PDFs (local/URL). Each source can specify pages to extract.'
+  )
+  .input(readPdfArgsSchema)
+  .handler(async ({ input }) => {
+    const { sources, include_full_text, include_metadata, include_page_count, include_images } =
+      input;
+
+    // Process sources with concurrency limit to prevent memory exhaustion
+    // Processing large PDFs concurrently can consume significant memory
+    const MAX_CONCURRENT_SOURCES = 3;
+    const results: PdfSourceResult[] = [];
+    const options = {
+      includeFullText: include_full_text ?? false,
+      includeMetadata: include_metadata ?? true,
+      includePageCount: include_page_count ?? true,
+      includeImages: include_images ?? false,
+    };
+
+    for (let i = 0; i < sources.length; i += MAX_CONCURRENT_SOURCES) {
+      const batch = sources.slice(i, i + MAX_CONCURRENT_SOURCES);
+      const batchResults = await Promise.all(
+        batch.map((source) => processSingleSource(source, options))
+      );
+      results.push(...batchResults);
+    }
+
+    // Check if all sources failed
+    const allFailed = results.every((r) => !r.success);
+    if (allFailed) {
+      const errorMessages = results.map((r) => r.error).join('; ');
+      return toolError(`All PDF sources failed to process: ${errorMessages}`);
+    }
+
+    // Build content parts - start with structured JSON for backward compatibility
+    const content: Array<ReturnType<typeof text> | ReturnType<typeof image>> = [];
+
+    // Strip image data and page_contents from JSON to keep it manageable
+    const resultsForJson = results.map((result) => {
+      if (result.data) {
+        const { images, page_contents, ...dataWithoutBinaryContent } = result.data;
+        // Include image count and metadata in JSON, but not the base64 data
+        if (images) {
+          const imageInfo = images.map((img) => ({
+            page: img.page,
+            index: img.index,
+            width: img.width,
+            height: img.height,
+            format: img.format,
+          }));
+          return { ...result, data: { ...dataWithoutBinaryContent, image_info: imageInfo } };
+        }
+        return { ...result, data: dataWithoutBinaryContent };
+      }
+      return result;
+    });
+
+    // First content part: Structured JSON results
+    content.push(text(JSON.stringify({ results: resultsForJson }, null, 2)));
+
+    // Add page content in exact Y-coordinate order
+    for (const result of results) {
+      if (!result.success || !result.data?.page_contents) continue;
+
+      // Process each page's content items in order
+      for (const pageContent of result.data.page_contents) {
+        for (const item of pageContent.items) {
+          if (item.type === 'text' && item.textContent) {
+            // Add text content part
+            content.push(text(item.textContent));
+          } else if (item.type === 'image' && item.imageData) {
+            // Add image content part (all images are now encoded as PNG)
+            content.push(image(item.imageData.data, 'image/png'));
+          }
+        }
+      }
+    }
+
+    return content;
+  });

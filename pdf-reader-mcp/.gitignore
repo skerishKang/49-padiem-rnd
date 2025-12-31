@@ -1,0 +1,15 @@
+node_modules/
+build/
+build/
+*.log
+coverage/
+.env*
+
+# Leaf
+docs/dist
+docs/.leaf
+public/search-index.json
+
+# Test Reports
+test-report.junit.xml
+.vercel
