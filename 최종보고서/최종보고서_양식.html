@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>최종보고서 - 공식 양식</title>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        :root {
+            --paper-width: 210mm;
+            --paper-height: 297mm;
+            --margin-top: 20mm;
+            --margin-bottom: 20mm;
+            --margin-left: 20mm;
+            --margin-right: 20mm;
+            --font-size-main: 10pt;
+            --line-height: 1.6;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0e0e0;
+        }
+
+        .page {
+            width: var(--paper-width);
+            min-height: var(--paper-height);
+            padding: var(--margin-top) var(--margin-right) var(--margin-bottom) var(--margin-left);
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+
+            .no-print {
+                display: none;
+            }
+        }
+
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 8.5pt;
+            margin-bottom: 5mm;
+        }
+
+        .official-table th,
+        .official-table td {
+            border: 0.5pt solid black;
+            padding: 4pt 6pt;
+            text-align: center;
+        }
+
+        .official-table .label {
+            background-color: #f7f7f7;
+            font-weight: bold;
+            width: 25%;
+        }
+
+        .official-table .value {
+            text-align: left;
+        }
+
+        .official-title {
+            font-size: 18pt;
+            font-weight: 900;
+            text-align: center;
+            margin: 10mm 0;
+            letter-spacing: 5pt;
+        }
+
+        /* TOC */
+        .toc-item {
+            line-height: 2.5;
+            font-size: 12pt;
+            margin-left: 10mm;
+        }
+
+        /* General Content Styles */
+        h1 {
+            font-size: 16pt;
+            margin: 15mm 0 8mm;
+            border-bottom: 1.5pt solid #333;
+            padding-bottom: 3mm;
+            page-break-before: always;
+        }
+
+        h2 {
+            font-size: 14pt;
+            margin-top: 10mm;
+        }
+
+        h3 {
+            font-size: 12pt;
+            margin-top: 8mm;
+        }
+
+        p {
+            font-size: 11pt;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        table.default-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10pt 0;
+        }
+
+        table.default-table th,
+        table.default-table td {
+            border: 1px solid black;
+            padding: 6pt;
+            text-align: center;
+        }
+
+        table.default-table th {
+            background-color: #f2f2f2;
+        }
+
+        /* [Editor Styles] */
+        #editor-sidebar {
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 180px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .tool-group {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .tool-group:last-child {
+            border-bottom: none;
+        }
+
+        .tool-label {
+            font-size: 9pt;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+            display: block;
+        }
+
+        .btn-tool {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 5px 8px;
+            margin: 2px;
+            cursor: pointer;
+            font-size: 9pt;
+            border-radius: 4px;
+        }
+
+        .btn-tool:hover {
+            background: #e9ecef;
+        }
+
+        .btn-tool.active {
+            background: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+
+        @media print {
+            #editor-sidebar {
+                display: none !important;
+            }
+
+            .page {
+                border: none !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+            }
+        }
+
+        /* [General Styles] */
+        body {
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            margin: 15pt auto;
+        }
+
+        .banner {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #fff3cd;
+            padding: 10px;
+            border: 1px solid #ffeeba;
+            font-size: 9pt;
+            z-index: 1000;
+        }
+    </style>
+
+    <script>
+        function exec(cmd, val = null) {
+            document.execCommand(cmd, false, val);
+        }
+
+        function toggleEdit() {
+            const editable = document.body.contentEditable === "true";
+            document.body.contentEditable = !editable;
+            document.querySelectorAll('.page').forEach(p => p.style.outline = !editable ? "2px solid #007bff33" : "none");
+            document.getElementById('edit-status').innerText = !editable ? "편집 중..." : "보기 모드";
+            document.getElementById('edit-status').style.color = !editable ? "#d9534f" : "#5cb85c";
+        }
+
+        function addRow() {
+            const sel = window.getSelection();
+            if (!sel.rangeCount) return;
+            let node = sel.anchorNode;
+            while (node && node.nodeName !== 'TR') node = node.parentNode;
+            if (node) {
+                const newRow = node.cloneNode(true);
+                Array.from(newRow.cells).forEach(cell => cell.innerHTML = "");
+                node.parentNode.insertBefore(newRow, node.nextSibling);
+            }
+        }
+
+        function delRow() {
+            const sel = window.getSelection();
+            if (!sel.rangeCount) return;
+            let node = sel.anchorNode;
+            while (node && node.nodeName !== 'TR') node = node.parentNode;
+            if (node && node.parentNode.rows.length > 1) node.remove();
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 에디터 사이드바 -->
+    <div id="editor-sidebar">
+        <div style="font-weight: bold; font-size: 10pt; margin-bottom: 10px; color: #333; text-align: center;">Report
+            Editor</div>
+        <div id="edit-status" style="font-size: 8pt; text-align: center; margin-bottom: 10px; color: #5cb85c;">보기 모드
+        </div>
+
+        <button class="btn-tool" style="width: 100%; margin-bottom: 10px; background: #eee;" onclick="toggleEdit()">편집
+            모드 전환</button>
+
+        <div class="tool-group">
+            <span class="tool-label">텍스트 서식</span>
+            <button class="btn-tool" onclick="exec('bold')"><b>B</b></button>
+            <button class="btn-tool" onclick="exec('italic')"><i>I</i></button>
+            <button class="btn-tool" onclick="exec('underline')"><u>U</u></button>
+        </div>
+
+        <div class="tool-group">
+            <span class="tool-label">글자 크기</span>
+            <button class="btn-tool" onclick="exec('fontSize', '3')">보통</button>
+            <button class="btn-tool" onclick="exec('fontSize', '4')">크게</button>
+            <button class="btn-tool" onclick="exec('fontSize', '5')">제목</button>
+        </div>
+
+        <div class="tool-group">
+            <span class="tool-label">쪽 번호 삽입</span>
+            <button class="btn-tool" onclick="exec('insertHTML', '&nbsp;&nbsp;')">공백</button>
+        </div>
+
+        <div class="tool-group">
+            <span class="tool-label">표 편집</span>
+            <button class="btn-tool" onclick="addRow()">행 추가</button>
+            <button class="btn-tool" onclick="delRow()">행 삭제</button>
+        </div>
+
+        <div class="tool-group" style="border:none;">
+            <button class="btn-tool" style="width: 100%; color: #fff; background: #333;" onclick="window.print()">PDF로
+                저장</button>
+        </div>
+    </div>
+    <div class="no-print banner">💡 <b>Ctrl + P</b>를 누르고 'PDF로 저장'하세요.</div>
+
+    <!-- 1페이지: 공식 표지 -->
+    <div class="page">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 1쪽)</div>
+
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-top: 2mm;">
+            <tr>
+                <td colspan="4"
+                    style="text-align: center; font-size: 18pt; font-weight: bold; padding: 5mm; border-bottom: 2px solid black;">
+                    최 종 보 고 서</td>
+                <td colspan="2" style="border-left: 1px solid black; padding: 2mm; font-size: 8pt;">
+                    보안등급<br>
+                    일반[O], 보안[ &nbsp; ]
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="width: 25%;">중앙행정기관명</td>
+                <td style="width: 25%;">중소벤처기업부</td>
+                <td class="label" rowspan="2" style="width: 10%;">사업명</td>
+                <td class="label" style="width: 10%;">사업명</td>
+                <td style="width: 30%;" colspan="2">창업성장기술개발사업</td>
+            </tr>
+            <tr>
+                <td class="label">전문기관명(해당 시 작성)</td>
+                <td>중소기업기술정보진흥원</td>
+                <td class="label">내역사업명<br>(해당 시 작성)</td>
+                <td colspan="2">창업성장기술개발(디딤돌)</td>
+            </tr>
+            <tr>
+                <td class="label">공고번호</td>
+                <td colspan="2" style="text-align:center;">중소벤처기업부 공고 제2024-436호</td>
+                <td class="label">총괄연구개발 식별번호<br>(해당 시 작성)</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td class="label">연구개발과제번호</td>
+                <td colspan="2">RS-2024-00511307</td>
+            </tr>
+
+            <!-- 기술분류 -->
+            <tr>
+                <td class="label" rowspan="2">기술분류</td>
+                <td class="label">국가과학기술 표준분류</td>
+                <td colspan="4">
+                    <div style="display: flex; gap: 5mm; font-size: 8pt;">
+                        <span>인공지능 SW (60%)</span>
+                        <span>콘텐츠 유통/서비스 (25%)</span>
+                        <span>모바일/콘텐츠 융합 정보 서비스 (15%)</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">부처기술분류 (해당 시 작성)</td>
+                <td colspan="4">
+                    <div style="display: flex; gap: 5mm; font-size: 8pt;">
+                        <span>Internet SW (60%)</span>
+                        <span>콘텐츠 창작 기획 (25%)</span>
+                        <span>디지털 방송 콘텐츠 (15%)</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label" rowspan="2">총괄연구개발명<br>(해당 시 작성)</td>
+                <td class="label">국문</td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+                <td class="label">영문</td>
+                <td colspan="4"></td>
+            </tr>
+
+            <tr>
+                <td class="label" rowspan="2">연구개발과제명</td>
+                <td class="label">국문</td>
+                <td colspan="4" style="font-weight: bold;">AI 기반 다국어 음성 합성 및 실시간 립싱크 더빙 시스템 개발</td>
+            </tr>
+            <tr>
+                <td class="label">영문</td>
+                <td colspan="4" style="font-size: 8.5pt;">Development of AI-Powered Multilingual Voice Synthesis and
+                    Real-Time Lip-Sync Dubbing System</td>
+            </tr>
+
+            <tr>
+                <td class="label" rowspan="2">주관연구개발기관</td>
+                <td class="label">기관명</td>
+                <td>파디엠</td>
+                <td class="label">사업자등록번호</td>
+                <td colspan="2">4208800992</td>
+            </tr>
+            <tr>
+                <td class="label">주소</td>
+                <td>(우) 61089</td>
+                <td class="label">법인등록번호</td>
+                <td colspan="2">2001110528716</td>
+            </tr>
+
+            <tr>
+                <td class="label" rowspan="2">연구책임자</td>
+                <td class="label">성명</td>
+                <td>강혜림</td>
+                <td class="label">직위</td>
+                <td colspan="2">대표</td>
+            </tr>
+            <tr>
+                <td class="label">연락처</td>
+                <td colspan="2" style="font-size: 8pt;">직장전화: 0622331010 / 휴대전화: 01056083377<br>전자우편: ceo@padiem.net
+                </td>
+                <td class="label">국가연구자번호</td>
+                <td>11600053</td>
+            </tr>
+
+            <tr>
+                <td class="label" rowspan="3">연구개발기간</td>
+                <td class="label">전체</td>
+                <td colspan="4">2024. 10. 01 ~ 2025. 09. 30 ( 1년 &nbsp; 개월)</td>
+            </tr>
+            <tr>
+                <td class="label">단계 (해당 시 작성)</td>
+                <td class="label">1단계</td>
+                <td colspan="3">2024. 10. 01 ~ 2024. 12. 31 ( 년 &nbsp; 3개월)</td>
+            </tr>
+            <tr>
+                <td class="label"></td>
+                <td class="label">n단계</td>
+                <td colspan="3">2025. 01. 01 ~ 2025. 09. 30 ( 년 &nbsp; 9개월)</td>
+            </tr>
+        </table>
+
+        <!-- 연구개발비 테이블 -->
+        <div style="margin-top: 2mm; font-size: 8pt; font-weight: bold;">연구개발비 (단위: 천원)</div>
+        <table class="official-table" style="font-size: 7.5pt;">
+            <tr class="label">
+                <td rowspan="2" colspan="2">구분</td>
+                <td rowspan="2">정부지원 연구개발비</td>
+                <td rowspan="2">기관부담 연구개발비</td>
+                <td colspan="2">그 외 기관 등의 지원금</td>
+                <td colspan="3">합계</td>
+                <td rowspan="2">연구개발비 외 지원금</td>
+            </tr>
+            <tr class="label">
+                <td>지방자치단체</td>
+                <td>기타 ( )</td>
+                <td>현금</td>
+                <td>현물</td>
+                <td>합계</td>
+            </tr>
+            <tr style="text-align: right;">
+                <td colspan="2" class="label" style="text-align: center;">총계</td>
+                <td>120,000</td>
+                <td>36,000</td>
+                <td></td>
+                <td></td>
+                <td>124,000</td>
+                <td>36,000</td>
+                <td>160,000</td>
+                <td></td>
+            </tr>
+            <tr style="text-align: right;">
+                <td rowspan="2" class="label" style="text-align: center;">1단계</td>
+                <td class="label">1년차</td>
+                <td>60,000</td>
+                <td>18,000</td>
+                <td></td>
+                <td></td>
+                <td>62,000</td>
+                <td>18,000</td>
+                <td>80,000</td>
+                <td></td>
+            </tr>
+            <tr style="text-align: right;">
+                <td class="label">n년차</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- 하단 기관 및 서명 -->
+        <table class="official-table" style="margin-top: 2mm; font-size: 8pt;">
+            <tr class="label">
+                <td style="width: 20%;">공동연구개발기관</td>
+                <td>기관명</td>
+                <td>책임자</td>
+                <td>직위</td>
+                <td colspan="2">비고</td>
+            </tr>
+            <tr>
+                <td class="label">위탁연구개발기관</td>
+                <td>전북대학교산학협력단</td>
+                <td>강동기</td>
+                <td>부교수</td>
+                <td>산학협력단</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 5mm; font-size: 9pt; line-height: 1.5; text-align: center;">
+            이 최종보고서에 기재된 내용이 사실임을 확인하며, 만약 사실이 아닌 경우 관련 법령 및 규정에 따라 제재처분 등의 불이익도 감수하겠습니다.<br>
+            2025년 &nbsp; 11월 &nbsp; 30일<br><br>
+            연구책임자: &nbsp; 강혜림 &nbsp; (인)<br>
+            주관연구개발기관의 장: &nbsp; 강혜림 &nbsp; (인)
+        </div>
+        <div style="margin-top: 10mm; text-align: center; font-size: 14pt; font-weight: bold;">중소벤처기업부장관 귀하</div>
+    </div>
+
+    <!-- 2페이지: 표지 작성 요령 -->
+    <div class="page">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 2쪽)</div>
+        <div
+            style="border: 1.5pt solid black; padding: 10pt; margin-top: 5mm; text-align: center; font-weight: bold; background-color: #eee;">
+            앞표지 작성 요령(작성 요령은 제출하지 않습니다)</div>
+        <div style="font-size: 9.5pt; margin-top: 5mm; line-height: 1.8;">
+            1. 보안등급: 보안 또는 일반에 [√] 표시합니다.<br>
+            2. 중앙행정기관명: 공고한 기관의 명칭을 기재합니다.<br>
+            ... (생략) ...
+        </div>
+    </div>
+
+    <!-- 3페이지: 요약문 -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 3쪽)</div>
+        <div style="text-align: center; font-size: 14pt; font-weight: bold; margin: 2mm 0;">&lt; 요 약 문 &gt;</div>
+        <div style="font-size: 9pt; margin-bottom: 2mm;">※ 요약문은 5쪽 이내로 작성합니다.</div>
+
+        <table class="official-table">
+            <tr>
+                <td class="label" style="width: 20%;">사업명</td>
+                <td style="width: 30%;">창업성장기술개발사업</td>
+                <td class="label" style="width: 20%;">총괄연구개발 식별번호<br>(해당 시 작성)</td>
+                <td style="width: 30%;"></td>
+            </tr>
+            <tr>
+                <td class="label">내역사업명<br>(해당 시 작성)</td>
+                <td>디딤돌</td>
+                <td class="label">연구개발과제번호</td>
+                <td>RS-2024-00511307</td>
+            </tr>
+            <tr>
+                <td class="label" rowspan="2">기술분류</td>
+                <td class="label">국가과학기술 표준분류</td>
+                <td colspan="2">
+                    <div style="display: flex; gap: 5mm; font-size: 7.5pt;">
+                        <span>인공지능 SW (60%)</span>
+                        <span>콘텐츠 유통/서비스 (25%)</span>
+                        <span>모바일/콘텐츠 융합 정보 서비스 (15%)</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">부처기술분류 (해당 시 작성)</td>
+                <td colspan="2">
+                    <div style="display: flex; gap: 5mm; font-size: 7.5pt;">
+                        <span>Internet SW (60%)</span>
+                        <span>콘텐츠 창작 기획 (25%)</span>
+                        <span>디지털 방송 콘텐츠 (15%)</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">총괄연구개발명<br>(해당 시 작성)</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="label">연구개발과제명</td>
+                <td colspan="3" style="font-weight: bold;">AI 기반 다국어 음성 합성 및 실시간 립싱크 더빙 시스템 개발</td>
+            </tr>
+            <tr>
+                <td class="label">전체 연구개발기간</td>
+                <td colspan="3">2024. 10. 01 ~ 2025. 09. 30 ( 1년 &nbsp; 개월)</td>
+            </tr>
+            <tr>
+                <td class="label">총 연구개발비</td>
+                <td colspan="3">
+                    총 160,000 &nbsp; 천원 <br>
+                    (정부지원연구개발비: 120,000 천원, &nbsp; 기관부담연구개발비: 40,000 &nbsp; 천원, <br>
+                    지방자치단체: 천원, &nbsp; 그 외 지원금: 천원)
+                </td>
+            </tr>
+            <tr>
+                <td class="label">연구개발단계</td>
+                <td>기초[ ] 응용[ ] 개발[ O ]<br>기타(위 3가지에 해당되지 않는 경우)[ ]</td>
+                <td class="label">기술성숙도<br>(해당 시 기재)</td>
+                <td>착수시점 기준( 6 )<br>종료시점 목표( 9 )</td>
+            </tr>
+            <tr>
+                <td class="label">연구개발과제 유형<br>(해당 시 작성)</td>
+                <td></td>
+                <td class="label">연구개발과제 특성<br>(해당 시 작성)</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <!-- 목표 및 내용 -->
+        <table class="official-table" style="margin-top: 2mm;">
+            <tr>
+                <td class="label" rowspan="2" style="width: 20%;">연구개발<br>목표 및 내용</td>
+                <td class="label" style="width: 15%;">최종 목표</td>
+                <td>
+                    ● 고품질 AI 음성 합성 기술 개발<br>
+                    ● AI 기반 립싱크 기술 고도화<br>
+                    ● AI 더빙 워크플로우 최적화<br>
+                    ● AI 더빙 품질 관리 시스템 개발: 자동 평가 시스템 구축
+                </td>
+            </tr>
+            <tr>
+                <td class="label">전체 내용</td>
+                <td>
+                    1. 고품질 AI 음성 합성 기술 개발<br>
+                    1) RVC (Retrieval-based Voice Conversion) 모델 고도화<br>
+                    ● 원본 음성의 특성을 보존하면서 고품질 음성 변환 실현<br>
+                    ● 소스 화자와 타겟 화자 간의 음성 특징 매핑 정확도 향상<br>
+                    ● 검색 기반 접근 방식의 최적화로 더 정확한 음성 세그먼트 선택<br>
+                    2) 고급 음성 특징 추출 기술 개발<br>
+                    ● MFCC, 피치 정보, 포먼트 구조를 효과적으로 포착하는 알고리즘 개발
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 4페이지: 요약문 (계속) -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 4쪽)</div>
+        <table class="official-table">
+            <tr>
+                <td class="label" rowspan="2" style="width: 20%;">연구개발<br>목표 및 내용<br>(계속)</td>
+                <td class="label" style="width: 15%;">1단계<br>(해당 시 작성)</td>
+                <td>
+                    ● 기초 연구 및 시스템 설계 (2024.10 ~ 2024.11) <br>
+                    - 최신 AI 기술 조사 및 선정: 다국어 음성 합성 및 립싱크 분야의 SOTA 모델 비교 분석<br>
+                    - 시스템 아키텍처 설계: FastAPI 기반 백엔드 및 Streamlit 기반 프론트엔드 설계<br>
+                    ● 핵심 기술 개발 및 프로토타입 구현 (2024.12)<br>
+                    - RVC 모델 고도화: 적은 데이터로도 화자 음색을 효과적으로 복제(Cloning)<br>
+                    - 초기 파이프라인 검증: 음성 추출 -> STT -> 번역 -> TTS 통합 연동성 검증
+                </td>
+            </tr>
+            <tr>
+                <td class="label">n단계<br>(해당 시 작성)</td>
+                <td>
+                    ● AI 모델 성능 고도화 및 최적화<br>
+                    - 다국어 TTS 및 립싱크 품질 향상: VALL-E X 및 MuseTalk 모델 파인튜닝<br>
+                    - 실시간 음성 변환 파이프라인 구축 및 저지연 오디오 처리 최적화<br>
+                    ● One-Stop AI 더빙 플랫폼 구축: 사용자 영상 업로드 시 자동 더빙 영상 생성 워크플로우 완성
+                </td>
+            </tr>
+            <tr>
+                <td class="label" colspan="2">연구개발성과</td>
+                <td>
+                    ● AI 기반 다국어 자동 더빙 플랫폼 (SW) 개발 완료<br>
+                    ● 고품질 AI 모델 3종 확보 (Voice Cloning, 다국어 TTS, 고해상도 립싱크)<br>
+                    ● 지식재산권 확보: 관련 특허 출원 1건 ("AI 기반 다국어 립싱크 자동화 시스템 및 방법")
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 5페이지: 요약문 (기대효과 및 키워드) -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 5쪽)</div>
+        <table class="official-table">
+            <tr>
+                <td class="label" style="width: 20%;">연구개발성과<br>활용계획 및<br>기대 효과</td>
+                <td colspan="5">
+                    ① 기술적 효과: 분절되어 있던 AI 기술을 하나의 파이프라인으로 통합하여 접근성 제고<br>
+                    ② 경제적 효과: 제작 비용 30% 이상 절감 및 제작 기간 50% 이상 단축 달성<br>
+                    ③ 사회적 효과: 시각/청각 장애인을 위한 오디오북/자막 서비스 등 정보 격차 해소 기여<br>
+                    ④ 장기적 효과: K-콘텐츠의 글로벌 현지화 속도 향상 및 메타버스 가상 인간 기술로의 확장
+                </td>
+            </tr>
+            <tr>
+                <td class="label">국문핵심어<br>(5개 이내)</td>
+                <td style="text-align: center; width: 16%;">음성생성</td>
+                <td style="text-align: center; width: 16%;">음성복제</td>
+                <td style="text-align: center; width: 16%;">립싱크</td>
+                <td style="text-align: center; width: 16%;">입술일치</td>
+                <td style="text-align: center; width: 16%;">언어모델</td>
+            </tr>
+            <tr>
+                <td class="label">영문핵심어<br>(5개 이내)</td>
+                <td style="text-align: center;">VoiceGeneration</td>
+                <td style="text-align: center;">VoiceCloning</td>
+                <td style="text-align: center;">Lipsync</td>
+                <td style="text-align: center;">LipMatching</td>
+                <td style="text-align: center;">LLM</td>
+            </tr>
+        </table>
+
+        <div
+            style="border: 1.5pt solid black; padding: 5pt; margin-top: 10mm; text-align: center; font-weight: bold; background-color: #eee;">
+            요약문 작성 요령</div>
+        <div style="font-size: 8.5pt; margin-top: 3mm; line-height: 1.5;">
+            1. 사업명: 공시된 사업명을 기재합니다. <br>
+            2. 내역사업명: 상세사업명을 기재합니다. <br>
+            3. 요약문은 본문 내용을 포함하여 5쪽 이내로 간결하게 작성합니다.
+        </div>
+    </div>
+
+    <!-- 6페이지: 목차 -->
+    <div class="page">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 6쪽)</div>
+        <div style="text-align: center; font-size: 14pt; font-weight: bold; margin: 15mm 0;">&lt; 목 차 &gt;</div>
+        <div class="toc-item">1. 연구개발과제의 개요</div>
+        <div class="toc-item">2. 연구개발과제의 수행 과정 및 수행내용</div>
+        <div class="toc-item">3. 연구개발과제의 수행 결과 및 목표 달성 정도</div>
+        <div class="toc-item">4. 목표 미달 시 원인분석</div>
+        <div class="toc-item">5. 연구개발성과의 관련 분야에 대한 기여 정도</div>
+        <div class="toc-item">6. 연구개발성과의 관리 및 활용 계획</div>
+    </div>
+
+    <!-- 7페이지: 본문 시작 -->
+    <div class="page">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 7쪽)</div>
+        <div id="main-content">
+            {{CONTENT}}
+        </div>
+    </div>
+
+    <!-- 7페이지: 세부 정량적 연구개발성과 -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 7쪽)</div>
+        <div style="font-weight: bold; font-size: 11pt; margin-bottom: 5mm;">(3) 세부 정량적 연구개발성과</div>
+
+        <div style="font-weight: bold; margin-bottom: 2mm;">[과학적 성과]</div>
+        <div style="margin-bottom: 2mm;">□ 논문(국내외 전문 학술지) 게재</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>번호</td>
+                <td>논문명</td>
+                <td>학술지명</td>
+                <td>주저자명</td>
+                <td>호</td>
+                <td>국명</td>
+                <td>발행기관</td>
+                <td>SCIE 여부</td>
+                <td>게재일</td>
+                <td>기여율</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="margin-bottom: 2mm; margin-top: 5mm;">□ 국내 및 국제 학술회의 발표</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>번호</td>
+                <td>회의 명칭</td>
+                <td>발표자</td>
+                <td>발표 일시</td>
+                <td>장소</td>
+                <td>국명</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="font-weight: bold; margin-bottom: 2mm; margin-top: 10mm;">[기술적 성과]</div>
+        <div style="margin-bottom: 2mm;">□ 지식재산권(특허, 실용신안, 의장, 디자인, 상표, 규격, 신품종, 프로그램)</div>
+        <table class="official-table">
+            <tr class="label">
+                <td rowspan="2">번호</td>
+                <td rowspan="2">지식재산권 명칭</td>
+                <td rowspan="2">국명</td>
+                <td colspan="4">출원</td>
+                <td colspan="3">등록</td>
+                <td rowspan="2">기여율</td>
+            </tr>
+            <tr class="label">
+                <td>출원인</td>
+                <td>출원일</td>
+                <td>출원번호</td>
+                <td>등록번호</td>
+                <td>등록인</td>
+                <td>등록일</td>
+                <td>등록번호</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="margin-bottom: 2mm; margin-top: 5mm;">□ 저작권(소프트웨어, 서적 등)</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>번호</td>
+                <td>저작권명</td>
+                <td>창작일</td>
+                <td>저작자명</td>
+                <td>등록일</td>
+                <td>등록번호</td>
+                <td>기여율</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 8페이지: 경제적 성과 -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 8쪽)</div>
+        <div style="margin-bottom: 2mm;">□ 표준화</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>번호</td>
+                <td>인증구분</td>
+                <td>표준명</td>
+                <td>표준인증기구명</td>
+                <td>제안주체</td>
+                <td>표준종류</td>
+                <td>제안/인증일자</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="font-weight: bold; margin-top: 5mm; margin-bottom: 2mm;">[경제적 성과]</div>
+        <div style="margin-bottom: 2mm;">□ 시제품 제작</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>번호</td>
+                <td>시제품명</td>
+                <td>출시/제작일</td>
+                <td>제작 업체명</td>
+                <td>설치 장소</td>
+                <td>이용 분야</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="margin-bottom: 2mm; margin-top: 5mm;">□ 사업화 현황 및 매출 실적</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>번호</td>
+                <td>사업화 방식</td>
+                <td>사업화 형태</td>
+                <td>사업화명</td>
+                <td>내용</td>
+                <td>매출액(천원)</td>
+                <td>매출 발생 연도</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 9페이지: 사업화 계획 및 고용 효과 -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 9쪽)</div>
+        <div style="margin-bottom: 2mm;">□ 사업화 계획 및 무역 수지 개선 효과</div>
+        <table class="official-table">
+            <tr class="label">
+                <td colspan="2">구분</td>
+                <td>현재까지</td>
+                <td>3년 후</td>
+                <td>5년 후</td>
+            </tr>
+            <tr>
+                <td rowspan="2" class="label">사업화 계획</td>
+                <td class="label">예상 매출규모(천원)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">시장 점유율(%)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="margin-bottom: 2mm; margin-top: 5mm;">□ 고용 창출 및 효과</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>순번</td>
+                <td>사업화명</td>
+                <td>사업화 업체</td>
+                <td>고용창출 인원(명)</td>
+                <td>합계</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 10~13페이지: 사회적 성과 및 기타 (간략화된 틀) -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 10쪽)</div>
+        <div style="font-weight: bold; margin-bottom: 2mm;">[사회적 성과]</div>
+        <div style="margin-bottom: 2mm;">□ 법령 반영 / 정책활용 내용 / 전문 연구 인력 양성</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>번호</td>
+                <td>분류</td>
+                <td>구분/명칭</td>
+                <td>반영/활용 내용</td>
+                <td>비고</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: right; font-size: 9pt;">(14쪽 중 13쪽)</div>
+        <div style="font-weight: bold; margin-bottom: 5mm;">6. 연구개발성과의 관리 및 활용 계획</div>
+        <div style="border: 0.5pt solid black; padding: 10pt; min-height: 100mm;">
+            ※ 향후 5년간의 성과 관리 및 활용 계획을 구체적으로 기술합니다.
+        </div>
+    </div>
+
+    <!-- 14페이지: 주의사항 (뒷면지) -->
+    <div class="page" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div style="text-align: right; width: 100%; font-size: 9pt; position: absolute; top: 20mm; right: 20mm;">[뒷면지]
+        </div>
+        <div style="border: 1pt solid black; padding: 20mm; width: 140mm; text-align: left; line-height: 2.0;">
+            <div style="text-align: center; font-size: 14pt; font-weight: bold; margin-bottom: 10mm;">주 의</div>
+            1. 이 보고서는 ○○부에서 시행한 ○○연구개발사업 ○○연구개발과제 최종보고서이다.<br><br>
+            2. 이 연구개발내용을 대외적으로 발표할 때에는 반드시 ○○부(○○전문기관)에서 시행한 ○○연구개발사업의 결과임을 밝혀야 한다.<br><br>
+            3. 국가과학기술 기밀 유지에 필요한 내용은 대외적으로 발표 또는 공개하여서는 안 된다.
+        </div>
+    </div>
+
+    <!-- 15페이지: 현물부담 확인서 (별지 제7-1호) -->
+    <div class="page" style="font-size: 8pt;">
+        <div style="text-align: left; font-size: 9pt;">[별지 제7-1호] 국가연구개발사업 현물부담 확인서</div>
+        <div style="text-align: center; font-size: 16pt; font-weight: bold; margin: 10mm 0;">국가연구개발사업 현물부담 확인서</div>
+
+        <div style="font-weight: bold; margin-bottom: 2mm;">1. 연구개발과제 현항</div>
+        <table class="official-table">
+            <tr>
+                <td class="label" style="width: 30mm;">사 업 명</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="label">연구개발과제명</td>
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="label">연구책임자</td>
+                <td style="width: 40mm;">소속: </td>
+                <td class="label" style="width: 20mm;">성명</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 5mm; font-weight: bold; margin-bottom: 2mm;">2. 현물부담 내역</div>
+        <table class="official-table">
+            <tr class="label">
+                <td>구분</td>
+                <td>현물부담 세부내역</td>
+                <td>협약금액(A)</td>
+                <td>사용금액(B)</td>
+                <td>집행률(B/A)*100</td>
+            </tr>
+            <tr>
+                <td class="label">인건비</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">연구시설·장비비</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">연구재료비</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="label">합계</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 20mm; text-align: center; line-height: 2;">
+            위 연구개발과제의 협약에 따라 현물을 부담하였음을 확인합니다.<br><br>
+            년 &nbsp;&nbsp;&nbsp; 월 &nbsp;&nbsp;&nbsp; 일<br><br>
+            연구책임자: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (인)<br>
+            주관연구개발기관: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (직인)<br><br>
+            <div style="font-size: 14pt; font-weight: bold; margin-top: 10mm;">중소벤처기업부장관 귀하</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
