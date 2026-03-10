@@ -32,6 +32,15 @@ __pycache__/
 !README.md
 !최종보고서/본문12260102.md
 
+# 분석용 이미지 및 임시 자산 (JPG, Pickle 등)
+*.JPG
+*.jpg
+*.pickle
+최종보고서/이전보고서/
+최종보고서/이전보고서2/
+최종보고서/최종보고서_양식/
+merge_report.html
+
 # 대용량 데이터 및 모델 체크포인트
 data/
 datasets/
