@@ -4,6 +4,7 @@
 venv/
 .env
 .env.local
+node_modules/
 
 # 파이썬 캐시
 __pycache__/
@@ -15,42 +16,31 @@ __pycache__/
 .idea/
 *.code-workspace
 .windsurf/
-node_modules/
 
 # GitHub 공개 제외 (개발 도구 및 로컬 설정)
 .agent/
 .github/workflows/
 .streamlit/
+.gemini/
 
-# 보안 및 민감 문서 필터링 [IMPORTANT]
-# 개인정보(성함, 도장, 계좌 등) 노출 방지를 위해 원본 문서 제외
+# 보안 및 민감 문서 필터링
 *.pdf
 *.zip
 *.hwp
-*.html
-*.zip
 *.csv
 *.txt
 !README.md
 !최종보고서/본문12260102.md
-최종보고서/이전보고서/
-최종보고서/이전보고서2/
-최종보고서/최종보고서_양식/
-최종보고서/최종보고서.md
-최종보고서/최종보고서_최종_양식.html
-최종보고서/최종보고서.html
-최종보고서/최종보고서_print.html
-최종보고서/convert_report.py
 
-# 데이터 및 모델 체크포인트
+# 대용량 데이터 및 모델 체크포인트
 data/
-!data/README.md
 datasets/
 datasets_processed/
 modules/**/models/
 modules/**/checkpoints/
 TensorRT/
 임치물/
+창성R&D/
 
 # 운영 중 생성되는 로그 및 임시 파일
 logs/
@@ -62,7 +52,6 @@ file_list.csv
 _private/
 test_reports_company/
 gemini-dub-live-interpret/
-창성R&D/
 pdf/
 gemini/
 notev2/
@@ -70,19 +59,11 @@ orchestrator/
 backend/tests/
 frontend/tests/
 
-# 예외 허용 항목 (필수 이미지 및 스크립트)
-!최종보고서/최종보고서_이미지/**
-!scripts/**
-!backend/**
-!frontend_unified/**
-!modules/**
-!shared/**
-!finalv2/**
-
-# 서브모듈 내 대용량 데이터 명시적 제외
-**/node_modules/
-**/checkpoints/
-**/nltk_data/
-**/models/
-pdf-reader-mcp/dist/
-modules/tts_vallex/VALL-E_X/data/
+# 예외 허용 항목 (필수 소스 및 이미지)
+!최종보고서/*.html
+!최종보고서/*.md
+!최종보고서/최종보고서_hwtx_assets/**
+!최종보고서/*.py
+!*.py
+!*.hwpx
+!최종보고서/*.hwpx

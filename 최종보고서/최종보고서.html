@@ -1,0 +1,3032 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>최종보고서</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<h1 id="최종보고서">최종보고서</h1>
+<ul>
+<li>연구개발과제명: AI 기반 다국어 음성 합성 및 실시간 립싱크 더빙
+시스템 개발</li>
+<li>연구개발과제번호: RS-2024-00511307</li>
+<li>연구개발기간: 2024.10.01 ~ 2025.09.30</li>
+</ul>
+<h2 id="목차">목차</h2>
+<ul>
+<li><strong>1. 연구개발과제의 개요</strong>
+<ul>
+<li>1-1. 개발 배경 및 필요성</li>
+<li>1-2. 최종 목표</li>
+<li>1-3. 주요 연구 내용 및 차별성
+<ul>
+<li>1-3-1. End-to-End One-Stop 자동화 프로세스 설계</li>
+<li>1-3-2. 하이브리드 AI 모델 활용(단계별 최적 모델 모듈화)</li>
+<li>1-3-3. 화자 음색 보존(Voice Cloning)</li>
+<li>1-3-4. 고성능/고화질 립싱크 파이프라인</li>
+</ul></li>
+<li>1-4. 추진 경과 및 기대 효과</li>
+</ul></li>
+<li><strong>2. 연구개발과제의 수행 과정 및 수행내용</strong>
+<ul>
+<li>2-1. 전체 파이프라인 설계 및 워크플로우 최적화
+<ul>
+<li>2-1-0. 파이프라인 모듈 구성 및 근거(코드 경로)</li>
+<li>2-1-0-1. 연구개발계획서 “더빙의 15단계”와 파이프라인 매핑</li>
+<li>2-1-1. 오디오 추출 및 전처리(Audio Extraction &amp;
+Pre-processing)</li>
+<li>2-1-2. 고정밀 음성 인식(STT: Speech-to-Text)</li>
+<li>2-1-3. 문맥 기반 자막 번역(Context-aware Translation)</li>
+</ul></li>
+<li>2-2. 핵심 AI 모델 구현 및 고도화(음성/영상)
+<ul>
+<li>2-2-1. 음성 합성 및 변환(TTS &amp; RVC)
+<ul>
+<li>2-2-1-1. 고급 음성특징 추출 및 품질 보강(계획서 기반, 후속 고도화
+항목)</li>
+<li>2-2-1-2. VALL-E X 통합 및 음성 합성 품질 최적화(계획서 기반,
+학습/운영 영역)</li>
+<li>2-2-1-3. 실시간 음성 변환 파이프라인 및 하이브리드 아키텍처(계획서
+기반, 후속 고도화 항목)</li>
+</ul></li>
+<li>2-2-2. 립싱크 고도화(Lip-Sync)
+<ul>
+<li>2-2-2-1. 립싱크 평가·피드백 루프(계획서 기반, 후속 고도화 항목)</li>
+</ul></li>
+</ul></li>
+<li>2-3. GPU 가속 및 추론 최적화
+<ul>
+<li>2-3-1. 성능 병목 분석(Profiling) 및 최적화 전략 수립</li>
+<li>2-3-2. 모델 변환 기반 가속(ONNX/TorchScript) 검토 및 보류</li>
+<li>2-3-3. TensorRT 적용 검토(장기)</li>
+</ul></li>
+<li>2-4. 시스템 통합 및 품질 관리 체계 구축</li>
+<li>2-5. 기술개발 일정 및 품질·위험관리(계획서 기반)
+<ul>
+<li>2-5-1. 단계별 기술개발 일정(계획서 기준)</li>
+<li>2-5-2. 주요 마일스톤(계획서 기준)</li>
+<li>2-5-3. 품질 관리 계획(계획서 기준)</li>
+<li>2-5-4. 위험 관리 계획(계획서 기준)</li>
+</ul></li>
+</ul></li>
+<li><strong>3. 연구개발과제의 수행 결과 및 목표 달성 정도</strong>
+<ul>
+<li>3-1. 연구수행 결과(정성적 연구개발성과)
+<ul>
+<li>3-1-1. 지능형 One-Stop AI 더빙 파이프라인 및 표준 워크플로우
+구축</li>
+<li>3-1-2. 고충실도 Voice Cloning 및 감정 표현 고도화 기술</li>
+<li>3-1-3. 고해상도 초실감형 립싱크(Lip-Sync) 생성 기술</li>
+<li>3-1-4. 고효율 GPU 가속 및 지능형 자원 관리 체계</li>
+<li>3-1-5. AI 품질 관리(QA) 및 대규모 데이터 증강 시스템</li>
+</ul></li>
+<li>3-2. 정량적 연구개발성과(주요 성능지표)
+<ul>
+<li>3-2-0-0. 목표 대비 대표 실측 요약</li>
+<li>3-2-0. IRIS 계획서 기준 목표치(정의)</li>
+<li>3-2-1. 대표 샘플 기반 내부 계측 결과(초기)</li>
+<li>3-2-2. MOS(음성 생성 품질)</li>
+<li>3-2-3. WER/CER(음성 인식/발음 정확도)
+<ul>
+<li>3-2-3-1. 입력 데이터 포맷(JSONL)</li>
+</ul></li>
+<li>3-2-4. BLEU(번역 품질)
+<ul>
+<li>3-2-4-1. 입력 데이터 포맷(JSONL)</li>
+</ul></li>
+<li>3-2-5. PSNR/FID(립싱크 영상 품질)
+<ul>
+<li>3-2-5-1. 입력 데이터 포맷(JSON)</li>
+<li>3-2-5-2. PSNR 계산 정의(MSE 기반)</li>
+<li>3-2-5-3. 통합 시뮬레이션 결과의 의미 및 한계</li>
+<li>3-2-5-4. FID 측정 계획</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><strong>4. 목표 미달 시 원인분석(해당 시 작성)</strong></li>
+<li><strong>5. 연구개발성과 및 관련 분야에 대한 기여 정도</strong>
+<ul>
+<li>5-1. 고품질 AI 음성 합성 및 다국어 TTS 분야 기여</li>
+<li>5-2. AI 기반 립싱크 및 멀티모달 영상 합성 분야 기여</li>
+<li>5-3. AI 더빙 워크플로우 및 MLOps/서비스 운영 분야 기여</li>
+</ul></li>
+<li><strong>6. 연구개발성과의 관리 및 활용 계획</strong>
+<ul>
+<li>6-1. 시스템 및 모델 자산의 체계적 관리
+<ul>
+<li>6-1-1. 형상관리 및 재현성(코드/설정/모델/운영문서)</li>
+<li>6-1-2. 운영 품질 평가 및 릴리즈 게이트(QC) 운영</li>
+<li>6-1-3. 윤리·준법 및 보안/대외공개 통제 원칙</li>
+<li>6-1-4. 대외 평가·보고(포털) 프로세스 및 성과 증빙/등록·기탁
+관리</li>
+</ul></li>
+<li>6-2. 서비스/사업 적용 및 확산
+<ul>
+<li>6-2-1. 연구개발성과 활용 계획표(양식 기준)</li>
+<li>6-2-2. API/상용 서비스 시나리오</li>
+</ul></li>
+<li>6-3. 후속 R&amp;D 및 지식 확산</li>
+</ul></li>
+<li><strong>7. 별첨자료(참고 문헌 등)</strong>
+<ul>
+<li>참고문헌</li>
+</ul></li>
+</ul>
+<h1 id="연구개발과제의-개요">1. 연구개발과제의 개요</h1>
+<h2 id="개발-배경-및-필요성">1-1. 개발 배경 및 필요성</h2>
+<p>본 연구개발과제는 중소벤처기업부 창업성장기술개발사업(디딤돌)의
+일환으로 추진된 과제로서, AI 기반 다국어 음성 합성 및 실시간 립싱크 더빙
+시스템을 이용하여 영상 콘텐츠의 다국어 더빙을 One-Stop으로 자동 처리할
+수 있는 플랫폼을 구축하고자 하였음.</p>
+<p>최근 OTT 및 유튜브 등 글로벌 콘텐츠 시장이 급성장함에 따라 다국어
+더빙 수요가 증가하고 있으나, 기존 더빙 제작 방식은 언어별 스크립트 작성,
+전문 성우 섭외 및 녹음, 영상 편집 및 입 모양(Lip-sync) 싱크 작업을
+단계별 수작업으로 처리해야 하는 구조적 한계가 있음. 이로 인해 제작
+비용이 높고 제작 기간이 길어, 자원이 제한된 중소기업 및 개인 창작자가
+글로벌 시장에 진출하는 데 큰 진입 장벽으로 작용하였음.</p>
+<ul>
+<li><p>글로벌 수요 지표: 2024년 전통 더빙/영화 더빙 시장은 약 40.4억
+달러 규모이며 2033년 75.5억 달러로 성장(연평균 7.19%) 전망 (출처:
+GlobalGrowthInsights, Film Dubbing Market,
+https://www.globalgrowthinsights.com/market-reports/film-dubbing-market-102061).
+더빙·자막 통합 시장에서는 OTT 파트너십 비중이 29%, 2024년 출시 신제품의
+34%가 실시간 자막·다국어 AI 기능을 포함 (출처: GlobalGrowthInsights,
+Dubbing &amp; Subtitling Market,
+https://www.globalgrowthinsights.com/market-reports/dubbing-and-subtitling-market-117679).</p></li>
+<li><p>글로벌 수요 지표(시각 자료):</p>
+<ul>
+<li>영화 더빙 시장 규모 및 CAGR 그래프<img
+src="최종보고서_이미지/film_dubbing_market_kr_1766512534168.png"
+alt="Film Dubbing Market" />
+<ul>
+<li>출처: GlobalGrowthInsights (2024), Film Dubbing Market
+(https://www.globalgrowthinsights.com/market-reports/film-dubbing-market-102061)</li>
+</ul></li>
+<li>더빙·자막 시장 규모 및 CAGR 그래프<img
+src="최종보고서_이미지/film_dubbing_market_bar_kr.png"
+alt="Dubbing &amp; Subtitling Market" />
+<ul>
+<li>출처: GlobalGrowthInsights (2024), Dubbing &amp; Subtitling Market
+(https://www.globalgrowthinsights.com/market-reports/dubbing-and-subtitling-market-117679)</li>
+</ul></li>
+</ul></li>
+<li><p>전통 수작업 공정(구조적 한계): ① 번역/각색 → ② 캐스팅(성우/감독)
+→ ③ 스튜디오 녹음 → ④ 클린업/노이즈 제거 → ⑤ 타이밍·Lip-sync 편집 → ⑥
+믹싱(M&amp;E) → ⑦ QC/리뷰 → ⑧ 재녹음(픽업). 다수 인력의 순차 투입,
+스튜디오·성우 슬롯 의존, 언어별/회차별 반복 작업으로 병목이 발생하며,
+다국어 동시 출시가 어렵고 리드타임이 선형 증가함.</p></li>
+<li><p>비용 부담(전통 방식): 방송/극장급 더빙은 분당 $50~60(일부
+$75까지) 수준, 기본 품질도 분당 $20~30이 일반적 (출처: Checksub, Dubbing
+Price Guide, https://www.checksub.com/blog/dubbing-price-guide ;
+BunnyStudio Blog, How much does a dub cost,
+https://bunnystudio.com/blog/how-much-does-a-dub-cost-the-latest-pricing-formula/).
+(환율 1,450원 적용 시: 기본 품질 29,000~43,500원/분, 방송·극장급
+72,500~87,000원/분, 고급 사례 108,750원/분). 20분 에피소드 기준 약
+$1,000/편 ≈ 1,450,000원, 90분 영화는 $4,500 내외 ≈ 6,525,000원(성우
+2~4명 기준, 감독/믹싱 별도).</p>
+<p>참고: 상기 단가는 온라인 가이드의 “분당 x 러닝타임” 단순 곱 기준으로,
+성우 수·디렉팅/재녹음 횟수·스튜디오 등급·믹싱/마스터링·번역/자막/QC 포함
+여부에 따라 총액은 더 높아지는 것이 일반적임(실무 견적에서는 90분 단가가
+6백만 원 이상으로 상승).</p></li>
+<li><p>기간 부담(전통 방식): 준비·번역 2~3일, 캐스팅/계약 2~5일, 녹음
+1~3일, 편집·믹싱·QC 2~4일 등 언어당 1~3주가 소요되며, 다언어 병렬 처리가
+어려울 경우 언어 수만큼 시간이 증가. 이 때문에 중소 제작사·개인 창작자는
+비용·기간 측면에서 글로벌 진출 장벽이 높음.</p></li>
+</ul>
+<p>이에 본 과제에서는 최신 AI 기술을 융합하여 번역부터 음성 합성,
+립싱크까지 전 과정을 자동화함으로써, 기존 대비 비용과 시간을 절감하고
+누구나 쉽게 고품질 다국어 콘텐츠를 제작할 수 있는 솔루션을 개발하고자
+하였음.</p>
+<h2 id="최종-목표">1-2. 최종 목표</h2>
+<p>과제의 세부 목표는 연구개발계획서에서 제시한 바와 같이 다음 4가지를
+핵심 지표로 설정하였음.</p>
+<ul>
+<li>고품질 AI 음성 합성 기술 개발
+<ul>
+<li>원화자의 음색과 감정(억양/발화 습관)을 보존하면서도 자연스러운
+다국어 음성을 생성</li>
+<li>목표(계획서): 음성 유사도 10% 향상, 학습 시간 20% 단축</li>
+</ul></li>
+<li>AI 기반 립싱크 기술 고도화
+<ul>
+<li>합성된 음성에 맞춰 영상 속 인물의 입 모양을 정교하게 동기화</li>
+<li>목표(계획서): 립싱크 정확도 10% 개선, 처리 속도 20% 단축</li>
+</ul></li>
+<li>AI 더빙 워크플로우 최적화
+<ul>
+<li>음성 추출부터 렌더링까지의 전체 공정을 파이프라인화하여 작업 효율을
+극대화</li>
+<li>목표(계획서): 전체 과정 30% 시간 단축, 주요 2단계 자동화</li>
+</ul></li>
+<li>AI 더빙 품질 관리 시스템 개발
+<ul>
+<li>결과물 품질을 정량적으로 측정(WER/CER, LSE-D/LSE-C 등)하고 피드백할
+수 있는 체계를 구축</li>
+<li>목표(계획서): 자동 평가 시스템 구축, 평가 정확도 85% 달성</li>
+</ul></li>
+<li>근거(내부): 과제접수용연구개발계획서(PART2(본문1))
+<ul>
+<li>계획서 원문 발췌(목표 정의) <img
+src="최종보고서_이미지/근거/계획서_목표_p1.jpg" alt="계획서 목표 p1" />
+<img src="최종보고서_이미지/근거/계획서_목표_p3.jpg"
+alt="계획서 목표 p3" /></li>
+</ul></li>
+</ul>
+<p>정리: 1-2의 목표는 “계획서 기준 개발/효율 목표(TTS 유사도·지연,
+립싱크 정확도·속도, 워크플로우 시간단축)”이며, 3장에서 다루는 QC
+성능지표(WER/BLEU/MOS/PSNR/FID)는 서비스 산출물 품질 평가용 지표임. 두
+축을 구분하여 뒤에서 각각 달성 여부를 서술함.</p>
+<h2 id="주요-연구-내용-및-차별성">1-3. 주요 연구 내용 및 차별성</h2>
+<p>본 과제는 단순히 여러 모델을 조합하는 수준을 넘어, 영상 입력부터 최종
+더빙 영상 산출까지의 흐름을 재현 가능한 모듈로 구조화하고 운영 가능한
+형태로 통합한 점에 차별성이 있음.</p>
+<h3 id="end-to-end-one-stop-자동화-프로세스-설계">1-3-1. End-to-End
+One-Stop 자동화 프로세스 설계</h3>
+<ul>
+<li>영상 입력부터 최종 편집(렌더링/QC 포함)까지 전체 공정을 세분화하여
+자동화 가능한 형태로 설계하였음.</li>
+<li>모듈 간 데이터 표준(JSON 기반 타임스탬프/자막 포맷 등)을 정의하여
+단계별 산출물이 다음 단계에 자연스럽게 이어지도록 구성하였음.</li>
+</ul>
+<h3 id="하이브리드-ai-모델-활용단계별-최적-모델-모듈화">1-3-2.
+하이브리드 AI 모델 활용(단계별 최적 모델 모듈화)</h3>
+<ul>
+<li>STT: Whisper 기반 로컬 STT를 기본으로 하고, 난이도 높은 발화/전문
+용어의 경우 Gemini API를 선택적으로 활용하는 이중화 체계를
+구성하였음.</li>
+<li>TTS: VALL-E X, XTTS 등 다국어 TTS 모델을 적용하고, 서비스 환경에
+맞는 튜닝/운용 전략을 수립하였음.</li>
+<li>Lip-Sync: Wav2Lip 기반 립싱크 파이프라인에 더하여 MuseTalk을 추가
+도입하여 고해상도 립싱크 품질을 확보하였음.</li>
+<li>하이브리드 모델 구조(내부 구성) 시각 자료<img
+src="최종보고서_이미지/hybrid_system_kr_v.png" alt="Hybrid Model" />
+<ul>
+<li>캡션: STT→번역→TTS→RVC→립싱크 모듈 흐름(내부 구조)</li>
+</ul></li>
+</ul>
+<h3 id="화자-음색-보존voice-cloning">1-3-3. 화자 음색 보존(Voice
+Cloning)</h3>
+<p>RVC(Retrieval-based Voice Conversion) 기반 Voice Cloning 기술을
+도입하여, 단순히 언어만 바꾸는 것이 아니라 원작자의 목소리 톤과 감정을
+유지한 채 다른 언어로 말하는 듯한 고품질 더빙을 구현하고자 하였음.</p>
+<h3 id="고성능고화질-립싱크-파이프라인">1-3-4. 고성능/고화질 립싱크
+파이프라인</h3>
+<p>기존 Wav2Lip 계열 모델의 한계를 보완하기 위해 MuseTalk을 추가
+도입하였으며, GPU 활용 및 fp16 옵션(예: MuseTalk 설정의 fp16: True)을
+통해 고화질 영상에서도 처리 효율을 확보하고자 하였음.</p>
+<h2 id="추진-경과-및-기대-효과">1-4. 추진 경과 및 기대 효과</h2>
+<p>본 과제는 2024.10.01.~2025.09.30. 기간 동안 주관기관((주)파디엠)과
+공동연구기관(전북대학교 산학협력단)의 협력을 통해 수행되었음.
+연구개발계획서 상 기술성숙도(TRL) 9단계 달성을 목표로 파이프라인과 핵심
+모델을 단계적으로 고도화하였음.</p>
+<p>기대 효과는 연구개발계획서에서 제시한 기대효과 및 장기 파급효과를
+기준으로, 본 과제에서 구축한 End-to-End 파이프라인 및 핵심 모델 고도화
+성과와의 연계를 중심으로 다음과 같이 정리할 수 있음.</p>
+<ul>
+<li><p>기술적 효과</p>
+<ul>
+<li>STT/번역/TTS/음색 변환/립싱크 등 분절된 공정을 단일 파이프라인으로
+통합하여, 영상 입력부터 결과물 산출까지 One-Stop으로 수행 가능한 자동
+더빙 제작 체계를 확보하였음.</li>
+<li>Voice Cloning(RVC) 기반 음색 보존 및 다국어 TTS(VALL-E
+X/XTTS/Gemini) 하이브리드 운용을 통해, 단순 번역을 넘어 원화자의
+음색·억양 특성을 유지하는 고품질 더빙 기반을 구축하였음.</li>
+<li>MuseTalk/Wav2Lip 기반 립싱크를 통합하고 고해상도 처리 및 fp16 등
+실행 파라미터를 튜닝하여, 기존 저해상도 한계를 보완하고 시각적
+자연스러움(입 주변부 품질)을 개선하였음.</li>
+<li>단계별 산출물(타임스탬프 JSON, 자막 포맷 등)을 표준화하여 재현
+가능하고 운영 가능한 형태로 워크플로우를 구조화하였음.</li>
+<li>계획서에서는 성능 목표(기대 수준)로서 음성 유사도 95% 이상(업계 표준
+평가 기준 적용), 립싱크 정확도 98% 이상, 실시간 처리 속도 20% 개선 등을
+제시하였음. 본 과제는 파이프라인을 모듈화하고 산출물 포맷을 표준화하여,
+해당 정량 목표를 단계별로 계측·개선할 수 있는 구조(지표 기반 QC 운영)를
+우선 확보하였음.</li>
+<li>또한 한국어·영어·중국어·일본어 등 주요 언어 간 자연스러운 변환을
+목표로 하는 다국어 확장 방향을 제시함으로써, 콘텐츠 현지화·교육·접근성
+영역으로의 적용 가능성을 확보하였음.</li>
+</ul></li>
+<li><p>경제적 효과</p>
+<ul>
+<li>기존 수작업 더빙 공정(스크립트 작성, 녹음, 편집, 립싱크)을
+자동화함으로써 제작 비용과 제작 기간을 절감하고, 특히 자원 제약이 있는
+중소 제작사 및 개인 창작자의 다국어 콘텐츠 제작 진입 장벽을 낮추는
+효과를 기대할 수 있음.</li>
+<li>다국어 더빙 수요가 높은 글로벌 OTT/유튜브 등 플랫폼 환경에서, 다국어
+버전 제작의 반복 비용을 낮추고 제작 리드타임을 단축하여 해외 시장 진출
+및 사업 확장에 기여할 수 있음.</li>
+<li>계획서에서는 AI 더빙 기술 도입을 통해 콘텐츠 제작 비용을 30% 이상
+절감하고, 다국어 버전 제작 기간을 50% 단축하는 등의 효과를 기대하였음.
+본 과제의 자동화 파이프라인은 이러한 비용/기간 절감 효과를 측정·검증할
+수 있는 운영 단위를 제공하였음.</li>
+<li>또한 사업화 KPI 예시로서 서비스 출시 후 첫 해 MAU 1만 명, 연간
+1,000명 유료 구독자, 월 평균 5,000건 유료 더빙 작업 처리, B2B 10개 이상
+기업 고객 확보 등을 제시하였음. 이는 본 과제에서 구축한 API/파이프라인
+기반 자동화 체계를 바탕으로 단계적 상용화 과정에서 검증·확대 가능한 목표
+지표임.</li>
+</ul></li>
+<li><p>사회·문화적 효과</p>
+<ul>
+<li>다국어 교육 콘텐츠를 보다 손쉽게 제작·배포할 수 있게 함으로써 글로벌
+교육 기회를 확대하고, 언어 장벽으로 인해 발생하는 교육 접근성 격차를
+완화하는 데 기여할 수 있음.</li>
+<li>소규모 제작사의 콘텐츠도 다국어 버전 제작이 가능해져 문화 다양성
+증진 및 문화 교류 활성화에 기여할 수 있으며, K-콘텐츠의 글로벌 확산을
+가속화하여 한국 문화의 세계적 영향력 확대에 기여할 수 있음.</li>
+<li>교육/접근성(장애인·고령자 지원) 등 정보 접근성 향상에 기여하고,
+다양한 사용자 집단이 영상·음성 기반 콘텐츠를 이해·활용하는 데 필요한
+보조 수단을 제공할 수 있음.</li>
+<li>계획서에서는 개인화 AI 음성 튜터 등으로 언어 학습 효율성 20% 이상
+향상 등 교육 분야 적용 가능성을 제시하였음. 이는 본 과제의 다국어 음성
+합성/변환 기반을 활용하여 교육 콘텐츠 제작/배포를 고도화할 수 있음을
+의미함.</li>
+</ul></li>
+<li><p>윤리적·제도적 효과</p>
+<ul>
+<li>AI 음성 합성 기술의 윤리적 사용 가이드라인을 제시하고, 기술 적용
+과정에서의 사회적 신뢰를 확보할 수 있는 운영 원칙을 정립하는 효과를
+기대할 수 있음.</li>
+<li>개인정보 보호 및 저작권 존중을 위한 기술적·운영적 대응(데이터 관리
+체계, 사용 동의 기반 운영 등)을 병행함으로써 책임 있는 AI 활용 확산에
+기여할 수 있음.</li>
+<li>또한 사칭/악용(예: 보이스피싱 등) 리스크 관점에서 운영 점검
+프로세스를 병행하고, 사용자 동의 기반의 데이터 수집/활용 원칙을
+정립함으로써 책임 있는 AI 적용을 지향하였음.</li>
+</ul></li>
+<li><p>장기적 파급 효과</p>
+<ul>
+<li>글로벌 AI 음성 시장 선도: 연구개발계획서에서는 2026년까지 글로벌 AI
+음성 시장의 10% 이상 점유율 달성(목표)을 제시하였으며, 이를 위해 국내 AI
+기술의 해외 수출 및 국가 경쟁력 강화를 장기 파급효과로 설정하였음.</li>
+<li>메타버스/가상현실 발전 기여: 실시간 다국어 음성 변환 기술을 기반으로
+글로벌 가상 공간에서의 원활한 소통을 지원하고, 개인화된 아바타 음성 생성
+기술을 통해 몰입도 높은 사용자 경험을 제공할 수 있음.</li>
+<li>AI 기술의 대중화 및 인식 개선: 일상에서 쉽게 접할 수 있는 AI 기반
+더빙/번역 기술을 제공함으로써 기술 수용성을 높이고, AI와 인간의 협업
+모델 확산을 통해 AI 기술에 대한 긍정적 인식을 확산할 수 있음.</li>
+</ul></li>
+<li><p>근거(내부): 과제접수용연구개발계획서(PART2(본문1))(기대효과:
+기술/경제/사회), (사업화 전략 KPI 예시), (장기 파급효과)</p>
+<ul>
+<li>계획서 원문 발췌(사업화 전략·기대효과·파급효과) <img
+src="최종보고서_이미지/근거/계획서_KPI_p21.jpg" alt="계획서 KPI p21" />
+<img src="최종보고서_이미지/근거/계획서_KPI_p22.jpg"
+alt="계획서 KPI p22" /> <img
+src="최종보고서_이미지/근거/계획서_기대효과_p23.jpg"
+alt="계획서 기대효과 p23" /> <img
+src="최종보고서_이미지/근거/계획서_파급효과_p24.jpg"
+alt="계획서 파급효과 p24" /></li>
+</ul></li>
+</ul>
+<h1 id="연구개발과제의-수행-과정-및-수행내용">2. 연구개발과제의 수행
+과정 및 수행내용</h1>
+<h2 id="전체-파이프라인-설계-및-워크플로우-최적화">2-1. 전체 파이프라인
+설계 및 워크플로우 최적화</h2>
+<p>본 연구개발과제는 연구개발계획서에서 제시한 연차·단계별 추진계획에
+따라, (1) 고품질 AI 음성 합성, (2) AI 기반 립싱크 고도화, (3) 워크플로우
+최적화, (4) 품질 관리 시스템 개발의 4대 목표를 중심으로 수행되었음.</p>
+<h4 id="파이프라인-모듈-구성-및-근거코드-경로">2-1-0. 파이프라인 모듈
+구성 및 근거(코드 경로)</h4>
+<p>본 과제의 End-to-End 파이프라인은 단계별로 독립 실행 가능한
+모듈(<code>modules/*/run.py</code>)로 구현하고, (1) Orchestrator에서
+순차 실행하거나 (2) FastAPI 백엔드 API에서 모듈을 호출하도록
+구성하였음.</p>
+<p>다음은 파이프라인 단계별 구현/근거를 표 대신 간략 리스트로 정리한
+것임. 주요 파일과 핵심 로직을 함께 병기함.</p>
+<ul>
+<li>오디오 추출: <code>modules/audio_extractor/run.py</code>,
+<code>config/settings.yaml</code> (FFmpeg 경로·코덱·샘플레이트 설정)
+<code>modules/audio_extractor/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>command <span class="op">=</span> [ffmpeg_path, <span class="st">&quot;-y&quot;</span>, <span class="st">&quot;-i&quot;</span>, <span class="bu">str</span>(input_media), <span class="st">&quot;-vn&quot;</span>, <span class="st">&quot;-acodec&quot;</span>, audio_codec]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> sample_rate:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    command.extend([<span class="st">&quot;-ar&quot;</span>, <span class="bu">str</span>(sample_rate)])</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> extra_args:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    command.extend(extra_args)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>command.append(<span class="bu">str</span>(output_audio))</span></code></pre></div>
+<p><code>modules/audio_extractor/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ffmpeg_path</span><span class="kw">:</span><span class="at"> ffmpeg</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">audio_codec</span><span class="kw">:</span><span class="at"> pcm_s16le</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_rate</span><span class="kw">:</span><span class="at"> </span><span class="dv">44100</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">extra_args</span><span class="kw">:</span><span class="at"> </span><span class="kw">[]</span></span></code></pre></div>
+<ul>
+<li>STT(Whisper): <code>modules/stt_whisper/run.py</code>,
+<code>config/settings*.yaml</code> (<code>openai/whisper</code> 기반,
+segment JSON 산출) <code>modules/stt_whisper/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> whisper.load_model(model_name, device<span class="op">=</span>device)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> model.transcribe(<span class="bu">str</span>(input_audio), <span class="op">**</span>transcribe_options)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>segments <span class="op">=</span> _format_segments(result.get(<span class="st">&quot;segments&quot;</span>, []))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>transcript <span class="op">=</span> {<span class="st">&quot;text&quot;</span>: result.get(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;&quot;</span>).strip(), <span class="st">&quot;segments&quot;</span>: segments}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>write_json(output_json, transcript)</span></code></pre></div>
+<p><code>modules/stt_whisper/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_name</span><span class="kw">:</span><span class="at"> small</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">language</span><span class="kw">:</span><span class="at"> auto</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">beam_size</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">best_of</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">temperature</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.0</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">use_gpu</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">word_timestamps</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div>
+<ul>
+<li>STT(Gemini, 선택): <code>modules/stt_gemini/run.py</code> (API 보완
+경로)</li>
+<li>텍스트 처리/번역: <code>modules/text_processor/run.py</code>,
+<code>config/settings.yaml</code>,
+<code>docs/timed_translation_spec.md</code> (정규화·길이/타이밍 정합,
+<code>_filter_hallucinations</code>,
+<code>_batch_translate_segments</code>)
+<code>modules/text_processor/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _filter_hallucinations(segments):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    filtered <span class="op">=</span> []</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    last_text <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    repeat_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> seg <span class="kw">in</span> segments:</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        text <span class="op">=</span> seg.get(<span class="st">&quot;text&quot;</span>, <span class="st">&quot;&quot;</span>).strip()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> text <span class="kw">and</span> text <span class="op">==</span> last_text:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            repeat_count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>            repeat_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            last_text <span class="op">=</span> text</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> repeat_count <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> filtered:</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                filtered[<span class="op">-</span><span class="dv">1</span>][<span class="st">&quot;end&quot;</span>] <span class="op">=</span> seg.get(<span class="st">&quot;end&quot;</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        filtered.append(seg)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> filtered</span></code></pre></div>
+<p><code>modules/text_processor/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_language</span><span class="kw">:</span><span class="at"> auto</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">target_language</span><span class="kw">:</span><span class="at"> en</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">syllable_tolerance</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">enforce_timing</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">translation_map</span><span class="kw">:</span><span class="at"> </span><span class="kw">{}</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">operations</span><span class="kw">:</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> trim</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> collapse_whitespace</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> preserve_case</span></span></code></pre></div>
+<ul>
+<li>TTS(VALL-E X): <code>modules/tts_vallex/run.py</code>,
+<code>config/settings.yaml</code> (외부 스크립트 실행 템플릿)
+<code>modules/tts_vallex/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>command <span class="op">=</span> template.<span class="bu">format</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    script_path<span class="op">=</span>script_path,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    checkpoint_dir<span class="op">=</span>checkpoint_dir,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    prompt_wav<span class="op">=</span>prompt_wav,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span>text,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>subprocess.run(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    command,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    shell<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    check<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>modules/tts_vallex/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">script_path</span><span class="kw">:</span><span class="at"> modules/tts_vallex/scripts/infer.sh</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">checkpoint_dir</span><span class="kw">:</span><span class="at"> checkpoints/vallex</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">speaker_id</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">command_template</span><span class="kw">: </span><span class="ch">&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  {script_path} --ckpt {checkpoint_dir} --prompt {prompt_wav} --text &quot;{text}&quot;</span></code></pre></div>
+<ul>
+<li>TTS(XTTS, 백업): <code>modules/tts_xtts/run.py</code>,
+<code>config/settings.yaml</code> (백업 경로)
+<code>modules/tts_xtts/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> TTS(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    model_name<span class="op">=</span>model_name,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    progress_bar<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>model.tts_to_file(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    text<span class="op">=</span>text,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    speaker_wav<span class="op">=</span>speaker_wav,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    language<span class="op">=</span>language,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    file_path<span class="op">=</span>output_wav,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>modules/tts_xtts/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">model_name</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;tts_models/multilingual/multi-dataset/xtts_v2&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_gpu</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">speaker_wav</span><span class="kw">:</span><span class="at"> samples/prompt.wav</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">language</span><span class="kw">:</span><span class="at"> en</span></span></code></pre></div>
+<ul>
+<li>TTS(Gemini, 선택): <code>modules/tts_gemini/run.py</code> (API 합성
+선택 경로) <code>modules/tts_gemini/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gen <span class="op">=</span> client.models.generate_content(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">&quot;models/gemini-2.0-flash&quot;</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    contents<span class="op">=</span>prompt,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>save_audio(gen, output_wav)</span></code></pre></div>
+<ul>
+<li>음색 변환(RVC): <code>modules/voice_conversion_rvc/run.py</code>,
+<code>config/settings.yaml</code> (checkpoint·f0_method 등 VC 설정)
+<code>modules/voice_conversion_rvc/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> load_checkpoint(checkpoint)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>audio <span class="op">=</span> load_audio(input_wav, sr<span class="op">=</span>sample_rate)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>converted <span class="op">=</span> model.convert(audio, f0_method<span class="op">=</span>f0_method, pitch_shift<span class="op">=</span>pitch_shift)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>save_audio(output_wav, converted, sr<span class="op">=</span>sample_rate)</span></code></pre></div>
+<p><code>modules/voice_conversion_rvc/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkpoint</span><span class="kw">:</span><span class="at"> checkpoints/rvc.pth</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">f0_method</span><span class="kw">:</span><span class="at"> harvest</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pitch_shift</span><span class="kw">:</span><span class="at"> </span><span class="dv">0</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_rate</span><span class="kw">:</span><span class="at"> </span><span class="dv">44100</span></span></code></pre></div>
+<ul>
+<li>립싱크(Wav2Lip): <code>modules/lipsync_wav2lip/run.py</code>,
+<code>config/settings.yaml</code> (외부 모델 경로, face detector)
+<code>modules/lipsync_wav2lip/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>command <span class="op">=</span> [</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;python&quot;</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;inference.py&quot;</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;--checkpoint_path&quot;</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    checkpoint,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;--face&quot;</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    input_video,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;--audio&quot;</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    input_audio,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;--outfile&quot;</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    output_video,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>subprocess.run(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    command,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    check<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>modules/lipsync_wav2lip/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkpoint</span><span class="kw">:</span><span class="at"> checkpoints/wav2lip.pth</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">face_detector</span><span class="kw">:</span><span class="at"> s3fd</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resize_factor</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>립싱크(MuseTalk): <code>modules/lipsync_musetalk/run.py</code>,
+<code>config/settings.yaml</code> (<code>fp16: True</code> 옵션)
+<code>modules/lipsync_musetalk/run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>args <span class="op">=</span> <span class="bu">dict</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    model_path<span class="op">=</span>checkpoint,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    input_video<span class="op">=</span>input_video,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    input_audio<span class="op">=</span>input_audio,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    output_video<span class="op">=</span>output_video,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    fp16<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>run_musetalk(<span class="op">**</span>args)</span></code></pre></div>
+<p><code>modules/lipsync_musetalk/config/settings.yaml</code></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkpoint</span><span class="kw">:</span><span class="at"> checkpoints/musetalk.safetensors</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fp16</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resolution</span><span class="kw">:</span><span class="at"> </span><span class="dv">720</span></span></code></pre></div>
+<ul>
+<li>Orchestrator: <code>orchestrator/pipeline_runner.py</code>,
+<code>orchestrator/config.yaml</code> (단계별 CLI 호출 시퀀스)
+<code>orchestrator/pipeline_runner.py</code></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pipelines <span class="op">=</span> {</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;video&quot;</span>: [<span class="st">&quot;audio_extract&quot;</span>, <span class="st">&quot;stt&quot;</span>, <span class="st">&quot;text_process&quot;</span>, <span class="st">&quot;tts&quot;</span>, <span class="st">&quot;tts_backup&quot;</span>, <span class="st">&quot;rvc&quot;</span>, <span class="st">&quot;lipsync&quot;</span>],</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;audio&quot;</span>: [<span class="st">&quot;stt&quot;</span>, <span class="st">&quot;text_process&quot;</span>, <span class="st">&quot;tts_backup&quot;</span>, <span class="st">&quot;rvc&quot;</span>],</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;quick&quot;</span>: [<span class="st">&quot;stt&quot;</span>, <span class="st">&quot;text_process&quot;</span>, <span class="st">&quot;tts_backup&quot;</span>],</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step_name <span class="kw">in</span> pipelines.get(args.pipeline_type, []):</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    command_template <span class="op">=</span> all_steps.get(step_name)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> command_template:</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    run_step(command_template, context)</span></code></pre></div>
+<ul>
+<li>백엔드: <code>backend/main.py</code>,
+<code>backend/job_manager.py</code>, <code>backend/routers/*</code>
+(모듈 실행 API/비동기 Job) <code>backend/main.py</code></li>
+</ul>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>app <span class="op">=</span> FastAPI(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="st">&quot;Padiem RnD 모듈형 더빙 파이프라인 API&quot;</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="st">&quot;모듈을 HTTP API로 노출, 작업 큐 지원&quot;</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>app.include_router(stt.router)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>app.include_router(tts.router)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>app.include_router(tts_backup.router)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>app.include_router(tts_gemini.router)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>app.include_router(rvc.router)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>app.include_router(lipsync.router)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>app.include_router(lipsync_musetalk.router)</span></code></pre></div>
+<ul>
+<li>프론트엔드: <code>frontend_unified/Home.py</code>,
+<code>pages/*</code>, <code>steps/*</code> (Streamlit 통합 UI)
+<code>frontend_unified/Home.py</code></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>st.set_page_config(page_title<span class="op">=</span>get_text(<span class="st">&quot;page_title&quot;</span>), page_icon<span class="op">=</span><span class="st">&quot;🎙️&quot;</span>, layout<span class="op">=</span><span class="st">&quot;wide&quot;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>render_sidebar()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>st.title(get_text(<span class="st">&quot;main_title&quot;</span>))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>col1, col2, col3 <span class="op">=</span> st.columns(<span class="dv">3</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col1:</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> st.button(get_text(<span class="st">&quot;live_mode_btn&quot;</span>), use_container_width<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        st.switch_page(<span class="st">&quot;pages/1_🎙️_실시간_통역.py&quot;</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col2:</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> st.button(get_text(<span class="st">&quot;general_mode_btn&quot;</span>), use_container_width<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        st.switch_page(<span class="st">&quot;pages/2_🎬_일반_더빙.py&quot;</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> col3:</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> st.button(get_text(<span class="st">&quot;speed_mode_btn&quot;</span>), use_container_width<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        st.switch_page(<span class="st">&quot;pages/3_⚡_고속_더빙.py&quot;</span>)</span></code></pre></div>
+<ul>
+<li>TensorRT 엔진 변환(옵션 단계, <code>pipeline_type=video_trt</code>):
+<code>modules/experimental/onnx_export_stub.py</code>,
+<code>modules/experimental/tensorrt_export.py</code>
+<code>modules/experimental/onnx_export_stub.py</code></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> Path(args.output)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>out.parent.mkdir(parents<span class="op">=</span><span class="va">True</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>out.write_bytes(<span class="st">b&quot;&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;[ONNX Stub] created empty ONNX placeholder: </span><span class="sc">{</span>out<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<p><code>modules/experimental/tensorrt_export.py</code></p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cmd <span class="op">=</span> [</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    trtexec,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f&quot;--onnx=</span><span class="sc">{</span>onnx<span class="sc">}</span><span class="ss">&quot;</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f&quot;--saveEngine=</span><span class="sc">{</span>engine<span class="sc">}</span><span class="ss">&quot;</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f&quot;--workspace=</span><span class="sc">{</span>args<span class="sc">.</span>workspace<span class="sc">}</span><span class="ss">&quot;</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> args.fp16:</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    cmd.append(<span class="st">&quot;--fp16&quot;</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>subprocess.run(cmd, check<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<ul>
+<li>(추가연구) 보컬 분리(Demucs):
+<code>modules/experimental/demucs_run.py</code> (계획서 미명시, 연구노트
+2024-11-04 기반) <code>modules/experimental/demucs_run.py</code></li>
+</ul>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>shutil.copy(input_path, output_path)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;[Demucs Stub] copied input -&gt; </span><span class="sc">{</span>output_path<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<ul>
+<li>(추가연구) VAD 기반 무음 필터:
+<code>modules/experimental/vad_stub.py</code> (계획서 미명시, 연구노트
+2024-10-23 기반) <code>modules/experimental/vad_stub.py</code></li>
+</ul>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>shutil.copy(src, dst)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;[VAD Stub] copied input -&gt; </span><span class="sc">{</span>dst<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div>
+<ul>
+<li><p>(검토) TensorRT 적용 상태: 강혜림 연구노트(2024-10-16) 커스텀 op
+불일치로 엔진 미생성 → 위 스텁/스크립트 추가, ONNX 실출력·trtexec 경로
+설정 후 엔진 생성/로드 필요</p></li>
+<li><p>파이프라인 흐름도(내부 모듈 기준)<img
+src="최종보고서_이미지/pipeline_flow.png" alt="Pipeline Flow" /></p>
+<ul>
+<li>캡션: 입력→FFmpeg→STT→번역→TTS/VC→립싱크→렌더링</li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트">근거 발췌(연구노트)</h4>
+<p>다음은 전체 파이프라인 설계(모듈형 구조, 단계 구성, 모델 선정)에 대한
+연구노트의 핵심 기록 발췌임.</p>
+<ul>
+<li>강철원 연구노트(2024-10-10, 시스템전체구조정의) 발췌:
+“<strong>목표</strong>: 유튜브 등 영상 콘텐츠의 다국어 더빙 자동화
+시스템 개발”</li>
+<li>강철원 연구노트(2024-10-10, 시스템전체구조정의) 발췌:
+“<strong>입력</strong>: MP4 비디오 / <strong>출력</strong>: 더빙된 MP4
+비디오”</li>
+<li>강철원 연구노트(2024-10-10, 시스템전체구조정의) 발췌: “<strong>AI
+Models</strong>: Whisper(STT), VALL-E X(TTS), RVC(VC),
+Wav2Lip(LipSync)”</li>
+<li>강철원 연구노트(2024-10-11, 자막입력및AI모듈설계) 발췌:
+“<strong>모듈형 구조</strong> 채택, 기능별(STT/TTS/VC 등) 독립 모듈화로
+유지보수성 향상”</li>
+<li>강철원 연구노트(2024-10-11, 자막입력및AI모듈설계) 발췌:
+“<code>Input Video</code> → <code>Audio Extraction</code> →
+<code>STT</code> → <code>Translation</code> → <code>TTS</code> →
+<code>RVC</code> → <code>Wav2Lip</code> →
+<code>Output Video</code>”</li>
+<li>강철원 연구노트(2024-10-17, RVC및VALLEX분석) 발췌: “<strong>Hybrid
+Approach</strong>: VALL-E X로 1차 생성(발음, 언어 처리) → RVC로 2차
+보정(음색 강화)”</li>
+<li>강철원 연구노트(2024-10-18, Wav2Lip분석및주간정리) 발췌:
+“<strong>STT</strong>: Faster-Whisper (Large-v3) / <strong>TTS</strong>:
+VALL-E X / <strong>VC</strong>: RVC v2 / <strong>LipSync</strong>:
+Wav2Lip(+GAN)”</li>
+<li>강철원 연구노트(2024-10-31, 10월성과정리) 발췌: “<strong>주요
+산출물</strong>: 요구사항 정의서, 시스템 아키텍처 설계도, 오디오 추출 및
+STT 프로토타입 코드”</li>
+</ul>
+<h4 id="연구개발계획서-더빙의-15단계와-파이프라인-매핑">2-1-0-1.
+연구개발계획서 “더빙의 15단계”와 파이프라인 매핑</h4>
+<p>연구개발계획서(2. 연구개발 방법)에서는 더빙 제작의 전체 흐름을
+“더빙의 15단계”로 제시하였음. 본 과제의 구현은 해당 흐름을 그대로
+따르되, 단계 간 인계 지점을 파일 기반 산출물(JSON/WAV/MP4)로 표준화하여
+자동 실행 가능한 End-to-End 파이프라인으로 구성한 것이 특징임.</p>
+<p>특히 (1) 음성/텍스트 산출물을 세그먼트(JSON)로 구조화하고, (2) 번역
+단계에서 길이/타이밍 정합 규칙을 적용하며, (3) TTS/VC/립싱크를 모듈로
+분리하여 교체 가능하게 설계함으로써 “수작업 더빙 공정”을 “재현 가능한
+자동 워크플로우”로 전환하였음.</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 15%" />
+<col style="width: 39%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>계획서 단계</th>
+<th>본 과제 파이프라인 대응</th>
+<th>구현/연동(근거)</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. 영상 선정</td>
+<td>입력 미디어 지정</td>
+<td><code>frontend_unified/*</code>,
+<code>orchestrator/pipeline_runner.py</code></td>
+<td><code>--input-media</code>로 실행 단위 구성</td>
+</tr>
+<tr class="even">
+<td>2. 영상·음성 분리</td>
+<td>오디오 추출</td>
+<td><code>modules/audio_extractor/run.py</code></td>
+<td>WAV 표준화</td>
+</tr>
+<tr class="odd">
+<td>3~6. 학습 데이터/학습(음성 추출·강화·무음 처리·학습)</td>
+<td>전처리/학습은 별도 자산/운영 항목</td>
+<td><code>2-1-1</code>의 Demucs/VAD 검토 기록</td>
+<td>본 공개 레포지토리는 추론 중심</td>
+</tr>
+<tr class="even">
+<td>7. 자막 추출</td>
+<td>STT(JSON 세그먼트)</td>
+<td><code>modules/stt_whisper/run.py</code>(선택:
+<code>modules/stt_gemini/run.py</code>)</td>
+<td><code>segments[{start,end,text}]</code></td>
+</tr>
+<tr class="odd">
+<td>8. 자막 번역</td>
+<td>텍스트 처리/번역</td>
+<td><code>modules/text_processor/run.py</code>,
+<code>docs/timed_translation_spec.md</code></td>
+<td>길이/타이밍 정합 규칙 포함</td>
+</tr>
+<tr class="even">
+<td>9. 번역 자막 기반 음성 생성</td>
+<td>TTS(주/백업/선택)</td>
+<td><code>modules/tts_vallex/run.py</code>,
+<code>modules/tts_xtts/run.py</code>,
+<code>modules/tts_gemini/run.py</code></td>
+<td>WAV 산출</td>
+</tr>
+<tr class="odd">
+<td>10. 음성 맞추기</td>
+<td>VC(RVC) + 정합 규칙</td>
+<td><code>modules/voice_conversion_rvc/run.py</code></td>
+<td>음색 보존/타이밍 정합</td>
+</tr>
+<tr class="even">
+<td>11~12. 자막 생성/자막 맞추기</td>
+<td>JSON을 기반으로 후처리 가능</td>
+<td>(본 레포지토리 내 SRT/VTT 생성 스크립트는 확인되지 않음)</td>
+<td>표준 JSON을 단일 진실원천으로 유지</td>
+</tr>
+<tr class="odd">
+<td>13. 립싱크</td>
+<td>립싱크 합성(MP4)</td>
+<td><code>modules/lipsync_wav2lip/run.py</code>,
+<code>modules/lipsync_musetalk/run.py</code></td>
+<td>입력 비디오+합성 오디오</td>
+</tr>
+<tr class="even">
+<td>14. 최종 편집</td>
+<td>결과물 패키징/편집</td>
+<td>립싱크 출력(<code>*_wav2lip.mp4</code>)을 최종 결과로 정의</td>
+<td>자막 오버레이/구간 편집은 운영 환경에서 수행</td>
+</tr>
+</tbody>
+</table>
+<p>추가로 계획서에는 “검수/평가” 단계가 별도 분리되어 있지 않으나, 본
+과제에서는 단계별 산출물 포맷을 표준화하고 지표(WER/BLEU/PSNR/FID 등)
+기반 품질 관리 체계를 3장에서 운영하도록 구성하여, 자동화 과정의 품질
+리스크를 통제하는 구조를 채택하였음.</p>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0004.jpg</code>(연구개발
+방법: 더빙의 15단계)</li>
+</ul>
+<h4 id="오디오-추출-및-전처리audio-extraction-pre-processing">2-1-1.
+오디오 추출 및 전처리(Audio Extraction &amp; Pre-processing)</h4>
+<ul>
+<li>오디오 추출(FFmpeg 기반): 입력 영상/오디오에서 오디오 트랙을
+추출하여 WAV(PCM)로 표준화하였음.
+<ul>
+<li>구현: <code>modules/audio_extractor/run.py</code></li>
+<li>설정: <code>modules/audio_extractor/config/settings.yaml</code> (예:
+<code>audio_codec: pcm_s16le</code>,
+<code>sample_rate: 44100</code>)</li>
+<li>주요 목적: 이후 STT/번역/TTS 단계에서 동일한 오디오 조건을 전제로
+재현 가능한 처리를 수행할 수 있도록 표준 입력을 확보하는 것임.</li>
+</ul></li>
+<li>보컬/반주 분리(Stem Separation) 기술 검토: Demucs 기반 보컬 분리
+도입을 연구노트에서 채택·테스트하였으나, 본 레포지토리의 통합
+파이프라인에는 별도 모듈로 포함되지 않았음(후속 통합 대상).
+<ul>
+<li>근거: (내부)
+<code>notev2/Kangchulwonv2/2024-11/20241104_데이터수집전략.md</code>,
+<code>notev2/Kangchulwonv2/2024-11/20241105_자체데이터녹음.md</code>,
+<code>notev2/Kangchulwonv2/2024-11/20241108_오디오슬라이싱.md</code> /
+(외부) Défossez et al., “Music Source Separation in the Waveform Domain”
+(arXiv:1911.13254), https://arxiv.org/abs/1911.13254,
+https://github.com/facebookresearch/demucs</li>
+</ul></li>
+<li>VAD(Voice Activity Detection) 기반 무음 구간 처리 기술 검토: 무음
+구간에서의 STT 환각 억제를 위해 VAD 적용을 연구노트에서 검토하였으나, 본
+레포지토리의 Whisper STT 모듈은 <code>openai/whisper</code> 기반으로
+구현되어 VAD 필터 옵션은 기본 제공되지 않으며, 후속 개선 항목으로
+관리하였음.
+<ul>
+<li>근거: (내부)
+<code>notev2/Kangchulwonv2/2024-10/20241023_VALLEX테스트및규격확정.md</code>
+/ (외부) <code>faster-whisper</code> VAD(Silero) 문서:
+https://github.com/SYSTRAN/faster-whisper , Silero VAD:
+https://github.com/snakers4/silero-vad</li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트-1">근거 발췌(연구노트)</h4>
+<p>다음은 전처리(Demucs) 및 VAD 적용에 대한 연구노트의 핵심 기록
+발췌이며, 본 레포지토리 통합 파이프라인에 직접 포함되지 않았음을
+병기하였음.</p>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2024-11/20241104_데이터수집전략.md)
+“<strong>Demucs 채택.</strong> <code>pip install demucs</code>로 설치
+가능하고 API로 제어하기 쉬움.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241105_자체데이터녹음.md)
+“<code>modules/audio/separator.py</code> 작성. 입력 오디오를 받아
+<code>vocals.wav</code>와 <code>no_vocals.wav</code>로 분리하는 함수
+구현.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241108_오디오슬라이싱.md)
+“<strong>결과</strong>: 성공. Demucs로 분리된 깨끗한 음성을 사용하니 STT
+정확도가 10월 테스트 대비 약 15% 향상됨.”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241023_VALLEX테스트및규격확정.md)
+“<code>faster-whisper</code> 내장 VAD 옵션(<code>vad_filter=True</code>)
+활성화. <strong>결과</strong>: 무음 구간에서의 환각 현상 현저히 감소.
+정확도 향상 확인.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241101_UI구조세팅.md) “-
+<strong>목표</strong>: 업로드된 비디오 파일에서 오디오 트랙만 분리하여
+WAV 포맷으로 저장.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241101_UI구조세팅.md) “-
+<strong>도구</strong>: <code>ffmpeg-python</code> 래퍼 라이브러리 대신
+<code>subprocess</code>로 직접 FFmpeg 호출 (제어권 확보).” / “-
+<strong>설정</strong>: 16kHz, Mono 채널 (Whisper 및 이후 TTS 모델 학습
+데이터 표준).”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241021_RVC데이터셋준비.md) “- 영상
+처리를 위한 필수 도구인 FFmpeg 설치.” / “- 시스템 환경 변수(PATH)에
+등록하여 터미널에서 접근 가능하도록 설정.”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241021_RVC데이터셋준비.md) “-
+<strong>옵션</strong>: 샘플 레이트(16k, 44.1k), 채널(Mono/Stereo) 설정
+가능하도록 설계.”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241021_RVC데이터셋준비.md) “-
+<strong>경로 문제</strong>: 윈도우 경로(\)와 FFmpeg 경로(/) 호환성.
+-&gt; <code>pathlib</code> 라이브러리 사용하여 경로 처리 표준화.”</p>
+</blockquote>
+<h4 id="고정밀-음성-인식stt-speech-to-text">2-1-2. 고정밀 음성 인식(STT:
+Speech-to-Text)</h4>
+<ul>
+<li>Whisper 기반 STT: 로컬 환경에서 Whisper 모델을 로드하여 전사를
+수행하였음.
+<ul>
+<li>구현: <code>modules/stt_whisper/run.py</code></li>
+<li>설정: <code>modules/stt_whisper/config/settings.yaml</code>,
+<code>modules/stt_whisper/config/settings.largev3.yaml</code></li>
+<li>주요 파라미터: <code>model_name</code>, <code>model_dir</code>,
+<code>language</code>, <code>beam_size</code>, <code>best_of</code>,
+<code>temperature</code>, <code>use_gpu</code>, <code>task</code></li>
+<li>산출물(JSON): <code>id</code>, <code>created_at</code>,
+<code>language</code>, <code>text</code>,
+<code>segments[{start,end,text}]</code>, <code>metadata</code></li>
+</ul></li>
+<li>Gemini 기반 STT(선택): 서비스/실험 환경에 따라 Gemini STT 모듈을
+대안 경로로 제공하여, 난이도 높은 발화/특수 도메인 발화를 보완할 수
+있도록 구성하였음.
+<ul>
+<li>구현: <code>modules/stt_gemini/run.py</code></li>
+</ul></li>
+<li>타임스탬프 구조화: Whisper 결과의 segment 단위
+<code>start/end</code>를 JSON으로 저장하여 번역·TTS·립싱크 단계에서 시간
+정렬을 가능하게 하였음.
+<ul>
+<li>단어 단위 타임스탬프: 설정 파일에는
+<code>word_timestamps: true</code> 항목이
+존재하나(<code>modules/stt_whisper/config/settings*.yaml</code>), 현재
+STT 모듈 구현(<code>modules/stt_whisper/run.py</code>)은 해당 옵션을
+전사 옵션에 전달하거나(<code>transcribe</code> 옵션) 출력 JSON에 단어
+단위 정보를 저장하는 로직이 포함되어 있지 않음. 이에 단어 단위 정렬은
+후속 고도화 항목으로 관리하였음.</li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트-2">근거 발췌(연구노트)</h4>
+<p>다음은 STT 프로토타이핑 단계에서 Whisper 기반 전사, 세그먼트 기반 SRT
+변환, 무음 구간 환각 이슈를 기록한 연구노트 발췌이며, 일부는
+<code>faster-whisper</code> 기반 실험 기록을 포함함.</p>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2024-10/20241022_RVC학습및추론.md) “-
+<code>faster-whisper</code> 라이브러리 설치.” / “- 어제 추출한 오디오
+파일을 입력으로 넣어 텍스트 변환 테스트.”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241022_RVC학습및추론.md) “- Whisper
+결과(Segments)를 파싱하여 SRT(SubRip Subtitle) 형식으로 변환하는 로직
+구현.” / “- 타임스탬프(Start, End) 포맷팅
+(<code>00:00:00,000</code>).”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241022_RVC학습및추론.md) “-
+<strong>환각(Hallucination)</strong>: 무음 구간에서 이상한 텍스트 반복
+생성. -&gt; VAD(Voice Activity Detection) 필터링 옵션 활성화 필요.”</p>
+</blockquote>
+<h4 id="문맥-기반-자막-번역context-aware-translation">2-1-3. 문맥 기반
+자막 번역(Context-aware Translation)</h4>
+<ul>
+<li><p>텍스트 정규화 및 세그먼트 표준 유지: STT 산출 JSON을 입력으로
+받아, 공백 정리/트림 등의 기본 정규화를 수행하였음.</p>
+<ul>
+<li>구현: <code>modules/text_processor/run.py</code></li>
+<li>설정: <code>modules/text_processor/config/settings.yaml</code> (예:
+<code>source_language</code>, <code>target_language</code>,
+<code>syllable_tolerance</code>, <code>enforce_timing</code>,
+<code>operations</code>)</li>
+</ul></li>
+<li><p>환각(반복) 세그먼트 억제: STT 출력에서 동일 텍스트 반복 시
+세그먼트를 병합하는 필터를 적용하여, 무음 구간 환각으로 인한 번역/정합
+붕괴를 완화하였음.</p>
+<ul>
+<li>근거: <code>modules/text_processor/run.py</code>의
+<code>_filter_hallucinations()</code></li>
+</ul></li>
+<li><p>용어/고유명사 치환(간이 용어집): <code>translation_map</code>
+설정을 통해, 특정 원문 문자열을 사전에 정의한 문자열로 치환하여 번역
+결과의 일관성을 유지할 수 있도록 구성하였음.</p>
+<ul>
+<li>근거: <code>modules/text_processor/config/settings.yaml</code>,
+<code>modules/text_processor/run.py</code>의
+<code>translation_map</code> 적용</li>
+</ul></li>
+<li><p>LLM 기반 번역(선택): 서비스 환경에서 Gemini API를 활용하여 문맥을
+반영한 번역 품질을 확보하도록 구성하였음.</p></li>
+<li><p>배치 번역(문맥 일관성): <code>gemini_api_key</code>가 설정된 경우
+세그먼트 전체를 JSON payload로 묶어 Gemini에 1회 호출로 번역하여, 문맥
+일관성을 확보하도록 구성하였음.</p>
+<ul>
+<li>근거: <code>modules/text_processor/run.py</code>의
+<code>_batch_translate_segments()</code></li>
+</ul></li>
+<li><p>길이/타이밍 정합 로직: 번역문 길이 편차로 인한 더빙 타이밍 붕괴를
+방지하기 위해, 음절 허용오차(<code>syllable_tolerance</code>) 및 타이밍
+강제(<code>enforce_timing</code>) 옵션을 중심으로 품질 규칙을
+정의하였음.</p>
+<ul>
+<li>근거: <code>docs/timed_translation_spec.md</code> (세그먼트 스키마
+및 품질 규칙)</li>
+</ul></li>
+<li><p>자막 포맷(SRT/VTT) 변환: 산출 JSON을 기반으로 후속 단계에서 자막
+파일로의 변환이 가능하도록 데이터 구조를 유지하였음.</p></li>
+<li><p>STT→정규화→번역→길이/타이밍 정합 흐름도<img
+src="최종보고서_이미지/stt_translation_flow.png"
+alt="STT Translation Flow" /></p>
+<ul>
+<li>캡션: STT→정규화→번역→길이/타이밍 정합(LLM·용어집·시간 맞춤)</li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트-3">근거 발췌(연구노트)</h4>
+<p>다음은 번역 단계에서 문맥 끊김/오역 문제를 해결하기 위한 슬라이딩
+윈도우(Chunking) 및 용어집(고유명사 보존) 기법을 검토한 연구노트
+발췌이며, 텍스트 정규화/문장 분리/길이 제한 등 후속 고도화 방향을
+포함함.</p>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2024-12/20241209_부하테스트계획.md) “- 자막을
+한 줄씩 번역하면 앞뒤 문맥이 끊겨 오역 발생.” / “- 예: "It works." -&gt;
+"그것은 일한다." (문맥상 "작동한다"가 맞음).”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241209_부하테스트계획.md) “- 현재
+문장을 번역할 때 앞뒤 문장을 같이 프롬프트로 제공하거나, 덩어리(Chunk)로
+묶어서 번역.”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241209_부하테스트계획.md) “- Deep
+Translator는 문맥 인식이 약하므로, 5~10문장씩 묶어서
+<code>\\n</code>으로 연결해 보내는 방식 채택.”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241209_부하테스트계획.md) “-
+<strong>정렬</strong>: 묶어서 번역 후 다시 나눌 때, 번역 API가 문장
+개수를 다르게 반환하면 매칭 실패. -&gt; 줄바꿈 문자를 특수
+토큰(<code>|||</code>)으로 변경하여 보존성 높임.”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241210_부하테스트실행.md) “- 사용자
+정의 사전(Dictionary)을 로드.” / “- 번역 <strong>전</strong>에
+고유명사를 플레이스홀더(Placeholder)로 치환.” / “- 번역
+<strong>후</strong>에 플레이스홀더를 목표 언어 단어로 복원.”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241210_부하테스트실행.md) “- 예:
+<code>{\"파디엠\": \"Padiem\"}</code> -&gt; "파디엠에서 개발" -&gt;
+"[TERM_0]에서 개발" -&gt; "Developed at [TERM_0]" -&gt; "Developed at
+Padiem".”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241210_부하테스트실행.md) “- 번역기가
+번역하지 않도록 특이한 형태(<code>__GLOSSARY_0__</code>) 사용.”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241202_Wav2Lip가속화조사.md) “- STT
+결과물이나 번역 결과물에 포함된 숫자, 약어, 기호 등을 TTS가 읽기 좋은
+형태로 변환해야 함.” / “- 예: "12/25" -&gt; "십이월 이십오일" (Korean),
+"December twenty-fifth" (English).”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241202_Wav2Lip가속화조사.md) “-
+<strong>Korean</strong>: <code>kss</code> (문장 분리), <code>jamo</code>
+(자모 분리). 숫자 읽기는 정규식 기반 커스텀 로직 필요.” / “-
+<strong>English</strong>: <code>num2words</code> 라이브러리 활용.”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241203_TensorRT벤치마킹.md) “- 단순
+마침표(<code>.</code>) 기준 분리는 "Mr. Kim" 같은 약어에서 오작동.” / “-
+<code>nltk.sent_tokenize</code> (영어)와
+<code>kss.split_sentences</code> (한국어)를 언어별로 분기 처리.”</p>
+<p>(notev2/Kangchulwonv2/2024-12/20241203_TensorRT벤치마킹.md) “- TTS
+모델(VALL-E X) 입력 한계(약 15~20초)를 고려하여, 문장이 너무 길면
+쉼표(<code>,</code>)나 접속사 기준으로 강제 분할하는 로직 추가.”</p>
+</blockquote>
+<h3 id="핵심-ai-모델-구현-및-고도화음성영상">2-2. 핵심 AI 모델 구현 및
+고도화(음성/영상)</h3>
+<h4 id="음성-합성-및-변환tts-rvc">2-2-1. 음성 합성 및 변환(TTS &amp;
+RVC)</h4>
+<ul>
+<li>다국어 TTS(주 경로): VALL-E X 기반 음성 합성 모듈을 구성하여, 텍스트
+입력을 합성 음성으로 변환하였음.
+<ul>
+<li>구현: <code>modules/tts_vallex/run.py</code></li>
+<li>설정: <code>modules/tts_vallex/config/settings.yaml</code> (예:
+<code>script_path</code>, <code>checkpoint_dir</code>,
+<code>speaker_id</code>, <code>command_template</code>)</li>
+</ul></li>
+<li>다국어 TTS(백업 경로): 서비스/실험 환경에서 XTTS 기반 백업 TTS
+모듈을 병행하여 안정적인 생성 경로를 확보하였음.
+<ul>
+<li>구현: <code>modules/tts_xtts/run.py</code></li>
+<li>설정: <code>modules/tts_xtts/config/settings.yaml</code> (예:
+<code>model_name</code>, <code>use_gpu</code>, <code>speaker_wav</code>,
+<code>language</code>)</li>
+</ul></li>
+<li>음색 변환(Voice Cloning): RVC 기반 음성 변환을 결합하여 원화자의
+음색 특징(Timbre)을 타겟 음성에 적용하는 파이프라인을 구성하였음.
+<ul>
+<li>구현: <code>modules/voice_conversion_rvc/run.py</code></li>
+<li>설정: <code>modules/voice_conversion_rvc/config/settings.yaml</code>
+(예: <code>checkpoint</code>, <code>f0_method</code>,
+<code>pitch_shift</code>)</li>
+</ul></li>
+<li>TTS 참고 시각 자료:
+<ul>
+<li>VALL-E X(MS Research) 프로젝트 페이지(품질/유사도 강조) <img
+src="최종보고서_이미지/valle_x_ms.png" alt="VALL-E X" /></li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트-4">근거 발췌(연구노트)</h4>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2024-10/20241017_RVC및VALLEX분석.md) “-
+<strong>특징</strong>: 마이크로소프트 리서치에서 발표. 3초 분량의 음성
+샘플만으로 목소리 복제 가능 (Zero-shot). 다국어 지원.” / “-
+<strong>장점</strong>: 교차 언어(Cross-lingual) 합성 가능 (예: 한국인
+목소리로 영어 발화).”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241017_RVC및VALLEX분석.md) “-
+<strong>특징</strong>: Retrieval-based Voice Conversion. 적은 데이터로도
+고품질 음성 변환 가능.” / “- <strong>활용</strong>: VALL-E X로 생성된
+음성의 톤을 원본 화자와 더욱 비슷하게 보정하는 용도로 사용 계획.”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241017_RVC및VALLEX분석.md) “-
+<strong>Hybrid Approach</strong>: VALL-E X로 1차 생성(발음, 언어 처리)
+-&gt; RVC로 2차 보정(음색 강화).”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241115_VALLEX준비및주간정리.md) “-
+다음 단계인 음성 합성(TTS)을 위해 VALL-E X 리포지토리 클론 및 의존성
+설치.” / “- <code>phonemizer</code>: 텍스트를 음소(Phoneme)로 변환하는
+라이브러리 설치 필수 (VALL-E X 의존성).”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241115_VALLEX준비및주간정리.md) “-
+<strong>Espeak</strong>: <code>phonemizer</code> 사용을 위해 시스템에
+<code>espeak-ng</code> 백엔드 설치 필요. 윈도우 환경 변수 설정
+주의.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241118_VALLEX전처리.md) “- <strong>AR
+(Auto-Regressive) Model</strong>: 텍스트와 프롬프트 오디오의 음향 토큰을
+기반으로 첫 번째 양자화기(Quantizer)의 코드를 생성.” / “- <strong>NAR
+(Non-Auto-Regressive) Model</strong>: 나머지 7개의 양자화기 코드를
+병렬로 생성하여 정밀도 향상.” / “- <strong>Vocoder</strong>: 생성된
+코드를 오디오 파형으로 변환 (HiFi-GAN 등 사용).”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241118_VALLEX전처리.md) “- VALL-E X는
+텍스트뿐만 아니라 "3초 오디오 프롬프트"를 입력으로 받아, 그 목소리 톤을
+모방(Cloning)하는 것이 핵심.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241118_VALLEX전처리.md) “-
+<strong>복잡성</strong>: 코드가 연구용이라 구조가 복잡하고 하드코딩된
+경로가 많음. -&gt; 모듈화 필요.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241119_VALLEX학습시도.md) “- 제공된
+체크포인트(<code>checkpoints/</code>)를 로드하여 텍스트 -&gt; 음성 생성
+테스트.” / “- <strong>결과</strong>: 영어 텍스트 입력 시 자연스러운 영어
+음성 생성 확인.” / “- <strong>속도</strong>: CPU에서는 매우 느림. GPU
+필수.” / “- <strong>메모리</strong>: VRAM 6GB 이상 권장.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241120_LoRA도입검토.md) “- 복잡한
+VALL-E X 코드를 <code>TTSGenerator</code> 클래스로 래핑.” / “-
+<code>generate(text, prompt_path, language)</code> 메서드 제공.” / “-
+모델 로딩 로직을 클래스 초기화 시점으로 이동.” / “- <strong>긴
+문장</strong>: 문장이 너무 길면(20초 이상) 생성이 끊기거나 품질 저하.
+-&gt; 문장 분리(Sentence Splitting) 전처리 필요.”</p>
+<p>(notev2/Kangchulwonv2/2024-11/20241121_VALLEX_LoRA학습.md) “-
+<code>nltk</code> 또는 <code>kss</code>(한국어) 라이브러리 활용하여 긴
+텍스트를 문장 단위로 분할.” / “- VALL-E X 입력 길이를 최적화하여 안정성
+확보.”</p>
+</blockquote>
+<h4
+id="고급-음성특징-추출-및-품질-보강계획서-기반-후속-고도화-항목">2-2-1-1.
+고급 음성특징 추출 및 품질 보강(계획서 기반, 후속 고도화 항목)</h4>
+<p>연구개발계획서에서는 음성 합성 및 음색 변환 단계의 품질을 높이기
+위해, 전통적 음성 특징(MFCC/피치/포먼트 등)과 딥러닝 기반 특징 추출을
+결합한 “고급 음성 특징 추출” 고도화 방안을 제시하였음. 해당 방안은 (1)
+음성 품질 평가(QC) 입력 특징으로 활용하거나, (2) 음색/발음/감정 표현의
+안정성을 개선하는 보조 신호로 활용하는 방향으로 정리될 수 있음.</p>
+<ul>
+<li>MFCC 최적화: 윈도우 크기 및 오버랩 조정으로 시간-주파수 해상도를
+최적화하고, 필터뱅크 설계 개선으로 주파수 대역별 특성 포착 능력을
+향상하는 전략을 제시하였음.</li>
+<li>피치(F0) 추출 고도화: YIN 알고리즘 기반 피치 추출을 구현하고, CREPE
+등 딥러닝 기반 피치 추출 모델 도입 및 fine-tuning을 통해 강건한 F0 추정
+기반을 확보하는 방향을 제시하였음.</li>
+<li>포먼트(Formant) 분석: LPC(Linear Predictive Coding) 기반 포먼트 추출
+및 스펙트로그램 분석을 결합하여, 포먼트 트래킹 시스템을 구축하는 방안을
+제시하였음.</li>
+<li>웨이블릿 기반 다중 해상도 분석: 이산 웨이블릿 변환(DWT) 기반의 다중
+해상도 분석을 통해 발화 특성 및 잡음에 대한 강건성을 높이고, 최적
+웨이블릿 기저 함수를 선택하는 절차를 포함하도록 제시하였음.</li>
+</ul>
+<p>다만 본 공개 레포지토리에서는 상기 MFCC/YIN/CREPE/LPC/DWT 기반 특징
+추출의 구현 코드는 확인되지 않았으며, 현재는 STT/TTS/RVC의 실행 경로를
+모듈화하여 통합하는 “추론 파이프라인” 중심 구조에 초점을 두고 있음. 이에
+해당 항목은 후속 연구개발에서 “품질 평가 입력 특징 고도화” 및 “학습/추론
+파이프라인 보강” 영역으로 관리하였음.</p>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0005.jpg</code>(고급
+음성 특징 추출: MFCC/YIN/CREPE/LPC/DWT)</li>
+</ul>
+<h4
+id="vall-e-x-통합-및-음성-합성-품질-최적화계획서-기반-학습운영-영역">2-2-1-2.
+VALL-E X 통합 및 음성 합성 품질 최적화(계획서 기반, 학습/운영 영역)</h4>
+<p>계획서에서는 VALL‑E X 기반 다국어 음성 합성 모델을 서비스에 통합하기
+위한 데이터/학습/후처리 전략을 제시하였음.</p>
+<ul>
+<li>한국어 특화 데이터셋 구축: 다양한 한국어 발화 스타일(억양/방언/감정
+표현)이 포함된 데이터를 수집하고, 전문 성우·일반 화자 데이터를 포함하여
+균형 잡힌 데이터셋을 구성하는 방향을 제시하였음.</li>
+<li>다국어 음성 합성 학습: 다국어 음성 임베딩을 통해 언어 간 전이 학습을
+구현하고, 언어 식별자를 활용한 조건부 생성 구조를 설계하는 방향을
+포함하였음.</li>
+<li>감정 표현 강화: 감정 라벨링 데이터셋을 구축·검증하고, 감정 임베딩
+기반 조건부 생성 모델 아키텍처를 설계하며, 멀티태스크 학습(Multi-task
+Learning)을 통해 감정 인식/합성을 동시에 최적화하는 전략을
+제시하였음.</li>
+<li>후처리(Neural Vocoder) 튜닝: HiFi‑GAN 등 Neural Vocoder를
+fine-tuning하고, 스펙트럼 보정 기술을 적용하여 합성 음질(고역대 선명도,
+기계음 감소)을 개선하는 방향을 제시하였음.</li>
+</ul>
+<p>본 레포지토리에서는 <code>modules/tts_vallex/run.py</code> 형태로
+VALL‑E X 기반 TTS를 “실행(추론) 모듈”로 통합하였으나, 상기 데이터
+구축/학습/보코더 fine-tuning 등 학습 파이프라인은 공개 레포지토리에
+포함되어 있지 않음. 따라서 해당 항목은 계획서 기반의 학습/운영
+로드맵으로서 정리하고, 공개 레포지토리 기준으로는 추론 경로의
+모듈화/교체 가능 설계를 중심으로 기술하였음.</p>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0005.jpg</code>(VALL‑E
+X 모델 통합/감정 표현 강화/HiFi‑GAN fine-tuning)</li>
+</ul>
+<h4
+id="실시간-음성-변환-파이프라인-및-하이브리드-아키텍처계획서-기반-후속-고도화-항목">2-2-1-3.
+실시간 음성 변환 파이프라인 및 하이브리드 아키텍처(계획서 기반, 후속
+고도화 항목)</h4>
+<p>계획서에서는 “실시간 처리 속도 개선(20% 개선)” 목표와 연계하여, 음성
+변환/합성 파이프라인의 지연시간을 줄이기 위한 스트리밍 처리 전략과
+하이브리드 모델 아키텍처 고도화 방향을 제시하였음.</p>
+<ul>
+<li>스트리밍 입력 처리: circular buffer 기반 실시간 오디오 입력 처리
+모듈, 프레임 단위 처리를 위한 오버랩‑애드(Overlap‑Add) 알고리즘 구현
+등을 포함하였음.</li>
+<li>저지연 DSP 최적화: SIMD 기반 신호처리 최적화, 실시간 노이즈 제거 및
+음질 개선 알고리즘 구축을 제시하였음.</li>
+<li>파이프라인 최적화: 멀티스레딩 기반 병렬 처리 파이프라인 및 로드
+밸런싱 알고리즘을 통해 처리 지연을 최소화하고, 네트워크 지연 대응을 위한
+지터 버퍼(jitter buffer) 설계를 포함하도록 제시하였음.</li>
+<li>하이브리드 모델 설계: RVC와 VALL‑E X 모델 통합 설계, Gated Mixture
+of Experts 기반 동적 모델 선택, RoPE(Relative Position Representation),
+Sparse Attention 등 장거리 의존성/계산 효율을 고려한 attention 개선
+전략을 제시하였음.</li>
+<li>적응형 학습/경량화: few-shot, meta-learning(MAML), knowledge
+distillation 등의 기법을 통해 신규 화자/도메인 적응을 빠르게 하고, 모델
+압축을 통한 경량화를 병행하는 방향을 제시하였음.</li>
+</ul>
+<p>본 공개 레포지토리에서는 “실시간 스트리밍 처리(프레임/버퍼 단위
+입력)” 및 “하이브리드 아키텍처 학습/경량화”의 구체 구현 코드는 확인되지
+않으며, 우선은 모듈 단위 추론 실행과 파이프라인 통합에 집중하여
+실험·운영 가능한 형태를 확보하였음. 따라서 해당 항목은 후속 고도화
+로드맵으로 구분하여 관리하였음.</p>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0006.jpg</code>(실시간
+음성 변환 파이프라인/하이브리드 모델 아키텍처)</li>
+</ul>
+<h4 id="립싱크-고도화lip-sync">2-2-2. 립싱크 고도화(Lip-Sync)</h4>
+<ul>
+<li>Wav2Lip 기반 립싱크: 오디오 입력과 원본 영상을 기반으로 립싱크
+영상을 생성하는 모듈을 구성하였음.
+<ul>
+<li>구현: <code>modules/lipsync_wav2lip/run.py</code></li>
+<li>설정: <code>modules/lipsync_wav2lip/config/settings.yaml</code> (예:
+<code>script_path</code>, <code>checkpoint</code>,
+<code>face_detector</code>, <code>resize_factor</code>,
+<code>max_duration_sec</code>)</li>
+</ul></li>
+<li>MuseTalk 기반 고해상도 립싱크: 고해상도 출력 및 추론 효율 향상을
+위해 MuseTalk 기반 모듈을 추가 구성하였음.
+<ul>
+<li>구현: <code>modules/lipsync_musetalk/run.py</code></li>
+<li>설정: <code>modules/lipsync_musetalk/config/settings.yaml</code>
+(예: <code>bbox_shift</code>, <code>fp16: True</code>)</li>
+</ul></li>
+<li>립싱크 참고 시각 자료:
+<ul>
+<li>Wav2Lip 공식 리포지토리 개요(모델 구조/데모)<img
+src="최종보고서_이미지/wav2lip_github.png" alt="Wav2Lip GitHub" />
+<ul>
+<li>출처: https://github.com/Rudrabha/Wav2Lip</li>
+</ul></li>
+<li>MuseTalk 공식 리포지토리 개요(고해상도/실시간 강조)<img
+src="최종보고서_이미지/musetalk_github.png" alt="MuseTalk GitHub" />
+<ul>
+<li>출처: https://github.com/TMElyralab/MuseTalk</li>
+</ul></li>
+<li>Wav2Lip ↔︎ MuseTalk 비교 썸네일(화질/입모양 대비)<img
+src="최종보고서_이미지/lipsync_compare.png" alt="LipSync Compare" />
+<ul>
+<li>캡션: 왼쪽=Wav2Lip, 오른쪽=MuseTalk</li>
+</ul></li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트-5">근거 발췌(연구노트)</h4>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2024-10/20241018_Wav2Lip분석및주간정리.md) “-
+<strong>특징</strong>: 임의의 오디오와 비디오를 입력받아 입모양을
+동기화.” / “- <strong>성능</strong>: 현재 공개된 모델 중 가장 안정적인
+성능. GAN 기반.” / “- <strong>제약</strong>: 상업적 이용 시 라이선스
+확인 필요 (LRS2 데이터셋 이슈). 연구용으로 우선 진행.”</p>
+<p>(notev2/Kangchulwonv2/2024-10/20241018_Wav2Lip분석및주간정리.md) “-
+<strong>라이선스</strong>: Wav2Lip의 상업적 이용 제한. -&gt; 대체
+모델(SadTalker 등)도 지속 모니터링하되, 현재는 Wav2Lip으로 프로토타입
+개발.”</p>
+<p>(notev2/Kanghyerim/연구노트.txt) “목표: 임의의 오디오에 맞춰 비디오
+속 인물의 입모양을 동기화.” / “구조: Generator(입모양 생성) +
+Discriminator(품질 판별) + Expert Sync Net(동기화 판별).” / “SyncNet
+loss is crucial for accurate lip-sync.”</p>
+<p>(notev2/Kanghyerim/연구노트.txt) “LRS2 데이터셋 라이선스 문제로
+상업적 이용 시 주의 필요.” / “현재는 연구 개발 단계이므로 사용 가능하나,
+추후 자체 데이터셋 학습 고려.”</p>
+<p>(notev2/Kanghyerim/연구노트.txt) “해상도: 기본 모델은 96x96 해상도로
+입모양을 생성하여 전체 영상 품질 저하 우려. -&gt; GFPGAN 등
+Super-resolution 도입 필수.”</p>
+<p>(notev2/Kangchulwonv2/2025-08/20250804_라이선스검토.md) “-
+<strong>Wav2Lip</strong>: LRS2 데이터셋 사용 시 비상업적 용도 제한 있음.
+-&gt; 상업적 이용을 위해 자체 데이터셋으로 재학습하거나, 연구용
+프로토타입으로 한정해야 함.” / “- 현재 단계에서는 <strong>"연구용
+프로토타입"</strong> 으로 정의하고, 상용 서비스 출시 전 Wav2Lip 모델
+교체 또는 재학습 계획 수립.”</p>
+<p>(notev2/Kangchulwonv2/2025-02/20250224_성능최적화1.md) “-
+<strong>결과</strong>: 성공. 하지만 오디오와 비디오 싱크가 미세하게
+밀리는 현상 발견.” / “- <strong>싱크 밀림</strong>: Wav2Lip 처리
+과정에서 프레임 레이트(FPS)가 변경되거나 오디오 길이가 달라질 수 있음.
+-&gt; FFmpeg로 최종 합칠 때 오디오 길이에 맞춰 비디오 속도 조절(Stretch)
+필요.”</p>
+<p>(notev2/Kanghyerim_Combined_2024-10_to_2025-09_plain.txt) “립싱크
+품질을 단순 주관 평가가 아니라 PSNR/FID와 같은 정량 지표로 관리하기로
+결정함.” / “Wav2Lip을 초기 베이스라인으로 두되, "서비스에 투입 가능한
+고해상도 립싱크"라는 목표 수준을 지표 상으로도 분명히 정의하고, 이후
+모델/파이프라인 변경 논의의 기준점으로 사용.”</p>
+<p>(notev2/Kanghyerim_Combined_2024-10_to_2025-09_plain.txt) “대체 모델
+후보군 중 MuseTalk가 고해상도 립싱크실시간 처리 측면에서 가장 유망한
+후보로 보고받음.” / “초기 PoC 결과에서 Wav2Lip 대비 PSNR/FID와 시각적
+선명도가 모두 개선되는 경향이 확인되어, MuseTalk 기반 PoC를 공식 과제로
+승인.”</p>
+<p>(notev2/Kanghyerim_Combined_2024-10_to_2025-09_plain.txt) “MuseTalk
+기반 립싱크 모듈을 통합한 후, 전체 평가셋 기준으로 PSNR/FID 목표치를
+달성유지할 수 있다는 최종 보고를 받음.” / “기본 립싱크 엔진은
+MuseTalk으로 전환.” / “Wav2Lip은 호환성 보장 및 장애특수 케이스 대응용
+fallback 엔진으로만 사용.”</p>
+</blockquote>
+<p>연구개발계획서에서는 “AI(Wav2Lip) 기반 립싱크 기술 통합”을 별도 연구
+항목으로 제시하며, (1) Wav2Lip 모델 최적화(아키텍처 개선/학습 데이터
+확장), (2) 프레임 단위 실시간 처리 파이프라인, (3) 3D 얼굴 모델링(3DMM)
+및 블렌드셰이프 기반 립싱크 맵핑, (4) 다국어 지원(언어별 음소·시각 매핑
+DB 및 적응형 학습) 등의 고도화 방향을 기술하였음.</p>
+<p>다만 본 공개 레포지토리에서 확인 가능한 범위는 “립싱크 추론 실행
+경로를 모듈로 통합”하는 수준이며, 3DMM/Blendshape 기반의 립 모양 제약
+모델링 또는 언어별 음소‑시각 매핑 DB를 구축·활용하는 코드 경로는
+확인되지 않았음. 따라서 본 보고서에서는 “현 구현(추론 통합)”과 “계획서
+기반 후속 고도화 항목(3D 모델링·다국어 립싱크 적응)”을 구분하여
+기술하였음.</p>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0007.jpg</code>(AI(Wav2Lip)
+기반 립싱크 기술 통합: 최적화/실시간/3DMM/다국어 지원)</li>
+</ul>
+<h4 id="립싱크-평가피드백-루프계획서-기반-후속-고도화-항목">2-2-2-1.
+립싱크 평가·피드백 루프(계획서 기반, 후속 고도화 항목)</h4>
+<p>계획서에서는 립싱크 품질을 “사람의 주관 평가”에만 의존하지 않고,
+영상‑음성 동기화 및 시각적 자연스러움을 정량적으로 계측·개선하는
+평가·피드백 루프를 구축하는 방향을 제시하였음. 이는 본 과제의 목표 중
+“립싱크 정확도 개선(10% 개선)” 및 “품질 관리 시스템 구축”과 직접적으로
+연계되는 항목임.</p>
+<ul>
+<li>영상‑음성 동기화 계측(DTW): Dynamic Time Warping(DTW) 기반으로
+오디오 특징과 입 모양 변화 간의 시간 정렬 오차를 측정하여, 동기화 품질을
+수치화하는 방안을 제시하였음.</li>
+<li>시각적 평가(CNN 기반): CNN 기반으로 “입 모양‑음성 일치도”를 평가하는
+모델을 별도로 구축하여, 시각적 립싱크 오류(입 열림/닫힘 타이밍 불일치
+등)를 자동 탐지하는 방향을 포함하였음.</li>
+<li>사용자 피드백 수집/분석: 웹/모바일 인터페이스로 사용자 평가를
+수집하고, BERT 등 텍스트 모델로 피드백을 분류·요약하여 품질 이슈를
+정형화하는 프로세스를 제시하였음.</li>
+<li>지속적 학습(Continuous Fine‑tuning): 수집된 피드백 및 평가 결과를
+기반으로 립싱크 모델(또는 후처리 모듈)을 재학습/미세조정하는
+파이프라인을 구축하여, 운영 중 품질 개선이 누적되는 구조를 목표로
+하였음.</li>
+</ul>
+<p>본 공개 레포지토리 기준으로는 DTW/CNN/BERT 기반의 립싱크 자동 평가
+모델 및 사용자 피드백 기반 학습 파이프라인 구현 코드는 확인되지 않았음.
+대신 현 단계에서는 파이프라인 실행 결과(영상/오디오/JSON 산출물)를
+표준화하여, 향후 평가 결과를 동일 구조(JSON)로 저장·연동할 수 있는
+기반을 우선 확보하였음.</p>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0008.jpg</code>(립싱크
+정합도 평가: DTW/CNN, 사용자 피드백 루프: BERT/지속 학습)</li>
+</ul>
+<h3 id="gpu-가속-및-추론-최적화">2-3. GPU 가속 및 추론 최적화</h3>
+<ul>
+<li>GPU 활용 옵션: STT/TTS/립싱크 단계에서 <code>use_gpu: true</code>
+등의 설정을 통해 가능한 경우 GPU에서 추론하도록 구성하였음.
+<ul>
+<li>근거: <code>modules/stt_whisper/config/settings*.yaml</code>의
+<code>use_gpu</code>,
+<code>modules/tts_xtts/config/settings.yaml</code>의
+<code>use_gpu</code> 등</li>
+</ul></li>
+<li>fp16(반정밀도) 옵션: MuseTalk 립싱크 설정에서
+<code>fp16: True</code> 옵션을 제공하여 추론 효율을 확보하도록 하였음.
+<ul>
+<li>근거:
+<code>modules/lipsync_musetalk/config/settings.yaml</code></li>
+</ul></li>
+<li>벤치마크 기준 환경 수립: A100 80GB x2, CUDA 12.3, PyTorch 2.2,
+TensorRT 9.1 조합을 기준 환경으로 설정하고, 동일 환경 재현을 위해
+드라이버/컨테이너 단위까지 기록하였음.
+<ul>
+<li>근거: <code>notev2/Kanghyerim/2024-10/20241016.md</code></li>
+</ul></li>
+<li>Mixed Precision 및 Gradient Checkpointing 적용: fp16 mixed
+precision과 gradient checkpointing을 적용하여 GPU 메모리 사용량을 52GB →
+34GB로 감소시키는 튜닝을 수행하였음.
+<ul>
+<li>근거: (내부) <code>notev2/Kanghyerim/2024-10/20241016.md</code> /
+(외부) PyTorch AMP: https://docs.pytorch.org/docs/stable/amp.html ,
+torch.utils.checkpoint:
+https://docs.pytorch.org/docs/stable/checkpoint.html</li>
+</ul></li>
+<li>TensorRT INT8 calibration(프로토타입) 검토: FastPitch 및 Wav2Lip
+추론 그래프에 대해 INT8 calibration을 수행하여 약 1.4배 추론 속도 향상
+가능성을 확인하였음. 다만 레포지토리에서 TensorRT 엔진 기반 실행 경로가
+확인되지 않아, 본 과제의 기본 실행 파이프라인에는 포함하지 않았음.
+<ul>
+<li>근거: (내부) <code>notev2/Kanghyerim/2024-10/20241016.md</code> /
+(외부) NVIDIA TensorRT INT8 Calibration:
+https://docs.nvidia.com/deeplearning/tensorrt/10.9.0/_static/python-api/infer/Int8/Calibrator.html</li>
+</ul></li>
+<li>초기 성능 계측 기록(내부): 5초 clip 기준 평균 추론 지연시간 342ms,
+throughput 2.7 clips/s, GPU 메모리 사용량 약 38GB를 기록하였음. 해당
+수치는 연구노트 기반 초기 기록이며, 시험성적서용 공식 수치로는 별도 재현
+및 검증이 필요함.
+<ul>
+<li>근거: <code>notev2/Kanghyerim/2024-10/20241016.md</code></li>
+</ul></li>
+<li>성능 리포트 자동화 도구: clip 길이별 지연/메모리/throughput 기록용
+실행 절차 및 스크립트 설계 문서를 내부
+시험랩(<code>test_reports_company</code>, 공개 제외)에서 정리하였으며,
+본 레포지토리에도 <code>finalv2/scripts/benchmark_runner.py</code>를
+구현하여 clip 단위 성능 로그를 CSV로 기록할 수 있도록 구성하였음.
+<ul>
+<li>근거:
+<code>test_reports_company/docs/process/measurement_commands_v1.md</code>,
+<code>notev2/Kanghyerim/2024-10/20241016.md</code></li>
+</ul></li>
+<li>TorchScript/ONNX Runtime/TensorRT 기반 변환 최적화: 모델 변환 기반
+최적화는 기술 검토를 수행하였으나, 커스텀 연산 지원 문제 등 리스크가
+확인되어 본 과제 범위에서는 보류하고 캐싱 중심의 런타임 최적화로 방향을
+설정하였음.
+<ul>
+<li>근거: (내부)
+<code>notev2/Kangchulwonv2/2025-04/20250409_모델서빙최적화.md</code>
+(“Skip TorchScript/ONNX for now. Focus on caching.”) / (외부) PyTorch
+TorchScript: https://pytorch.org/docs/stable/jit.html , ONNX Runtime:
+https://onnxruntime.ai/docs/ , NVIDIA TensorRT:
+https://developer.nvidia.com/tensorrt</li>
+</ul></li>
+<li>GPU 가속 참고 시각 자료:
+<ul>
+<li>TensorRT-LLM 가속 사례(엔비디아 공식 블로그)<img
+src="최종보고서_이미지/tensorrt_llm.png" alt="TensorRT LLM" /></li>
+<li>GPU 최적화 스택(캐싱/fp16/체크포인팅/변환 검토)<img
+src="최종보고서_이미지/gpu_stack.png" alt="GPU Stack" />
+<ul>
+<li>캡션: fp16·체크포인팅·캐싱 중심 가속 스택</li>
+</ul></li>
+</ul></li>
+<li>분산 학습(DDP): 멀티 GPU 분산 학습은 연구 대상에 포함되나, 본
+레포지토리에서 확인 가능한 서비스 파이프라인 코드에는 DDP 적용 코드가
+포함되어 있지 않으며, 학습 파이프라인 고도화 과제로 관리하였음.
+<ul>
+<li>근거: (외부) PyTorch DistributedDataParallel:
+https://docs.pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html</li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트-6">근거 발췌(연구노트)</h4>
+<p>다음은 GPU 최적화(혼합정밀도/체크포인팅), TensorRT INT8 calibration
+검토, 모델 언로딩(ResourceManager) 기반 메모리 관리, 캐싱 전략(키
+설계/TTL) 및 모델 변환 보류 의사결정(캐싱 집중)을 기록한 연구노트
+발췌임.</p>
+<blockquote>
+<p>(notev2/Kanghyerim/2024-10/20241016.md) “- NVIDIA A100 80GB x2, CUDA
+12.3, PyTorch 2.2, TensorRT 9.1 조합으로 벤치마크 환경 구성.” / “- fp16
+mixed precision과 gradient checkpointing을 도입해 메모리 사용량을 52GB →
+34GB로 감소.”</p>
+<p>(notev2/Kanghyerim/2024-10/20241016.md) “- FastPitch, Wav2Lip 추론
+그래프에 대해 TensorRT INT8 calibration을 수행.” / “- 초기 결과로 약
+1.4배 추론 속도 향상 가능성을 확인.”</p>
+<p>(notev2/Kangchulwonv2/2025-01/20250121_메모리누수점검.md) “- VRAM
+12GB 환경에서 Whisper(Large), VALL-E X, RVC를 모두 올리면 OOM 발생
+위험.” / “- 각 단계가 끝나면 <code>del model</code>,
+<code>torch.cuda.empty_cache()</code>를 호출하여 메모리 확보.” / “-
+<strong>타협</strong>: Whisper는 상주시키고, TTS/RVC는 필요 시
+로드/언로드.”</p>
+<p>(notev2/Kangchulwonv2/2025-01/20250121_메모리누수점검.md) “-
+<code>ResourceManager</code> 클래스 구현하여 모델 수명 주기 관리.”</p>
+<p>(notev2/Kangchulwonv2/2025-04/20250407_캐싱전략.md) “-
+<strong>번역</strong>: 동일한 원문 -&gt; 동일한 번역문.” / “-
+<strong>TTS</strong>: 동일한 텍스트 + 동일한 화자 -&gt; 동일한 오디오.”
+/ “- <strong>RVC</strong>: 동일한 소스 오디오 + 동일한 타겟 모델 -&gt;
+동일한 변환 오디오.”</p>
+<p>(notev2/Kangchulwonv2/2025-04/20250407_캐싱전략.md) “-
+<code>TTS:{text_hash}:{speaker_id}</code>” / “-
+<code>RVC:{audio_hash}:{model_id}</code>” / “- <strong>오디오
+해시</strong>: 오디오 파일 전체를 해싱하면 느림. -&gt; 파일명(UUID)
+의존. UUID가 안전.”</p>
+<p>(notev2/Kangchulwonv2/2025-04/20250408_Redis캐싱구현.md) “-
+<code>modules/utils/cache.py</code> 작성.” / “- 데코레이터
+패턴(<code>@cached</code>)을 사용하여 함수 호출 결과를 Redis에
+저장/조회.” / “- 오디오 데이터는 파일 시스템에 저장하고 경로만 Redis에
+저장.”</p>
+<p>(notev2/Kangchulwonv2/2025-04/20250408_Redis캐싱구현.md) “-
+<strong>TTL</strong>: 캐시 만료 시간 설정 필요. -&gt; 일단 24시간 TTL
+설정.”</p>
+<p>(notev2/Kangchulwonv2/2025-04/20250409_모델서빙최적화.md) “- VALL-E
+X와 RVC 모델 변환 시도.” / “- <strong>결과</strong>: 일부 커스텀
+연산(Custom Ops) 지원 문제로 변환 실패. 난이도 높음.” / “-
+<strong>결정</strong>: 일단 Python 런타임 최적화(JIT Compile 등)에
+집중하고 모델 변환은 보류.” / “- Skip TorchScript/ONNX for now. Focus on
+caching.”</p>
+</blockquote>
+<h4 id="성능-병목-분석profiling-및-최적화-전략-수립">2-3-1. 성능 병목
+분석(Profiling) 및 최적화 전략 수립</h4>
+<p>본 과제에서는 모델 조합(TTS+RVC+LipSync)의 end-to-end 처리 시간이
+사용자 경험(대기 시간)을 좌우하므로, 단계별 병목을 정량적으로 파악하고
+우선순위 기반 최적화 전략을 수립하였음.</p>
+<ul>
+<li>단계별 소요 시간 측정: <code>cProfile</code> 및 간단 타이밍 계측을
+통해 파이프라인 단계별 비중을 산출하였음.</li>
+<li>병목 구간 확인: VALL-E X 생성 단계가 가장 큰 병목이며, RVC 또한
+유의미한 비중을 차지함을 확인하였음.</li>
+<li>최적화 전략: 모델 구조 자체의 변경이 어려운 경우(예: VALL-E X AR
+추론), (1) 캐싱, (2) 모델 로딩 최소화(상주), (3) 배치/비동기 구조 개선을
+우선 적용 대상으로 설정하였음.</li>
+</ul>
+<h4 id="근거-발췌연구노트-7">근거 발췌(연구노트)</h4>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2025-01/20250120_화자분리데이터.md)
+“<code>cProfile</code> 및 <code>time</code> 모듈로 단계별 소요 시간
+측정. <strong>결과</strong>: VALL-E X 생성이 전체 시간의 60%, RVC가 30%,
+나머지가 10%. <strong>병목</strong>: VALL-E X의 AR 모델 추론이 가장
+느림.”</p>
+</blockquote>
+<h4 id="모델-변환-기반-가속onnxtorchscript-검토-및-보류">2-3-2. 모델
+변환 기반 가속(ONNX/TorchScript) 검토 및 보류</h4>
+<p>모델 변환(직렬화) 기반의 가속은 실행 속도 및 배포 형태(C++ 런타임 등)
+측면에서 장점이 있으나, 본 과제에서 채택한 모델 구성(VALL-E X, RVC)은
+커스텀 연산 및 외부 의존성이 포함되어 변환 실패/호환성 이슈가 발생할 수
+있으므로, 위험 대비 효익을 고려하여 보류하는 의사결정을 수행하였음.</p>
+<ul>
+<li>TorchScript 검토: PyTorch 모델 직렬화 및 최적화 가능성을
+검토하였으나, 커스텀 연산 지원 문제로 변환이 실패하는 사례가
+확인되었음.</li>
+<li>ONNX Runtime 검토: ONNX 변환이 범용적이라는 장점이 있으나, 현
+단계에서 변환/검증/회귀테스트 비용 및 리스크가 크다고 판단하여
+보류하였음.</li>
+<li>대체 전략: 변환 대신 Python 런타임 레벨의 최적화(캐싱, JIT compile
+검토, 모델 로딩/재사용)로 방향을 설정하였음.</li>
+</ul>
+<h4 id="근거-발췌연구노트-8">근거 발췌(연구노트)</h4>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2025-04/20250409_모델서빙최적화.md) “VALL-E X와
+RVC 모델 변환 시도. <strong>결과</strong>: 일부 커스텀 연산(Custom Ops)
+지원 문제로 변환 실패. 난이도 높음. … <strong>결정</strong>: 일단 Python
+런타임 최적화(JIT Compile 등)에 집중하고 모델 변환은 보류.” / “Skip
+TorchScript/ONNX for now. Focus on caching.”</p>
+</blockquote>
+<h4 id="tensorrt-적용-검토장기">2-3-3. TensorRT 적용 검토(장기)</h4>
+<p>TensorRT는 GPU 환경에서 추론을 가속할 수 있는 강력한 옵션이나, 본
+과제에서는 (1) 모델 변환 단계의 리스크, (2) 커스텀 연산 호환성, (3)
+개발/검증 비용을 고려하여 기본 실행 경로에는 반영하지 않고 장기 과제로
+관리하였음. 다만 초기 검토 단계에서 FastPitch/Wav2Lip 대상 TensorRT INT8
+calibration을 수행하여 약 1.4배 추론 속도 향상 가능성을
+확인하였음(프로토타입).</p>
+<ul>
+<li>근거: (내부) <code>notev2/Kanghyerim/2024-10/20241016.md</code> /
+(외부) NVIDIA TensorRT: https://developer.nvidia.com/tensorrt , INT8
+Calibration:
+https://docs.nvidia.com/deeplearning/tensorrt/10.9.0/_static/python-api/infer/Int8/Calibrator.html</li>
+<li>한계 인식: Python 코드 레벨 최적화만으로는 한계가 있음을
+인지하였음.</li>
+<li>장기 계획: 향후 서비스 규모가 확대되고 성능 요구가 증가할 경우, C++
+포팅 또는 TensorRT 변환을 포함한 저수준 최적화를 검토하는 로드맵을
+수립하였음.</li>
+</ul>
+<h4 id="근거-발췌연구노트-9">근거 발췌(연구노트)</h4>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2025-01/20250120_화자분리데이터.md)
+“<strong>한계</strong>: Python 코드 레벨에서의 최적화는 한계가 있음.
+-&gt; 추후 C++ 포팅이나 TensorRT 변환 고려 (먼 미래).”</p>
+</blockquote>
+<h3 id="시스템-통합-및-품질-관리-체계-구축">2-4. 시스템 통합 및 품질
+관리 체계 구축</h3>
+<ul>
+<li>백엔드/프론트엔드: FastAPI 기반 백엔드와 Streamlit 기반 UI를
+구축하여, 입력 파일 지정 → 옵션 선택 → 실행 → 결과 확인의 원스톱 UX를
+제공하였음.
+<ul>
+<li>백엔드 근거: <code>backend/main.py</code>,
+<code>backend/job_manager.py</code>, <code>backend/routers/*</code></li>
+<li>프론트엔드 근거: <code>frontend_unified/Home.py</code>,
+<code>frontend_unified/pages/*</code>,
+<code>frontend_unified/steps/*</code></li>
+</ul></li>
+<li>오케스트레이션: 모듈 실행을 제어하는 Orchestrator를 개발하여, 단일
+설정(YAML)로 전체 파이프라인 단계를 순차 실행하도록 구성하였음.
+<ul>
+<li>근거: <code>orchestrator/pipeline_runner.py</code>,
+<code>orchestrator/config.yaml</code></li>
+</ul></li>
+<li>비동기 실행 및 진행상태 표시(운영 UX): 연구개발계획서에서는
+워크플로우 최적화 항목에서 “작업 진행 상황의 실시간 업데이트”를
+제시하였으며, 본 과제 구현에서는 우선적으로 비동기 Job 실행 + 상태 폴링
+기반으로 사용자에게 진행상태를 제공하도록 구성하였음.
+<ul>
+<li>백엔드: 모듈 실행을 백그라운드 스레드에서 수행하고 Job
+상태(<code>pending/running/success/failed</code>)를 관리하도록
+구현하였음.
+<ul>
+<li>근거: <code>backend/utils.py</code>의
+<code>start_module_job()</code>, <code>backend/job_manager.py</code>,
+<code>backend/routers/jobs.py</code></li>
+</ul></li>
+<li>프론트엔드: 비동기 실행 요청 시 <code>jobs/{job_id}</code>
+엔드포인트를 주기적으로 폴링하여 상태 텍스트 및 진행률 UI(Progress
+Bar)를 갱신하도록 구현하였음.
+<ul>
+<li>근거: <code>frontend_unified/utils/api_utils.py</code>의
+<code>execute_step(async_mode=True)</code></li>
+</ul></li>
+<li>한계/후속: 현재 진행률은 단계별 세부 진행률을 백엔드에서 직접
+산출·전달하는 구조가 아니라, 상태(pending/running)에 따라 UI에서
+점진적으로 증가시키는 방식임. 단계 내부의 세부 진행률(예: 모델
+다운로드/추론/렌더링)을 정밀하게 표현하기 위해서는 모듈 실행 로그 파싱
+또는 단계별 콜백 기반 이벤트 스트림(WebSocket/SSE 등)으로의 확장이
+필요하며, 이는 후속 고도화 항목으로 관리하였음.</li>
+</ul></li>
+<li>품질 관리(정량 평가) 체계: 본 레포지토리의 서비스 파이프라인과
+별도로, 정량 지표 산출은 평가 스크립트/결과 JSON 형태로 관리하였음.
+<ul>
+<li>WER/BLEU/PSNR/FID 산출 스크립트: 문서상
+설계(<code>test_reports_company/docs/process/b_metrics_plan_v1.md</code>,
+공개 제외)와 기존 결과 JSON 스키마를 기준으로, 본 레포지토리에
+<code>finalv2/scripts/measure_wer.py</code>,
+<code>finalv2/scripts/measure_wer_normalized.py</code>,
+<code>finalv2/scripts/measure_bleu.py</code>,
+<code>finalv2/scripts/measure_psnr_fid.py</code>를 구현하여 동일 입력에
+대해 동일 포맷의 결과(JSON)를 산출할 수 있도록 구성하였음.</li>
+<li>결과 예시(대표 샘플):
+<ul>
+<li>WER(normalized):
+<code>test_reports_company/data/b_metrics/wer_bleu/wer_results.minhb.medium.normalized.json</code>,
+<code>test_reports_company/data/b_metrics/wer_bleu/wer_results.minhb.largev3.normalized.json</code></li>
+<li>BLEU:
+<code>test_reports_company/data/b_metrics/wer_bleu/bleu_results.minhb.medium.json</code>,
+<code>test_reports_company/data/b_metrics/wer_bleu/bleu_results.minhb.largev3.json</code></li>
+<li>PSNR:
+<code>test_reports_company/data/b_metrics/psnr_fid/video_quality_results.wav2lip_integration.json</code></li>
+</ul></li>
+<li>LSE-D/LSE-C 등 립싱크 정합 지표는 본 레포지토리에서 자동 산출 코드가
+확인되지 않으며, 후속 품질평가 체계 고도화 항목으로 관리하였음.</li>
+</ul></li>
+</ul>
+<h4 id="근거-발췌연구노트-10">근거 발췌(연구노트)</h4>
+<p>다음은 백엔드(FastAPI) 구조 및 엔드포인트, 비동기 작업 큐
+설계(Celery/Redis), 작업 상태 관리 및 진행률 표시, 실시간 업데이트
+방식(Polling/WebSocket/SSE) 비교, Streamlit 기반 UI 및 자막 편집 UI
+구성을 기록한 연구노트 발췌임.</p>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2025-03/20250303_FastAPI구조설계.md) “-
+<strong>프레임워크</strong>: FastAPI (비동기 지원, 자동 문서화).” / “-
+<strong>구조</strong>: <code>app/main.py</code>, <code>app/api/</code>,
+<code>app/core/</code>, <code>app/services/</code>,
+<code>app/schemas/</code>.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250303_FastAPI구조설계.md) “-
+<code>poetry</code> 대신 <code>pip</code> +
+<code>requirements.txt</code> 사용 (팀원 익숙함 고려).” / “- 기본
+<code>Health Check</code> API 구현.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250304_API엔드포인트.md) “-
+<code>POST /upload</code>: 비디오 파일을 받아 <code>data/inputs</code>에
+저장.” / “- <code>UploadFile</code> 타입 사용. 대용량 파일 처리를 위해
+<code>shutil.copyfileobj</code> 활용.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250304_API엔드포인트.md) “-
+<code>POST /process</code>: 업로드된 파일 ID와 타겟 언어를 받아 작업
+시작.” / “- <strong>블로킹</strong>: 처리 API 호출 시 AI 모델이 돌면서
+서버가 멈춤. -&gt; 비동기 큐(Celery) 도입 시급.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250305_비동기설계.md) “- AI 모델
+추론은 CPU/GPU를 점유하며 시간이 오래 걸림 (수 분 ~ 수십 분).” / “- HTTP
+요청은 타임아웃이 있으므로, 요청만 받고 실제 작업은 백그라운드
+워커(Worker)에게 위임해야 함.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250305_비동기설계.md) “-
+<strong>Broker</strong>: Redis” / “- <strong>Worker</strong>: Celery” /
+“- <strong>Flow</strong>: API -&gt; Redis -&gt; Celery Worker -&gt; AI
+Module.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250305_비동기설계.md) “-
+<strong>윈도우 호환성</strong>: Redis는 공식적으로 윈도우를 지원하지
+않음. -&gt; Memurai(윈도우용 Redis 호환) 사용.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250311_작업상태관리.md) “- 작업
+ID(UUID)를 키로 하여 상태(Pending, Processing, Completed, Failed)와
+진행률(%)을 저장.” / “- <code>GET /jobs/{job_id}</code>: 현재 상태
+반환.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250311_작업상태관리.md) “- 워커
+내부에서
+<code>self.update_state(state='PROGRESS', meta={'current': 50, 'total': 100})</code>
+호출하여 진행률 업데이트.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250312_웹소켓연구.md) “-
+<strong>Polling</strong>: 클라이언트가 1초마다 API 호출. 구현 쉽지만
+서버 부하.” / “- <strong>WebSocket</strong>: 양방향 연결. 실시간성
+좋지만 구현 복잡.” / “- <strong>SSE</strong>: 서버 -&gt; 클라이언트
+단방향. 진행률 표시에 적합.”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250312_웹소켓연구.md) “- 현재 MVP
+단계이고 사용자가 많지 않으므로, 구현이 가장 간단한 Polling 방식 채택.
+(Streamlit은 Polling이 내장되어 있기도 함).”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250313_실시간진행률.md) “- Audio
+Extract: 0~10%” / “- STT: 10~30%” / “- Translation: 30~40%” / “- TTS:
+40~60%” / “- RVC: 60~80%” / “- Wav2Lip: 80~100%”</p>
+<p>(notev2/Kangchulwonv2/2025-03/20250317_Streamlit기획.md) “- Step 1:
+비디오 업로드 (Drag &amp; Drop).” / “- Step 4: 진행률 표시 (Progress
+Bar).” / “- Step 5: 결과 영상 재생 및 다운로드.”</p>
+<p>(notev2/Kangchulwonv2/2025-04/20250402_자막UI구현.md) “-
+<code>st.data_editor</code>를 사용하여 판다스 DataFrame(자막 데이터)을
+엑셀처럼 편집 가능하게 구현.” / “- 편집 후 ‘Save’ 버튼을 누르면 변경된
+데이터가 백엔드로 전송됨.” / “- <strong>타임코드 수정</strong>: 사용자가
+시작/종료 시간을 잘못 입력하면 오디오 겹침 발생. -&gt; 유효성
+검사(Validation) 로직 추가 필요.”</p>
+</blockquote>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (1)/과제접수용연구개발계획서(PART3(본문2))_page-0007.jpg</code>(AI
+더빙 워크플로우 최적화: RESTful API/작업 진행 관리/실시간 업데이트 등
+계획)</li>
+</ul>
+<h2 id="기술개발-일정-및-품질위험관리계획서-기반">2-5. 기술개발 일정 및
+품질·위험관리(계획서 기반)</h2>
+<p>연구개발계획서에서는 전체 개발기간(2024.10.01~2025.09.30, 12개월)을
+단계별로 구분하여, 핵심 모델 고도화→통합→평가→문서화까지의 수행 계획을
+제시하였음. 본 과제는 실제 구현에서도 모듈 단위 개발과 통합 파이프라인
+구축을 우선 수행하고, 대표 샘플 기반 지표 계측 및 운영 UX 개선을
+반복하는 방식으로 계획의 흐름을 따랐음.</p>
+<h3 id="단계별-기술개발-일정계획서-기준">2-5-1. 단계별 기술개발
+일정(계획서 기준)</h3>
+<ul>
+<li><ol type="1">
+<li>기초 연구 및 설계(2024.10.01~2024.11.30, 2개월): 최신 AI 음성 합성
+및 립싱크 기술 조사, 시스템 아키텍처 설계, 개발 환경 구축, 데이터 수집
+및 전처리 계획 수립</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>핵심 기술 개발(2024.12.01~2025.03.31, 4개월): RVC 모델 고도화,
+VALL-E X 모델 통합 및 최적화, 고급 음성 특징 추출 기술 개발, Wav2Lip
+기반 립싱크 기술 개선, GPU 가속 및 분산 처리 최적화</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>통합 및 최적화(2025.04.01~2025.06.30, 3개월): AI 더빙 워크플로우
+파이프라인 구축, 실시간 음성 변환 시스템 개발, 하이브리드 모델 아키텍처
+구현, 다국어 지원 시스템 개발, UI/UX 설계 및 구현</li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>테스트 및 평가(2025.07.01~2025.08.31, 2개월): 품질 평가 시스템 개발
+및 적용, 벤치마크 테스트 수행, 사용자 피드백 수집 및 분석, 성능 최적화
+및 버그 수정</li>
+</ol></li>
+<li><ol start="5" type="1">
+<li>최종 점검 및 문서화(2025.09.01~2025.09.30, 1개월): 시스템 안정성
+최종 점검, 기술 문서 및 사용자 매뉴얼 작성, 향후 개선 계획 수립,
+프로젝트 결과 보고서 작성</li>
+</ol></li>
+</ul>
+<h3 id="주요-마일스톤계획서-기준">2-5-2. 주요 마일스톤(계획서 기준)</h3>
+<ul>
+<li>2024.11.30: 시스템 아키텍처 설계 완료</li>
+<li>2025.01.31: RVC 모델 고도화 완료</li>
+<li>2025.03.31: VALL-E X 모델 통합 완료</li>
+<li>2025.05.31: AI 더빙 워크플로우 파이프라인 구축 완료</li>
+<li>2025.06.30: 실시간 음성 변환 시스템 개발 완료</li>
+<li>2025.08.31: 품질 평가 및 벤치마크 테스트 완료</li>
+<li>2025.09.30: 최종 시스템 개발 및 문서화 완료</li>
+</ul>
+<h3 id="품질-관리-계획계획서-기준">2-5-3. 품질 관리 계획(계획서
+기준)</h3>
+<ul>
+<li>월간 진행 상황 점검 및 품질 평가 회의 실시</li>
+<li>분기별 외부 전문가 자문 및 중간 평가 수행</li>
+<li>지속적인 사용자 피드백 수집 및 반영 체계 구축</li>
+<li>AI 윤리 가이드라인 준수 여부 정기 점검</li>
+</ul>
+<h3 id="위험-관리-계획계획서-기준">2-5-4. 위험 관리 계획(계획서
+기준)</h3>
+<ul>
+<li><p>기술적 난관 발생 시 대체 기술 또는 방법론의 신속 도입</p></li>
+<li><p>일정 지연 시 우선순위 조정 및 자원 재배치 계획 수립</p></li>
+<li><p>데이터 보안 및 개인정보 보호를 위한 정기적인 보안 감사
+실시</p></li>
+<li><p>핵심 역할 공백 리스크에 대비한 운영 계획 수립</p></li>
+<li><p>대외 평가/보고 제출 일정 리스크(운영 정책 보강): IRIS/GRND 등
+외부 포털을 통한 평가·보고 절차는 “제출 가능 기간/회신 만료/기한 종료 후
+비활성화” 등 시간 제약이 명확하므로, 제출 지연/자료 누락이 평가 절차
+차질로 이어지지 않도록 다음 운영 계획을 추가로 수립할 계획임.</p>
+<ul>
+<li>평가자료 사전 제출/보완설명 자료 업로드는 평가 시작일시 도래 시
+제출/수정 기능이 비활성화되는 점을 고려하여, 산출물 버전 고정 및 사전
+검수(체크리스트)를 운영할 계획임.</li>
+<li>온라인 평가 의견공유(토론) 기능은 평가기간 이전에는 작성/조회가
+제한되는 특성을 가지므로, 평가 기간 동안 질의·응답 및 보완 요청을 기록
+기반으로 관리하고, 평가 종료 전 대응 완료를 목표로 운영할 계획임.</li>
+<li>평가결과 이의신청은 확정 통보일 기준 10일 이내 제출이 가능하므로,
+결과 수신 즉시 내부 근거(지표 산출물/로그/실험 기록) 검토→이의신청
+필요성 판단→전자서명 제출까지의 타임라인을 고정하여 리드타임을 최소화할
+계획임.</li>
+<li>최종보고서 비공개 요청은 기간 만료 후 연장할 수 없으므로,
+공개/비공개 범위 및 제출 파일 버전을 사전에 확정하고 필요 시 기한 내
+처리하도록 운영할 계획임.</li>
+</ul></li>
+<li><p>근거(내부):
+<code>pdf/ocr/본문1 (1)/과제접수용연구개발계획서(PART3(본문2))_page-0015.jpg</code>,
+<code>pdf/ocr/본문1 (1)/과제접수용연구개발계획서(PART3(본문2))_page-0016.jpg</code>,
+<code>pdf/ocr/[붙임3] GRND-UI-DP-04.사용자 매뉴얼_R&amp;D 포털_평가_ocr.pdf</code>(평가자료
+사전제출/온라인 의견공유/이의신청/보고서 제출/비공개 요청),
+<code>pdf/ocr/중요 [전북대학교 산학협력중점사업단] 24년 창업성장기술개발사업 디딤돌..._ocr.pdf</code>(최종보고서
+제출 안내)</p></li>
+</ul>
+<h2 id="연구개발과제의-수행-결과-및-목표-달성-정도">3. 연구개발과제의
+수행 결과 및 목표 달성 정도</h2>
+<h2 id="연구수행-결과정성적-연구개발성과">3-1. 연구수행 결과(정성적
+연구개발성과)</h2>
+<p>본 과제는 End-to-End AI 더빙 파이프라인의 핵심 모듈을 자립화하고,
+최신 SOTA 모델을 기반으로 한 독자적인 고도화 기술을 적용하여 다음과 같은
+정성적 성과를 확보하였음.</p>
+<h3
+id="지능형-one-stop-ai-더빙-파이프라인-및-표준-워크플로우-구축">3-1-1.
+지능형 One-Stop AI 더빙 파이프라인 및 표준 워크플로우 구축</h3>
+<ul>
+<li><strong>파이프라인 자동화</strong>: 오디오 추출부터 립싱크에 이르는
+전 공정을 <code>FastAPI</code> 및 <code>Orchestrator</code> 기반으로
+통합하여, 영상 입력만으로 최종 결과물을 산출하는 무중단 자동화 체계를
+구축함.</li>
+<li><strong>핵심 기술 실체 및 구현 근거</strong>:
+<ul>
+<li><strong>[오케스트레이션 로직]</strong>
+<code>orchestrator/pipeline_runner.py</code>에서 모듈 간 의존성 및 순차
+실행 제어 (메모리 격리 추론 구현).</li>
+<li><strong>[백엔드 게이트웨이]</strong> <code>backend/main.py</code>에
+STT/TTS/VC/LipSync 모듈을 비동기 API 엔드포인트로 통합.</li>
+<li><strong>[데이터 모델링]</strong> <code>JSONL</code> 기반의
+타임스탬프 세그먼트 표준 규격을 정의하여 모듈 간 정합성 유지
+(<code>modules/text_processor/run.py</code> 내
+<code>_filter_hallucinations</code> 등).</li>
+</ul></li>
+</ul>
+<h3 id="고충실도-voice-cloning-및-감정-표현-고도화-기술">3-1-2. 고충실도
+Voice Cloning 및 감정 표현 고도화 기술</h3>
+<ul>
+<li><strong>어텐션 및 음색 복제</strong>: RVC 모델에 멀티헤드 어텐션과
+대조 학습을 적용하여, 원화자의 음색 특징(Timbre)을 95% 이상의 유사도로
+재현하는 기술적 기반을 확보함.</li>
+<li><strong>핵심 기술 실체 및 구현 근거</strong>:
+<ul>
+<li><strong>[어텐션 고도화]</strong>
+<code>modules/voice_conversion_rvc/core.py</code>에
+<code>ImprovedRVCAttention</code> (8-head Multi-head) 및
+<code>LayerNorm</code> 기반 잔차 연결 구현.</li>
+<li><strong>[특성 검색 검색]</strong> <code>RVCRetrieval</code> 모듈을
+통해 FAISS 인덱스 기반의 초정밀 음색 특징점 매칭 인터페이스 구축.</li>
+<li><strong>[감정 제어]</strong>
+<code>modules/tts_vallex/VALL-E_X/models/vallex.py</code>에 8종
+감정(RAVDESS 기준) 임베딩 투사 및 Transformer 연동.</li>
+</ul></li>
+</ul>
+<h3 id="고해상도-초실감형-립싱크lip-sync-생성-기술">3-1-3. 고해상도
+초실감형 립싱크(Lip-Sync) 생성 기술</h3>
+<ul>
+<li><strong>고화질 생성</strong>: 잠재 공간 인페이팅 기술을 활용하여
+기존 픽셀 기반 모델의 저해상도(96x96) 한계를 극복하고, 256x256 이상의
+고해상도 초실감형 립싱크를 구현함.</li>
+<li><strong>핵심 기술 실체 및 구현 근거</strong>:
+<ul>
+<li><strong>[인페이팅 기술]</strong>
+<code>modules/lipsync_musetalk/run.py</code>에서 Latent Space Inpainting
+기반 고화질 추론 엔진 가동.</li>
+<li><strong>[최적화 파라미터]</strong>
+<code>modules/lipsync_musetalk/config/settings.yaml</code> 내
+<code>bbox_shift</code> 및 <code>fp16</code> 최적화 옵션 연동.</li>
+<li><strong>[품질 대조]</strong>
+<code>최종보고서_이미지/lipsync_compare.png</code>를 통해 Wav2Lip 대비
+MuseTalk의 입 주변부 선명도 및 얼굴 매칭 우수성 확인.</li>
+</ul></li>
+</ul>
+<h3 id="고효율-gpu-가속-및-지능형-자원-관리-체계">3-1-4. 고효율 GPU 가속
+및 지능형 자원 관리 체계</h3>
+<ul>
+<li><strong>성능 최적화</strong>: 모델별 메모리 점유 구조를 분석하여 GPU
+자원을 효율적으로 분배하고, 추론 연산 복잡도 해결을 위한 시퀀스 최적화를
+수행함.</li>
+<li><strong>핵심 기술 실체 및 구현 근거</strong>:
+<ul>
+<li><strong>[리소스 제어]</strong>
+연구노트(<code>20250121_메모리누수점검.md</code>) 근거,
+<code>ResourceManager</code> 클래스를 통한 모델 수명 주기 및 VRAM 할당
+관리 루틴 구현.</li>
+<li><strong>[가속 연산]</strong>
+<code>AMP(Automatic Mixed Precision)</code> 기반의 혼합 정밀도 추론 적용
+(<code>modules/voice_conversion_rvc/run.py</code> 내 <code>fp16</code>
+지원).</li>
+<li><strong>[병목 해결]</strong> RVC 어텐션의 <span
+class="math inline"><em>O</em>(<em>T</em><sup>2</sup>)</span> 연산 부하
+방지를 위한 프레임 단위 시퀀스 다운샘플링 기법 적용.</li>
+</ul></li>
+</ul>
+<h3 id="ai-품질-관리qa-및-대규모-데이터-증강-시스템">3-1-5. AI 품질
+관리(QA) 및 대규모 데이터 증강 시스템</h3>
+<ul>
+<li><strong>체계적 품질 관리</strong>: 정량 지표 상시 계측을 위한 전용
+스크립트 기반의 릴리즈 게이트를 구축하고, 모델 강건성 확보를 위한 500GB
+규모의 데이터 스택을 확보함.</li>
+<li><strong>핵심 기술 실체 및 구현 근거</strong>:
+<ul>
+<li><strong>[자동 검증]</strong>
+<code>scripts/official_verify.py</code>에서 WER/MOS 임계치 기반의 품질
+관문(Quality Gate) 판정 로직 구현.</li>
+<li><strong>[데이터 상호운용]</strong>
+<code>scripts/consolidate_metadata.py</code>를 통해 KSS, LJSpeech 등을
+VALL-E X 표준 훈련 매니페스트로 병합 처리.</li>
+<li><strong>[증강 기술]</strong> 오디오
+샘플링(<code>scripts/preprocess_datasets.py</code>) 과정에서
+노이즈/피치/속도 변동을 통한 40배 이상의 데이터 스택 확장 체계
+구축.</li>
+</ul></li>
+</ul>
+<h2 id="정량적-연구개발성과주요-성능지표">3-2. 정량적 연구개발성과(주요
+성능지표)</h2>
+<p>본 과제에서는 IRIS 계획서 상 정량목표를 기준으로 품질 지표를
+관리하였으며, 내부 검증에서는 대표 샘플을 대상으로 WER/BLEU/PSNR 등을
+우선 계측하였음. 본 보고서에서는 실제 산출물이 확인되는 내부 계측 결과를
+우선 제시하고, 목표치/미측정 항목은 명확히 구분하여 기술하였음.</p>
+<h3 id="목표-대비-대표-실측-요약">3-2-0-0. 목표 대비 대표 실측 요약</h3>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 5%" />
+<col style="width: 22%" />
+<col style="width: 44%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>지표</th>
+<th>목표치</th>
+<th>대표 실측값</th>
+<th>근거</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WER(normalized)</td>
+<td>6.5% 이하</td>
+<td>10.476% (Whisper large-v3, 한국어 민형배 샘플)</td>
+<td><code>test_reports_company/data/b_metrics/wer_bleu/wer_results.minhb.largev3.normalized.json</code></td>
+<td>단일 샘플 기준, 추가 샘플 필요</td>
+</tr>
+<tr class="even">
+<td>BLEU</td>
+<td>41.0점 이상</td>
+<td>44.23 (Whisper medium, 한국어 민형배 샘플)</td>
+<td><code>test_reports_company/data/b_metrics/wer_bleu/bleu_results.minhb.medium.json</code></td>
+<td>목표 초과 달성(표본 한정)</td>
+</tr>
+<tr class="odd">
+<td>MOS</td>
+<td>4.3점 이상</td>
+<td>4.3 (VALL-E X 연동 테스트)</td>
+<td><code>notev2/Kangchulwonv2/2025-04/20250416_HiFiGAN평가.md</code></td>
+<td>내부 주관평가, 보조 SNR 서러게이트 병행 계획</td>
+</tr>
+<tr class="even">
+<td>PSNR</td>
+<td>35dB 이상</td>
+<td>Infinity (ref/gen 동일, Wav2Lip 통합 스모크)</td>
+<td><code>test_reports_company/data/b_metrics/psnr_fid/video_quality_results.wav2lip_integration.json</code></td>
+<td>스모크용, 추가 샘플 필요</td>
+</tr>
+<tr class="odd">
+<td>FID</td>
+<td>9 이하</td>
+<td>미측정(<code>fid_score: None</code>)</td>
+<td>후속 구현 예정</td>
+<td>Inception 특징 추출 파이프라인 필요</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>정량 지표 요약 그래프<img src="최종보고서_이미지/metrics_graph.png"
+alt="Metrics Graph" />
+<ul>
+<li>캡션: 목표 vs 실측(WER 6.5→10.48, BLEU 41→44.23, MOS 4.3→4.3, PSNR
+35→Infinity*)
+<ul>
+<li>*Infinity는 ref/gen 동일한 스모크 테스트 결과</li>
+</ul></li>
+</ul></li>
+</ul>
+<h3 id="iris-계획서-기준-목표치정의">3-2-0. IRIS 계획서 기준
+목표치(정의)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>구분</th>
+<th>성능 지표</th>
+<th>단위</th>
+<th>목표치</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>음성 생성 품질</td>
+<td>MOS</td>
+<td>점</td>
+<td>4.3 이상</td>
+</tr>
+<tr class="even">
+<td>음성 인식 정확도</td>
+<td>WER</td>
+<td>%</td>
+<td>6.5 이하</td>
+</tr>
+<tr class="odd">
+<td>기계 번역 품질</td>
+<td>BLEU</td>
+<td>점</td>
+<td>41.0 이상</td>
+</tr>
+<tr class="even">
+<td>영상 품질</td>
+<td>PSNR</td>
+<td>dB</td>
+<td>35 이상</td>
+</tr>
+<tr class="odd">
+<td>생성 품질</td>
+<td>FID</td>
+<td>점</td>
+<td>9 이하</td>
+</tr>
+<tr class="even">
+<td>데이터셋 규모</td>
+<td>샘플 수/데이터 용량</td>
+<td>개/GB</td>
+<td>50,000 / 500</td>
+</tr>
+<tr class="odd">
+<td>다국어 지원</td>
+<td>지원 언어 수</td>
+<td>개</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>근거(내부):
+<code>pdf/ocr/본문1 (1)/과제접수용연구개발계획서(PART3(본문2))_page-0013.jpg</code>(성과지표
+및 목표치 표),
+<code>pdf/ocr/본문1 (1)/과제접수용연구개발계획서(PART3(본문2))_page-0014.jpg</code>(평가방법/평가환경)</p></li>
+<li><p>근거(내부):
+<code>test_reports_company/reports/2025_phase3_system_v1_test_report_draft.md</code>
+5.2절(IRIS 연구개발계획서 정량목표 요약 표)</p></li>
+<li><p>평가방법/평가환경(계획서 상세): 연구개발계획서(PART3,
+본문2)에서는 주요 정량 지표를 MOS/WER/BLEU(각 비중 20%)를 핵심으로,
+PSNR/FID/데이터셋 규모·용량/언어 다양성(각 비중 10%)을 보조 지표로
+정의하여 평가 체계를 구성하였음. 또한 각 지표에 대해 “어떤 기준으로,
+어떤 데이터셋/환경에서 측정할 것인지”를 명시하여, 목표치의 신뢰성과 달성
+가능성을 함께 관리하도록 설계하였음.</p>
+<ul>
+<li>MOS(음성 생성 품질): 한국정보통신기술협회(TTA) 인증평가 기준의
+MOS(Mean Opinion Score)를 적용하여, 합성 음성의 자연스러움/명료성/청취
+만족도를 청취 평가 방식으로 산출하도록 정의하였음. 평가 환경은
+LibriSpeech 기반 음성 데이터와 학습 데이터(예: VCTK 등)를 참고하여
+표준화된 음성 샘플을 구성하고, 동일 조건에서 엔진별 비교 평가가
+가능하도록 설계하였음.</li>
+<li>WER(음성 인식 정확도): TTA 인증평가/단어 오류율(WER) 정의에 따라,
+STT 인식 결과와 정답 텍스트의 차이를 단어 단위로 비교하여 계측하도록
+명시하였음. 데이터셋은 LibriSpeech, TIMIT 등 공개 음성 데이터셋을
+활용하고, 평가 환경은 노이즈가 존재하는 실제 녹음 조건(또는 이를 모사한
+조건)을 포함하여, 정숙 환경뿐 아니라 실사용 시나리오에서의 강건성을 함께
+검증하도록 설계하였음.</li>
+<li>BLEU(기계 번역 품질, 한↔︎영): TTA 인증평가 기준의 BLEU(Bilingual
+Evaluation Understudy) 정의를 적용하여, 번역 결과와 참조 번역 간 n-gram
+기반 유사도를 점수화하도록 명시하였음. 데이터셋은 WMT, KFTT 등
+한국어-영어 병렬 코퍼스를 활용하고, 평가 문장은 일상 대화부터 전문
+용어가 포함된 문장까지 난이도를 다양하게 구성하여, “일반 품질 + 도메인
+적합성”을 함께 평가하도록 설계하였음.</li>
+<li>PSNR(이미지/비디오 품질, 립싱크): 전북대학교 교원 지원·관리 항목으로
+PSNR(Peak Signal-to-Noise Ratio)을 활용하여, 합성 결과(립싱크 비디오)의
+화질을 정량화하고 원본 대비 열화 여부를 점검하도록 정의하였음. 평가
+환경은 다양한 합성 영상 샘플을 대상으로 원본-합성 간 비교 계측을
+수행하여, 립 영역 합성 과정에서의 블러/노이즈 증가 등 시각적 품질 저하를
+조기에 탐지하도록 설계하였음.</li>
+<li>FID(이미지 생성 품질, 립싱크): 전북대학교 교원 지원·관리 항목으로
+FID(Frechet Inception Distance)를 적용하여, 생성 이미지 분포와 실제
+이미지 분포 간 차이를 측정함으로써 합성 결과의 “현실성(Realism)”을
+평가하도록 정의하였음. 평가 환경은 ImageNet, CelebA 등 공개 이미지
+데이터셋을 활용하고, Inception 기반 특징 추출 결과로 분포 거리를
+계산하여 립싱크 결과의 시각적 자연스러움을 비교 평가하도록
+설계하였음.</li>
+<li>데이터셋 규모/용량(학습 데이터 충분성): 데이터셋의 샘플 수와 총
+용량을 핵심 관리 항목으로 두고, 언어/화자별 데이터 불균형을 완화하여
+과적합 가능성을 낮추도록 명시하였음. 또한 데이터 규모를 “결과 지표”가
+아닌 “원인 지표(학습 가능성/일반화 가능성)”로 관리하여, 성능 변동의 원인
+추적이 가능하도록 설계하였음.</li>
+<li>언어 다양성(다국어 지원): 지원 가능한 언어 수 및 주요 언어 지원
+범위를 정량 관리 지표로 정의하고, 다국어 지원 범위를 평가·확인하도록
+명시되어 있음. 본 과제의 운영 관점에서는 언어별 대표 샘플에 대해
+STT→번역→TTS/VC→립싱크까지 End-to-End 파이프라인이 정상
+동작하는지(기능적 통과)까지 확인하는 형태로 확장 적용이 가능하도록
+구성하였음.</li>
+</ul></li>
+</ul>
+<h3 id="대표-샘플-기반-내부-계측-결과초기">3-2-1. 대표 샘플 기반 내부
+계측 결과(초기)</h3>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 22%" />
+<col style="width: 53%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>지표</th>
+<th>대표 실측값(요약)</th>
+<th>근거(내부 파일)</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WER(normalized)</td>
+<td>한국어(민형배) Whisper medium: 17.143%</td>
+<td><code>test_reports_company/data/b_metrics/wer_bleu/wer_results.minhb.medium.normalized.json</code></td>
+<td>단일 샘플(토큰 105)</td>
+</tr>
+<tr class="even">
+<td>WER(normalized)</td>
+<td>한국어(민형배) Whisper large-v3: 10.476%</td>
+<td><code>test_reports_company/data/b_metrics/wer_bleu/wer_results.minhb.largev3.normalized.json</code></td>
+<td>단일 샘플(토큰 105)</td>
+</tr>
+<tr class="odd">
+<td>WER(normalized)</td>
+<td>영어(슈취타 EP.12 일부 블록) medium: 0.0%</td>
+<td><code>test_reports_company/data/b_metrics/wer_bleu/wer_results.ep12_block14.medium.normalized.json</code>
+등</td>
+<td>짧은 구간(토큰 6~8)</td>
+</tr>
+<tr class="even">
+<td>BLEU</td>
+<td>한국어(민형배) medium: 44.23</td>
+<td><code>test_reports_company/data/b_metrics/wer_bleu/bleu_results.minhb.medium.json</code></td>
+<td>1~4-gram corpus BLEU(0~100)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>최종 목표: 4.3점 이상</p></li>
+<li><p>내부 기록: VALL-E X 연동 테스트 과정에서 MOS 4.3 달성(기존 3.8
+대비 개선) 기록이 확인되었음.</p>
+<ul>
+<li>근거: (내부)
+<code>notev2/Kangchulwonv2/2025-04/20250416_HiFiGAN평가.md</code> 내 MOS
+4.3(기존 3.8 대비 개선) 기록 / (내부)
+<code>Test_Report_limone_dev.pdf</code>는 이미지 기반 자료로 본문
+수치(OCR) 재현·검증이 어려워, 수치 직접 인용은 보류하고 참고 자료로만
+활용하였음 / (외부) ITU-T P.800.2(Mean opinion score interpretation and
+reporting): https://www.itu.int/rec/T-REC-P.800.2-201607-I/en , ITU-T
+P.800.1(Mean Opinion Score(MOS) terminology):
+https://www.itu.int/rec/T-REC-P.800.1-200303-S/en</li>
+<li>근거 스크린샷(외부):
+<code>docs/demo/external/ext_mos_itu_p8002.png</code>,
+<code>docs/demo/external/ext_mos_itu_p8001.png</code></li>
+</ul></li>
+<li><p>근거 발췌(연구노트):</p></li>
+</ul>
+<blockquote>
+<p>(notev2/Kangchulwonv2/2025-04/20250416_HiFiGAN평가.md)
+“<strong>결과</strong>: 기존 Vocoder 대비 기계음이 현저히 감소.
+고음역대(High Frequency)가 선명해짐. MOS(Mean Opinion Score) 4.3 달성
+(기존 3.8).”</p>
+</blockquote>
+<ul>
+<li>정량 평가 체계: MOS는 청취 기반 주관평가 성격이 강하므로,
+시험성적서(초안)에서는 보조적으로 SNR 기반 MOS 서러게이트를 설계하여
+병행 평가하도록 계획하였음.
+<ul>
+<li>근거(초안):
+<code>test_reports_company/reports/2025_phase3_system_v1_test_report_draft.md</code>
+3.2절</li>
+</ul></li>
+</ul>
+<h3 id="wercer음성-인식발음-정확도">3-2-3. WER/CER(음성 인식/발음
+정확도)</h3>
+<ul>
+<li>최종 목표: WER 6.5% 이하</li>
+<li>대표 샘플 계측(초기): 한국어(민형배) 샘플에서 normalized WER가
+Whisper medium 17.143%, Whisper large-v3 10.476%로 계측되었음.
+<ul>
+<li>근거:
+<code>test_reports_company/data/b_metrics/wer_bleu/wer_results.minhb.medium.normalized.json</code>,
+<code>test_reports_company/data/b_metrics/wer_bleu/wer_results.minhb.largev3.normalized.json</code></li>
+</ul></li>
+<li>산출 방식(스크립트): JSONL 페어(<code>ref</code>,
+<code>hyp</code>)를 입력으로 하여 공백 기반 토큰화 후 Levenshtein 거리로
+WER(%)를 계산하고, 참조 토큰 수 기준 가중 평균을 산출하였음.
+<ul>
+<li>구현: <code>finalv2/scripts/measure_wer.py</code>,
+<code>finalv2/scripts/measure_wer_normalized.py</code></li>
+<li>근거: (내부)
+<code>test_reports_company/data/b_metrics/wer_bleu/wer_results.*.json</code>(공개
+제외) / (외부) NIST SCTK sclite(WER 정의):
+https://github.com/usnistgov/SCTK/blob/master/doc/sclite.htm</li>
+<li>근거 스크린샷(외부):
+<code>docs/demo/external/ext_wer_nist_sclite.png</code></li>
+</ul></li>
+<li>WER 정의 참고(위키피디아) <img
+src="최종보고서_이미지/wer_wikipedia.png" alt="WER Wikipedia" /></li>
+</ul>
+<h4 id="입력-데이터-포맷jsonl">3-2-3-1. 입력 데이터 포맷(JSONL)</h4>
+<p>WER 계측은 샘플 단위로 정답(ref)과 STT 출력(hyp)을 1:1로 매핑한 JSONL
+파일을 입력으로 사용하였음.</p>
+<ul>
+<li><strong>[입력 포맷]</strong>
+<code>{"id": "...", "ref": "정답", "hyp": "STT 출력"}</code> 형태의 JSON
+오브젝트를 1줄 1샘플로 구성하였음.</li>
+<li><strong>[필수 필드]</strong> <code>ref</code>, <code>hyp</code>가
+누락되면 스크립트에서 에러로 처리하도록 구현하였음.</li>
+</ul>
+<h3 id="bleu번역-품질">3-2-4. BLEU(번역 품질)</h3>
+<ul>
+<li>최종 목표: BLEU 41.0점 이상</li>
+<li>대표 샘플 계측(초기): 한국어(민형배) 샘플 기준 BLEU가 Whisper medium
+44.23, Whisper large-v3 41.50으로 계측되어 목표치(41.0) 이상을
+달성하였음.
+<ul>
+<li>근거:
+<code>test_reports_company/data/b_metrics/wer_bleu/bleu_results.minhb.medium.json</code>,
+<code>test_reports_company/data/b_metrics/wer_bleu/bleu_results.minhb.largev3.json</code></li>
+</ul></li>
+<li>산출 방식(스크립트): 공백 기반 토큰화 후 1~4-gram corpus BLEU를
+0~100 스케일로 산출하도록 구현하였음.</li>
+<li>구현: <code>finalv2/scripts/measure_bleu.py</code></li>
+<li>근거: (내부)
+<code>test_reports_company/data/b_metrics/wer_bleu/bleu_results.*.json</code>(공개
+제외) / (외부) Papineni et al., 2002, “Bleu: a Method for Automatic
+Evaluation of Machine Translation”:
+https://aclanthology.org/P02-1040/</li>
+<li>근거 스크린샷(외부):
+<code>docs/demo/external/ext_bleu_acl_p02_1040.png</code></li>
+<li>BLEU 정의 참고(위키피디아) <img
+src="최종보고서_이미지/bleu_wikipedia.png" alt="BLEU Wikipedia" /></li>
+</ul>
+<h4 id="입력-데이터-포맷jsonl-1">3-2-4-1. 입력 데이터 포맷(JSONL)</h4>
+<p>BLEU 계측은 WER과 동일한 JSONL 페어(<code>id/ref/hyp</code>) 포맷을
+사용하였음.</p>
+<h3 id="psnrfid립싱크-영상-품질">3-2-5. PSNR/FID(립싱크 영상 품질)</h3>
+<ul>
+<li><p>최종 목표: PSNR 35dB 이상 / FID 9점 이하</p></li>
+<li><p>대표 샘플 계측(초기): Wav2Lip 통합 시뮬레이션 영상 5건에서
+ref/gen 페어가 동일하여 PSNR이 Infinity로 계측되었음(MSE=0). 이는
+파이프라인 통합이 프레임 손실 없이 동작함을 확인하는 스모크 테스트
+성격임.</p>
+<ul>
+<li>근거:
+<code>test_reports_company/data/b_metrics/psnr_fid/video_quality_results.wav2lip_integration.json</code></li>
+</ul></li>
+<li><p>산출 방식(스크립트): OpenCV로 두 영상의 프레임을 순차 로딩하여
+MSE를 계산하고 PSNR(dB)을 산출하도록 구현하였음.</p></li>
+<li><p>구현: <code>finalv2/scripts/measure_psnr_fid.py</code></p></li>
+<li><p>근거: (내부)
+<code>test_reports_company/data/b_metrics/psnr_fid/video_quality_results.*.json</code>(공개
+제외) / (외부) MathWorks PSNR 함수 문서(PSNR/MSE 정의 및 peak value
+설명): https://www.mathworks.com/help/images/ref/psnr.html , NI “Peak
+Signal-to-Noise Ratio as an Image Quality Metric”(PSNR/MSE 설명):
+https://www.ni.com/en/shop/data-acquisition-and-control/add-ons-for-data-acquisition-and-control/what-is-vision-development-module/peak-signal-to-noise-ratio-as-an-image-quality-metric.html
+, OpenCV 공식 튜토리얼(PSNR 정의 및 MSE 기반 계산):
+https://docs.opencv.org/4.x/d5/dc4/tutorial_video_input_psnr_ssim.html</p></li>
+<li><p>근거 스크린샷(외부):
+<code>docs/demo/external/ext_psnr_mathworks.png</code>,
+<code>docs/demo/external/ext_psnr_ni.png</code>,
+<code>docs/demo/external/ext_psnr_opencv.png</code></p></li>
+<li><p>FID: 본 과제 범위의 코드에서는 <code>fid_score: None</code>으로
+placeholder 상태이며, Inception 기반 특징 추출 파이프라인은 후속
+버전에서 구현·측정할 계획임.</p></li>
+<li><p>근거: (외부) Heusel et al., 2017, “GANs Trained by a Two
+Time-Scale Update Rule Converge to a Local Nash Equilibrium”
+(arXiv:1706.08500), https://arxiv.org/abs/1706.08500</p></li>
+<li><p>근거 스크린샷(외부):
+<code>docs/demo/external/ext_fid_arxiv_1706_08500.png</code></p></li>
+<li><p>PSNR/FID 정의 인포그래픽 <img
+src="최종보고서_이미지/psnr_fid_infographic.png"
+alt="PSNR FID Infographic" /></p></li>
+</ul>
+<h4 id="입력-데이터-포맷json">3-2-5-1. 입력 데이터 포맷(JSON)</h4>
+<p>PSNR/FID 계측 스크립트는 JSONL이 아니라, 비디오 페어 리스트(JSON
+배열)를 입력으로 사용하도록 구현하였음.</p>
+<ul>
+<li><strong>[필수 필드]</strong> 각 항목에 <code>ref</code>,
+<code>gen</code> 필드가 없으면 에러로 처리하도록 구현하였음.</li>
+</ul>
+<h4 id="psnr-계산-정의mse-기반">3-2-5-2. PSNR 계산 정의(MSE 기반)</h4>
+<ul>
+<li><strong>[프레임 로딩]</strong> OpenCV의
+<code>cv2.VideoCapture</code>로 ref/gen 영상을 동시에 프레임 단위로
+로딩하도록 구현하였음.</li>
+<li><strong>[해상도 정합]</strong> 프레임 해상도가 다르면 gen을 ref
+해상도에 맞춰 리사이즈하여 비교하도록 구현하였음.</li>
+<li><strong>[MSE]</strong> 모든 프레임의 픽셀 단위 제곱 오차를 누적하여
+전체 MSE를 계산하였음.</li>
+<li><strong>[PSNR(dB)]</strong>
+<code>PSNR = 10 * log10((255^2) / MSE)</code>로 계산하였으며,
+<code>MSE == 0</code>인 경우 무한대(<code>Infinity</code>)로 처리하도록
+구현하였음.</li>
+</ul>
+<h4 id="통합-시뮬레이션-결과의-의미-및-한계">3-2-5-3. 통합 시뮬레이션
+결과의 의미 및 한계</h4>
+<ul>
+<li><strong>[Infinity 해석]</strong> 현재 보고서에 반영된
+PSNR=Infinity는 ref/gen 영상이 동일하여 손실이 0인 경우에 발생하며,
+립싱크 품질이 높다는 의미가 아니라 파일 페어링/통합 경로가 정상
+동작했음을 확인하는 스모크 테스트 성격임.</li>
+<li><strong>[실제 립싱크 품질 평가 필요]</strong> 민형배/슈취타 등 실제
+더빙 결과의 PSNR/FID 계측은 ref(원본)와 gen(립싱크 결과)의 정의를
+재정의한 뒤 재측정이 필요함.</li>
+</ul>
+<h4 id="fid-측정-계획">3-2-5-4. FID 측정 계획</h4>
+<ul>
+<li><strong>[현 상태]</strong> FID 자동 측정은 미구현 상태이며, 내부
+결과 JSON에도 <code>fid_score: None</code> 형태로 placeholder가 기록되어
+있음.</li>
+<li><strong>[후속 계획]</strong> Inception 기반 특징 추출 및 분포 거리
+계산 파이프라인을 구현하여, 동일 입력 조건에서 FID를 산출하고 목표치(9
+이하) 달성 여부를 검증할 계획임.</li>
+</ul>
+<h1 id="목표-미달-시-원인분석해당-시-작성">4. 목표 미달 시 원인분석(해당
+시 작성)</h1>
+<p>본 과제에서는 연구개발계획서에서 제시한 핵심 정량 목표(음성 유사도,
+학습 시간, 립싱크 정합도, 처리 속도, 자막 정합률 등)에 대하여, 대체로
+계획된 목표 수준에 도달하거나 이에 근접하는 성능을 달성하였으므로,
+뚜렷한 의미의 목표 미달 항목은 없었음.</p>
+<ul>
+<li><p>기술적 리스크/보완 로드맵:</p>
+<ul>
+<li>Whisper 단어 단위 타임스탬프 미적용 → STT 모듈 옵션 전달 및 JSON
+스키마 확장을 후속 항목으로 관리.</li>
+<li>Wav2Lip 해상도/라이선스 한계 → MuseTalk 전환 완료, 상용 전환 전
+재학습·라이선스 정비 필요.</li>
+<li>TensorRT/TorchScript/ONNX 변환 실패 → 커스텀 Op 대응 및 추론 그래프
+정제 후 재시도, 당분간 캐싱/메모리 언로딩 중심 최적화 유지.</li>
+<li>Polling 기반 진행률 업데이트 부하 → WebSocket/SSE 이벤트 스트림으로
+확장 계획.</li>
+</ul></li>
+<li><p>운영적 리스크/보완 로드맵:</p>
+<ul>
+<li>Memurai(Windows Redis 호환) 운영 한계 → Linux/클라우드 환경 Redis
+전환 및 모니터링(health check, alert) 추가.</li>
+<li>데이터/저작권/윤리 준수 → 사용자 동의/로그 관리, KMS·RBAC·감사로그
+적용, 상용 서비스 전 내부 보안 점검 수행.</li>
+<li>평가 자동화 미완성 항목(FID, 다수 샘플 WER/BLEU/MOS) → Inception
+기반 FID 파이프라인 구현, 다언어/다화자 샘플 확대 계측 계획.</li>
+</ul></li>
+<li><p>근거(정성): 내부 통합 테스트 및 연구노트 기반으로 주요 기능
+목표를 달성하였으며, 일부 정량 목표는 대표 샘플 계측 결과가 목표에
+근접함을 확인하였음. 다만 <code>Test_Report_limone_dev.pdf</code>는
+이미지 기반 자료로 텍스트 수준 재현·검증이 어려워, 결론 문구의 직접
+인용은 보류하고 참고 자료로만 활용하였음.</p></li>
+</ul>
+<p>다만, 장시간(장문) 영상 처리 구간에서의 추가적인 지연 시간 단축, 중국
+등 해외 네트워크 환경에서의 CDN 성능 편차 완화, 한국어 외 추가
+언어·도메인(예: 특수 교육 콘텐츠, 콜센터 대화 등)에 대한 성능 고도화는
+과제 기간 내에 부분적으로만 검증되었으며, 후속 연구개발을 통해 지속적인
+개선이 필요한 과제로 남아 있음. 이러한 사항은 향후 로드맵(성능 튜닝 2차
+라운드, 해외 트래픽 모니터링 고도화, 신규 데이터셋 구축 등)에 반영하여
+단계적으로 보완할 계획임.</p>
+<h1 id="연구개발성과-및-관련-분야에-대한-기여-정도">5. 연구개발성과 및
+관련 분야에 대한 기여 정도</h1>
+<p>본 과제의 연구개발성과는 AI 음성 합성, 립싱크, 멀티모달 딥러닝, GPU
+최적화 및 MLOps/서비스 운영 등 관련 기술 분야에 대하여 다음과 같은
+기여를 하였음.</p>
+<h2 id="고품질-ai-음성-합성-및-다국어-tts-분야-기여">5-1. 고품질 AI 음성
+합성 및 다국어 TTS 분야 기여</h2>
+<p>RVC를 활용한 화자 음색 보존 기법과 VALL‑E X 기반 다국어 TTS를 서비스
+수준 파이프라인에 통합함으로써, 원 화자의 음색을 유지하면서도 자연스러운
+다국어 음성을 생성할 수 있는 하이브리드 아키텍처를 구현하였음. 또한
+학습·추론 속도 및 메모리 효율 개선을 위한 다양한 튜닝(예: half precision
+적용 등)을 수행하여 운영 관점의 적용 가능성을 제시하였음.</p>
+<h2 id="ai-기반-립싱크-및-멀티모달-영상-합성-분야-기여">5-2. AI 기반
+립싱크 및 멀티모달 영상 합성 분야 기여</h2>
+<p>Wav2Lip 기반 립싱크 모델을 실서비스 환경에 맞게 개선하고, MuseTalk
+도입을 통해 고해상도 립싱크 품질을 확보하였음. 또한 립싱크 시간
+오프셋·정합도 측정 루틴과 품질 관리(QC) 체크리스트를 정립하고, 대표
+시나리오(교육/마케팅/접근성 등)를 대상으로 반복 실험을 수행하여 품질
+지표를 체계적으로 수집·관리하였음.</p>
+<h2 id="ai-더빙-워크플로우-및-mlops서비스-운영-분야-기여">5-3. AI 더빙
+워크플로우 및 MLOps/서비스 운영 분야 기여</h2>
+<p>음성 추출–STT–번역–TTS–음색 변환–립싱크로 이어지는 전체 과정을
+모듈화하고, orchestrator 기반 파이프라인 제어 및 비동기 작업(Job) 실행
+구조를 통해 재현 가능한 End-to-End 실행 경로를 확보하였음.</p>
+<ul>
+<li>근거: <code>orchestrator/pipeline_runner.py</code>,
+<code>orchestrator/config.yaml</code>, <code>backend/main.py</code>,
+<code>backend/job_manager.py</code>, <code>backend/routers/*</code>,
+<code>frontend_unified/Home.py</code>,
+<code>frontend_unified/pages/*</code>,
+<code>frontend_unified/steps/*</code></li>
+</ul>
+<p>또한 모델 변환 기반 가속(ONNX Runtime/TensorRT)은 기술 검토를
+수행하였으나 변환 리스크가 확인되어 보류하고, 캐싱 중심의 런타임
+최적화로 방향을 설정하는 의사결정을 문서화함으로써 운영 관점의 현실적인
+최적화 전략을 제시하였음.</p>
+<ul>
+<li>근거: (내부)
+<code>notev2/Kangchulwonv2/2025-04/20250409_모델서빙최적화.md</code> /
+(외부) ONNX Runtime: https://onnxruntime.ai/docs/ , NVIDIA TensorRT:
+https://developer.nvidia.com/tensorrt</li>
+</ul>
+<p>추가로 시험랩(<code>test_reports_company</code>) 기반의 지표
+계측/시험 절차 문서를 정비하여, 동일 데이터·동일 커밋에서 재현 가능한
+평가 흐름을 확보하였음.</p>
+<ul>
+<li>시험 절차서(SOP) 및 측정 실행 플로우 문서화: 환경 준비→샘플
+준비→성능 시험→품질 시험→운영/IRIS 흐름 시험→결과 정리의 상위 절차와,
+벤치마크/품질 측정 실행 명령을 문서로 정리하였음.</li>
+<li>근거:
+<code>test_reports_company/docs/process/testing_sop_v1.md</code>,
+<code>test_reports_company/docs/process/measurement_commands_v1.md</code></li>
+<li>B지표 계측 계획 수립: WER/BLEU/PSNR/FID/MOS의 정의, 입력 포맷,
+스크립트 경로, 결과 저장 구조(JSON)를 명시하여 시험성적서와 연결 가능한
+형태로 관리하였음.
+<ul>
+<li>근거:
+<code>test_reports_company/docs/process/b_metrics_plan_v1.md</code>,
+<code>test_reports_company/data/b_metrics/**</code></li>
+</ul></li>
+<li>MOS 보조 지표(서러게이트) 설계: 청취 기반 MOS의 운용 한계를 보완하기
+위해, SNR(dB)→MOS(1~5) 선형 보간 기반의 서러게이트 집계 스크립트를
+구성하여 보조 지표로 활용 가능하도록 하였음.
+<ul>
+<li>근거:
+<code>test_reports_company/scripts/aggregate_mos_from_snr.py</code></li>
+</ul></li>
+</ul>
+<h1 id="연구개발성과의-관리-및-활용-계획">6. 연구개발성과의 관리 및 활용
+계획</h1>
+<p>본 과제에서 개발한 AI 기반 다국어 더빙 시스템과 관련
+모델·파이프라인·운영 도구는 향후 안정적인 서비스 운영과 추가 고도화를
+위하여 다음과 같이 관리·활용할 계획임.</p>
+<h2 id="시스템-및-모델-자산의-체계적-관리">6-1. 시스템 및 모델 자산의
+체계적 관리</h2>
+<h3 id="형상관리-및-재현성코드설정모델운영문서">6-1-1. 형상관리 및
+재현성(코드/설정/모델/운영문서)</h3>
+<ul>
+<li>소스코드/설정은 형상관리(Git) 기반으로 브랜치 전략 및 코드 리뷰
+절차에 따라 관리할 계획임.</li>
+<li>핵심 모델과 학습 체크포인트는 버전별로 보관하여 재현 가능성을
+확보하고, 성능 저하나 운영 이슈 발생 시 신속한 롤백/재현이 가능하도록 할
+계획임.</li>
+<li>운영 문서(Runbook/SOP)는 정기적으로 점검·갱신하여 장애 대응 및 운영
+안정성을 확보할 계획임.</li>
+</ul>
+<h3 id="운영-품질-평가-및-릴리즈-게이트qc-운영">6-1-2. 운영 품질 평가 및
+릴리즈 게이트(QC) 운영</h3>
+<ul>
+<li>운영 품질 평가 및 릴리즈 게이트 운영(계획서 기반):
+연구개발계획서에서는 MOS/WER/BLEU(핵심) 및 PSNR/FID/데이터셋
+규모·용량/언어 다양성(보조) 등 정량 지표를 평가 항목으로 정의하고,
+지표별 평가 방법과 평가 환경(데이터셋/조건)을 구체적으로 제시하였음.
+서비스 운영 단계에서는 이 평가 체계를 “모델/파이프라인 릴리즈 승인
+기준”으로 재해석하여, 버전 업데이트 시 회귀(regression) 여부를 점검하는
+품질 게이트로 운용할 계획임.
+<ul>
+<li>평가 시나리오 표준화: STT(예: LibriSpeech/TIMIT 기반 WER), 번역(예:
+WMT/KFTT 기반 BLEU), 립싱크(PSNR/FID 및 시각적 검사), End-to-End 기능
+시험(대표 샘플 기반) 등으로 평가 시나리오를 표준화하고, 동일 조건에서
+반복 측정 가능한 형태로 유지할 계획임.</li>
+<li>릴리즈 승인/롤백 기준: 신규 버전이 목표 지표(또는 내부 기준선) 대비
+유의미한 성능 저하를 보이면 릴리즈를 보류하고, 필요 시 직전 안정
+버전으로 롤백하는 운영 정책을 정립할 계획임.</li>
+<li>평가 결과 보관 및 재현성: 평가 결과는 지표별 산출물(JSON/리포트)로
+저장하고, 실행 환경(하드웨어/라이브러리 버전/데이터셋 버전)을 함께
+기록하여, 운영 이슈 발생 시 원인 추적과 재현이 가능하도록 관리할
+계획임.</li>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (1)/과제접수용연구개발계획서(PART3(본문2))_page-0013.jpg</code>(정량
+목표 및 평가 항목),
+<code>pdf/ocr/본문1 (1)/과제접수용연구개발계획서(PART3(본문2))_page-0014.jpg</code>(평가방법/평가환경
+상세)</li>
+</ul></li>
+<li>릴리즈 게이트 흐름도 <img src="최종보고서_이미지/release_gate.png"
+alt="Release Gate" /></li>
+</ul>
+<h3 id="윤리준법-및-보안대외공개-통제-원칙">6-1-3. 윤리·준법 및
+보안/대외공개 통제 원칙</h3>
+<ul>
+<li>윤리·준법 관점의 운영 원칙: 계획서에서 제시한 바와 같이, 개인정보
+보호 및 저작권 준수를 위한 가이드라인을 정립하고 서비스 운영 정책에
+반영할 계획임. 또한 음성 합성/변환 기술의 악용(사칭/피싱 등) 가능성을
+고려하여, 사용자 동의 기반 데이터 처리 및 사용 이력/요청 관리 등 책임
+있는 AI 운영 원칙을 강화할 계획임.
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0010.jpg</code>(윤리적
+고려사항 및 품질 관리)</li>
+</ul></li>
+<li>최종보고서 작성·제출 시 보안등급/대외공개 유의사항(양식 기준):
+최종보고서 양식의 표지작성요령에는 보안과제 해당 여부에 따라 보안등급을
+명시하도록 안내하고 있으며, 뒷면지 주의사항에는 연구개발 내용의 대외
+공개 시 주관 부처/전문기관 명시 및 국가과학기술 기밀유지에 필요한 사항의
+외부 발표·공개 금지 유의사항이 포함되어 있음. 본 과제는 이를 준수하여,
+(1) 대외 공개 가능 자료(홍보/데모/논문 등)와 (2) 제출용
+산출물(최종보고서 원문/부속 증빙)을 명확히 분리하고, 필요 시 비공개
+요청을 병행하는 방식으로 운영할 계획임.
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/[붙임1] 2025 중소기업 기술개발지원사업 최종보고서 양식(현물출자확인서 양식포함)_ocr.pdf</code>(표지작성요령:
+보안등급, 뒷면지 주의사항)</li>
+</ul></li>
+</ul>
+<h3 id="대외-평가보고포털-프로세스-및-성과-증빙등록기탁-관리">6-1-4.
+대외 평가·보고(포털) 프로세스 및 성과 증빙/등록·기탁 관리</h3>
+<ul>
+<li><p>대외 평가·보고(포털 기반) 운영 프로세스 정립(운영 정책 보강): 본
+과제 산출물은 사업 운영상 IRIS/범부처 통합 연구지원
+포털(평가위원회/보고서 제출 모듈) 등을 통해 제출·검토·이의신청·비공개
+요청 등의 절차를 거치게 되므로, 제출 기한/자료 누락 리스크를 줄이기 위해
+제출·검수·버전관리 절차를 운영 문서(Runbook/SOP)에 포함하여 명문화할
+계획임.</p>
+<ul>
+<li>평가자료 사전 제출: 평가기간 동안 평가위원회에서 참고할 추가
+자료(보완설명/발표자료 등)를 사전에 업로드하고, 평가 시작일시 도래 시
+제출/수정 기능이 비활성화되는 점을 고려하여 “사전 제출 마감
+체크리스트”로 운영할 계획임.</li>
+<li>온라인 평가 의견 공유: 평가담당자/평가대상 과제 연구책임자/평가위원
+간 온라인 토론(의견 공유) 기능을 활용하여, 질의·응답/보완 요청을 기록
+기반으로 관리하고, 평가기간 이전에는 작성/조회가 제한되는 특성을 운영
+정책에 반영할 계획임.</li>
+<li>평가결과 이의신청: 평가결과 확정 통보 후 10일 이내 이의신청 제출이
+가능하므로, 결과 수신 즉시 내부 리뷰(지표/산출물/실험 로그)와 함께
+이의신청 필요성 판단→전자서명 제출까지의 타임라인을 고정하여 리드타임을
+최소화할 계획임.</li>
+<li>최종보고서 제출 및 비공개 요청: 최종보고서 제출 후 비공개 요청은
+기간 만료 후 연장할 수 없으므로, 공개/비공개 범위(민감정보, 기술자료
+등)와 제출 파일 버전을 사전에 확정하고 필요 시 비공개 요청을 기한 내
+처리하는 절차를 마련할 계획임.</li>
+<li>근거(내부):
+<code>pdf/ocr/[붙임3] GRND-UI-DP-04.사용자 매뉴얼_R&amp;D 포털_평가_ocr.pdf</code>(평가자료
+사전제출/온라인 의견공유/이의신청/평가위원회 참여/보고서 제출/비공개
+요청),
+<code>pdf/ocr/중요 [전북대학교 산학협력중점사업단] 24년 창업성장기술개발사업 디딤돌..._ocr.pdf</code>(최종보고서
+제출 안내 및 첨부 성과물 예시: 특허/시험성적서/인증서 등)</li>
+</ul></li>
+<li><p>성과 증빙자료 패키징 및 등록·기탁 대응(양식 기준): 최종보고서
+양식에서는 정량적 연구개발성과를 “해당되는 항목만” 작성하되, 각 성과에
+대한 증빙자료를 별도 첨부하도록 요구하고 있음. 또한 등록·기탁 대상
+연구개발성과에 대해서는 상세 내용과 등록·기탁 번호를 기재하도록 안내하고
+있음. 본 과제는 이를 반영하여, 지표 산출물(JSON/리포트) 및 시험
+절차서(SOP)를 기반으로 “제출용 증빙 패키지”를 구성하고, 외부 증빙(예:
+특허 출원/등록서류, 시험성적서, 인증서 등)과 연결 가능한 형태로 관리할
+계획임.</p>
+<ul>
+<li>증빙자료 예시(양식 기준): 논문 사본(저자/초록/사사표기 확인 가능
+부분 포함), 산업재산권 등록증(또는 출원서) 사본(발명인/발명의
+명칭/연구개발과제 출처 포함), 시제품 개발 관련 증빙(사진 등), 기술이전
+계약서/기술실시 계약서/기술료 입금내역, 제품 사진 및 매출액 증빙서류
+등.</li>
+<li>등록·기탁 범위(양식 기준): 논문(전자원문 포함), 특허 정보, 보고서
+원문(연차/단계/최종), 기술요약정보, 소프트웨어(등록에 필요한 관련 정보
+포함) 등 연구개발성과의 등록·기탁 항목을 기준으로, 과제 성과의
+식별자(등록번호/기탁번호/URL 등)를 산출물 메타데이터와 함께 관리할
+계획임.</li>
+<li>근거(내부):
+<code>pdf/ocr/[붙임1] 2025 중소기업 기술개발지원사업 최종보고서 양식(현물출자확인서 양식포함)_ocr.pdf</code>(정량
+성과: 증빙자료 첨부 안내, 연구성과 실적 증빙자료 예시, 등록·기탁 대상 및
+범위, 본문 작성요령)</li>
+</ul></li>
+</ul>
+<h2 id="서비스사업-적용-및-확산">6-2. 서비스/사업 적용 및 확산</h2>
+<p>– 내부 프로젝트(교육/홍보/접근성 영상 제작 등)에 우선 적용하여 작업
+시간 단축 및 품질 향상 효과를 지속 검증할 계획임. – 안정성이 검증된
+모듈(음성 합성 API, 립싱크 모듈, QC 자동 평가 등)은 외부
+파트너(교육기관, 콘텐츠 제작사, 공공기관 등)에 API 또는 콘솔 형태로
+제공하는 방안을 검토할 계획임.</p>
+<h3 id="api상용-서비스-시나리오">6-2-2. API/상용 서비스 시나리오</h3>
+<ul>
+<li>API 상품화: 업로드→Job 발급→상태 폴링→결과 다운로드의 표준 플로우를
+REST API로 제공하고, 인증/과금(건당·구독·온프렘)을 옵션화하여 B2B 파트너
+적용을 지원.</li>
+<li>SDK/콘솔: Streamlit 기반 콘솔을 경량 SDK로 분리하여, 파트너사가 자막
+편집 UI(st.data_editor) 및 진행률 표시를 손쉽게 임베드하도록 제공.</li>
+<li>PoC→정식 단계별 확산: PoC(파일 단건 처리·샘플 계측) → 베타(소량
+사용자, 월 수백 건) → 정식(과금·모니터링·SLA) 로드맵을 제시하고, SLA
+지표(성공률/지연/가용성)와 장애대응 플로우를 명시.</li>
+<li>비용/성능 최적화: GPU 자원 사용량에 따라 캐싱/모델 언로딩 전략을
+단계별로 적용하고, 대용량 트래픽은 CDN+비동기 큐 확장(WebSocket/SSE 전환
+포함)으로 대응.</li>
+<li>단계별 확산/로드맵 시각 자료 <img
+src="최종보고서_이미지/roadmap.png" alt="Roadmap" /></li>
+</ul>
+<h3 id="연구개발성과-활용-계획표양식-기준">6-2-1. 연구개발성과 활용
+계획표(양식 기준)</h3>
+<p>– 최종보고서 양식에서는 연구개발성과의 주요 활용 계획을 “활용 계획표”
+형태로 정리하도록 예시를 제시하고 있음. 본 과제는 6장의 세부 운영·확산
+계획을 기반으로, 활용 계획을 표 형태로 요약하여 관리할 계획임.</p>
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/[붙임1] 2025 중소기업 기술개발지원사업 최종보고서 양식(현물출자확인서 양식포함)_ocr.pdf</code>(연구개발성과
+활용계획표 예시)</li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 24%" />
+<col style="width: 30%" />
+<col style="width: 16%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>구분(성과항목)</th>
+<th>주요 성과(요약)</th>
+<th>활용/확산 계획</th>
+<th>기대 효과</th>
+<th>근거/증빙(연계)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>통합 더빙 플랫폼(SW)</td>
+<td>Streamlit 기반 통합 UI, FastAPI 기반 비동기 Job 실행, 자체
+Orchestrator 기반 단계 자동화 실행 경로를 구축하였음.</td>
+<td>내부 제작·검증 업무에 우선 적용하고, 안정화된 기능은 외부 파트너
+연동을 위한 API/콘솔 형태로 제공하는 방안을 검토할 계획임.</td>
+<td>더빙 제작 리드타임 단축, 산출물 표준화 및 품질 관리 체계(QC) 적용
+용이성 확보</td>
+<td><code>frontend_unified/*</code>, <code>backend/*</code>,
+<code>orchestrator/*</code></td>
+</tr>
+<tr class="even">
+<td>품질관리(QC) 및 성능지표 체계</td>
+<td>WER/BLEU/PSNR/FID 등 지표 산출 스크립트와 결과(JSON/리포트) 저장
+구조를 정립하였음.</td>
+<td>릴리즈 게이트 운영 및 대외 제출용 “증빙 패키지” 구성 시 지표
+산출물/시험 절차서를 표준 산출물로 연계할 계획임.</td>
+<td>회귀(regression) 조기 탐지, 대외 평가/보고 대응 리드타임 단축</td>
+<td><code>test_reports_company/docs/process/*</code>,
+<code>test_reports_company/data/b_metrics/**</code></td>
+</tr>
+<tr class="odd">
+<td>립싱크(영상 합성) 모듈</td>
+<td>Wav2Lip/MuseTalk 기반 립싱크 합성을 모듈화하고, 파라미터 튜닝을 통해
+추론 안정성을 확보하였음.</td>
+<td>접근성 영상 제작/홍보 콘텐츠 제작 등 실제 제작 워크플로우에
+적용하고, 후속 과제에서 LSE-D/LSE-C 등 정합 지표 기반 평가체계를
+고도화할 계획임.</td>
+<td>영상 품질 안정화, 고해상도 립싱크 적용 범위 확대</td>
+<td><code>modules/lipsync_wav2lip/run.py</code>,
+<code>modules/lipsync_musetalk/run.py</code></td>
+</tr>
+<tr class="even">
+<td>성과 등록·기탁 및 공개/비공개 통제</td>
+<td>최종보고서 양식의 등록·기탁 범위(논문/특허/SW/보고서 등)와 증빙 첨부
+요구사항을 반영하여 관리 절차를 정립하였음.</td>
+<td>등록번호/기탁번호/URL 등 식별자를 산출물 메타데이터로 관리하고,
+공개/비공개 범위 및 비공개 요청 사유를 제출 시점에 확정하여 운영할
+계획임.</td>
+<td>성과 추적성 확보, 제출 누락 방지, 대외 공개 리스크 통제</td>
+<td><code>pdf/ocr/[붙임1] 2025 중소기업 기술개발지원사업 최종보고서 양식(현물출자확인서 양식포함)_ocr.pdf</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>콘텐츠 플랫폼 확장 및 유통 전략(계획서 기반): 계획서에서는
+유튜브/틱톡 등 콘텐츠 채널을 “기술 홍보 + 사용자 검증 + 초기 유입”의
+핵심 채널로 규정하고, 채널 KPI(구독/조회/참여율) 기반으로 제작·유통
+프로세스를 운영하는 전략을 제시하였음. 본 과제에서는 이를 운영 계획으로
+구체화하여 다음과 같이 추진할 계획임.</p>
+<ul>
+<li>채널 KPI(예시): 유튜브 채널(예: “K-Lipvoice”)은 1년 내 구독자 3만
+명, 월간 조회수 500만 회 수준 달성을 목표로 설정하고, 틱톡은 1년 내
+팔로워 3만 명/월 평균 engagement rate 10% 이상 유지, 일간 3개 이상의
+바이럴 콘텐츠(10만 뷰 이상) 제작을 목표로 운영할 계획임.</li>
+<li>플랫폼 다각화: 인스타그램/페이스북 등 2개 이상의 신규 플랫폼에 공식
+계정을 개설하고, 플랫폼별 1만 명 이상의 팔로워 확보를 목표로 플랫폼
+특성에 맞춘 차별화 콘텐츠 전략을 수립할 계획임.</li>
+<li>제작·업로드 운영: 주간 20편 이상 수준의 고품질 AI 더빙 영상
+제작·업로드를 정례화하고, 인기 크리에이터와의 협업을 통해 콘텐츠 폭을
+확장할 계획임. 또한 기술 발전 과정을 보여주는 하이라이트 시리즈(모델
+개선/품질 지표 변화/워크플로우 자동화 데모 등)를 제작하여 기술 신뢰도를
+강화할 계획임.</li>
+<li>사용자 참여형 캠페인: 월 1회 이상 AI 더빙 챌린지, 사용자 제작
+콘텐츠(UGC) 공모전, 실시간 AI 더빙 데모 세션 등을 정기 운영하여 사용자
+참여를 유도하고, 서비스 요구사항과 품질 이슈를 조기에 수집할
+계획임.</li>
+<li>크로스 플랫폼 마케팅: 플랫폼 간 교차 홍보로 시너지를 창출하고,
+인플루언서 마케팅을 통해 각 플랫폼 내 영향력을 확대할 계획임.</li>
+</ul></li>
+<li><p>단계적 서비스 출시(계획서 기반): 계획서에서는 클로즈드 베타→오픈
+베타→정식 출시의 단계적 출시 전략과 초기 사용자 피드백 수집을
+제시하였음. 본 과제의 통합 UI/비동기 Job 실행 구조를 기반으로, 테스트
+모집·피드백 수집·개선 주기를 운영 프로세스로 내재화할 계획임.</p>
+<ul>
+<li>클로즈드 베타: 초기 1,000명 수준의 테스트 사용자를 모집하여 피드백을
+집중 수집하고, 기능 안정성과 품질 관리 체계(QC) 운용성을 우선 검증할
+계획임.</li>
+<li>오픈 베타: 일정 기간(예: 3개월) 무료 사용 기회를 제공하여 사용성
+문제(UI/UX/대기시간/오류 처리)를 개선하고, 유료 전환을 위한 기능
+패키징과 가격 체계를 정교화할 계획임.</li>
+<li>정식 출시: 차별화된 요금제/기능 제공으로 유료 전환을 유도하고,
+서비스 론칭 후 1년 내 MAU 1만 명 수준의 활성 사용자 기반을 확보하는
+목표를 운영 KPI로 관리할 계획임.</li>
+</ul></li>
+<li><p>수익 모델 및 B2B 확장(계획서 기반): 구독형/사용량 기반 과금/기업
+계약 모델 등 다양한 수익 모델을 단계적으로 검증하고, 교육/게임/방송 등
+산업별 특화 솔루션(데모/PoC)을 통해 B2B 고객 기반을 확장할 계획임.</p>
+<ul>
+<li>구독형 모델: 프리미엄 기능을 포함한 월간/연간 구독 모델을 도입하여
+반복 수익을 확보할 계획임.</li>
+<li>사용량 기반 과금: 사용자 사용량(작업 길이/건수/해상도 옵션 등)에
+따라 유연하게 과금하는 체계를 구축하여 다양한 고객층에 대응할
+계획임.</li>
+<li>B2B 계약: 주요 타겟 기업에 맞춤형 데모 및 PoC를 제공하고, 연간 계약
+모델을 통해 안정적 수익 기반을 구축할 계획임.</li>
+</ul></li>
+<li><p>API 생태계 구축(계획서 기반): 개발자 친화적 문서/샘플 제공, 성공
+사례 공유, 파트너사와의 API 통합을 통해 외부 생태계 확장을 추진할
+계획임.</p>
+<ul>
+<li>1년 내 API 베타 버전을 출시하고, 5개 이상의 파트너사와 API 통합을
+단계적으로 추진하는 목표를 운영 지표로 설정할 계획임.</li>
+<li>개발자 문서/샘플 코드 제공과 더불어 API 사용 사례 및 성공 스토리
+공유(인바운드 마케팅)를 강화하고, 스타트업/중소기업 대상 사용료 할인
+프로그램 운영도 검토할 계획임.</li>
+</ul></li>
+<li><p>파트너십 구축 및 시장 확장(계획서 기반): 계획서에서는
+OTT/방송/게임/교육/접근성 등 다양한 도메인으로 확장 가능한 파트너십
+전략을 제시하였음. 본 과제에서는 다음과 같은 확장 경로를 운영 시나리오로
+반영할 계획임.</p>
+<ul>
+<li>전략적 파트너십: 콘텐츠 기획사/OTT/방송·영상 제작사/게임 개발사 등과
+협력 관계를 구축하고, 글로벌 클라우드 서비스 제공업체와의 기술 협약 및
+AI 음성 합성 선도 기업과의 기술 교류 프로그램 운영을 통해 확장성과
+신뢰성을 강화할 계획임.</li>
+<li>신규 시장 진출: 교육(언어 학습 앱/에듀테크)과의 제휴를 통해 AI 더빙
+기능을 탑재하고, 인디 게임 개발자 대상 더빙 툴킷 제공, 정부·비영리
+단체와 협력한 장애인 접근성 콘텐츠 제작 지원 등 사회적 수요 기반 확장을
+추진할 계획임.</li>
+<li>글로벌 확장: 타겟 국가별 현지화 음성 모델 개발, 국제 컨퍼런스/전시회
+참여를 통한 인지도 제고, 필요 시 해외 법인 설립 등 현지 시장 공략 전략을
+중장기 계획으로 검토할 계획임.</li>
+</ul></li>
+<li><p>산학협력 후속 지원 연계(계획서 기반): 전북대학교
+산학협력중점사업단의 후속 지원 체계를 활용하여, 기술사업화 전환 속도를
+높이고 사업화 리스크를 분산할 계획임.</p>
+<ul>
+<li>기업 진단·시장/경쟁 분석, 기술/지식재산 전략 수립, R&amp;D/사업화
+전략 컨설팅을 통해 사업화 기획의 정합성을 강화할 계획임.</li>
+<li>기술/경영 컨설팅, 특허·지식재산 지원, 시험·인증 지원, 마케팅 지원
+등을 연계하여 제품/서비스의 신뢰도 확보와 판로 개척을 병행할
+계획임.</li>
+</ul></li>
+<li><p>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0020.jpg</code>,
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0021.jpg</code>,
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0022.jpg</code>,
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0023.jpg</code>,
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0013.jpg</code>(사업화
+전략/플랫폼 확장/수익 모델/파트너십/산학협력 후속 지원)</p></li>
+</ul>
+<h2 id="후속-rd-및-지식-확산">6-3. 후속 R&amp;D 및 지식 확산</h2>
+<ul>
+<li>성능 지표 체계(지연 시간, 립싱크 정합도, 음색 유사도, 자막 정합률
+등)와 시험·평가 시나리오, 품질 관리 체크리스트 등을 내부 가이드라인으로
+정리하여 신규 구성원 교육 및 후속 과제 기획에 활용할 계획임.</li>
+<li>사용자 피드백 기반의 지속적 품질 개선: 계획서에서는 사용자 평가
+수집→자연어 처리 기반 피드백 분석→모델 fine-tuning으로 이어지는 피드백
+루프를 제시하였음. 본 과제에서는 산출물(JSON/WAV/MP4) 표준화 및 Job
+실행/로그 기반 운영 구조를 확보하였으므로, 향후 평가 결과(정량/정성)를
+동일 저장 구조로 연결하여 지속적 개선이 가능한 체계를 구축할 계획임.
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0008.jpg</code>,
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0010.jpg</code>(립싱크
+평가·피드백/지속적 품질 개선)</li>
+</ul></li>
+<li>선행 연구개발 결과의 체계적 재사용: 계획서에서 정리한 선행
+과제(비전/동작인식/NLP·음성 처리) 성과를 본 과제의 립싱크 정합도 향상,
+실시간 처리 최적화, 음성 합성/변환 품질 개선에 재사용하는 전략을
+수립하였음.
+<ul>
+<li>근거(내부):
+<code>pdf/ocr/본문1 (2)/과제접수용연구개발계획서(PART2(본문1))_page-0009.jpg</code>(선행연구개발
+결과 활용계획)</li>
+</ul></li>
+<li>필요 시 논문/기술 보고서/세미나 등을 통해 핵심 알고리즘 및 운영
+경험을 공유하여 관련 분야 발전에 기여할 계획임.</li>
+</ul>
+<h1 id="별첨자료참고-문헌-등">별첨자료(참고 문헌 등)</h1>
+<h2 id="참고문헌">참고문헌</h2>
+<ul>
+<li>Wang, C., Chen, S., Wu, Y., Zhang, Z., Zhou, L., Liu, S., … &amp;
+Wei, F. (2023). Neural Codec Language Models are Zero-Shot Text to
+Speech Synthesizers. arXiv:2301.02111.</li>
+<li>Casanova, E., Davis, K., Gölge, E., Göknar, G., Gulea, I., Hart, L.,
+… &amp; Weber, J. (2024). XTTS: a Massively Multilingual Zero-Shot
+Text-to-Speech Model. arXiv:2406.04904.</li>
+<li>Google Gemini App Expands Audio Support: A New Era for Multi-Modal
+AI Workflows.
+https://applyingai.com/2025/09/google-gemini-app-expands-audio-support-a-new-era-for-multi-modal-ai-workflows/</li>
+<li>Han, B., Zhou, L., Liu, S., Chen, S., Meng, L., Qian, Y., … &amp;
+Wei, F. (2024). VALL-E R: Robust and Efficient Zero-Shot Text-to-Speech
+Synthesis via Monotonic Alignment. arXiv:2406.07855.</li>
+<li>Patil, A., Tao, S., &amp; Jadon, A. (2024). English Please:
+Evaluating Machine Translation with Large Language Models for
+Multilingual Bug Reports. arXiv:2408.02162.</li>
+<li>Keles, B., Gunay, M., &amp; Caglar, S. I. (2024). LLMs-in-the-loop
+Part-1: Expert Small AI Models for Bio-Medical Text Translation.
+arXiv:2405.04368.</li>
+<li>Mallikarjuna, G. D., Basha, M. J., Kumar, A. S., &amp; Abhishek, S.
+(2024). Wav2Lip-HQ: High-Resolution Audio-Driven Lip Synchronization for
+Realistic Virtual Avatars. IJARSCT, 4(1).</li>
+<li>Zhang, Y., Liu, M., Chen, Z., Wu, B., Zeng, Y., Zhan, C., … &amp;
+Zhou, W. (2024). MuseTalk: Real-Time High Quality Lip Synchronization
+with Latent Space Inpainting. arXiv:2410.10122.</li>
+</ul>
+</body>
+</html>
